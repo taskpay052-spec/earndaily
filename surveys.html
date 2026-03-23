@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Premium Paid Surveys</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+    }
+
+    .logo-icon i {
+      color: white;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #475569;
+      font-weight: 500;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover:after, .nav-link.active:after {
+      width: 100%;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #8b5cf6;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .user-avatar:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 8px;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+      color: #dc2626;
+      transform: rotate(90deg);
+    }
+
+    /* Main Content */
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6d28d9, #8b5cf6, #a855f7);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .page-header p {
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Stats Summary */
+    .stats-summary {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 20px 35px -10px rgba(139, 92, 246, 0.3);
+      animation: slideIn 0.6s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .stats-summary-item {
+      color: white;
+      text-align: center;
+      flex: 1;
+      transition: transform 0.3s;
+    }
+
+    .stats-summary-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .stats-summary-item .label {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-summary-item .value {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-top: 0.5rem;
+    }
+
+    /* Category Filters */
+    .category-filters {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .category-btn {
+      padding: 0.6rem 1.25rem;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-btn i {
+      font-size: 0.875rem;
+    }
+
+    .category-btn:hover {
+      border-color: #8b5cf6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+    }
+
+    .category-btn.active {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-color: #8b5cf6;
+      color: white;
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      border: 2px solid #e2e8f0;
+      background: white;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-color: #8b5cf6;
+      color: white;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .filter-btn:hover:not(.active) {
+      border-color: #8b5cf6;
+      color: #8b5cf6;
+      transform: translateY(-2px);
+    }
+
+    /* Surveys Grid */
+    .surveys-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .survey-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .survey-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8b5cf6, #6d28d9, #8b5cf6);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+
+    .survey-card:hover:before {
+      transform: scaleX(1);
+    }
+
+    .survey-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+      border-color: #8b5cf6;
+    }
+
+    .survey-header {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      padding: 1.5rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .survey-header:after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .survey-card:hover .survey-header:after {
+      opacity: 1;
+    }
+
+    .survey-category {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .survey-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .survey-description {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .survey-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .survey-content {
+      padding: 1.25rem;
+    }
+
+    .reward-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .survey-reward {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #8b5cf6;
+    }
+
+    .survey-reward small {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #64748b;
+    }
+
+    .survey-time {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+
+    .survey-details {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .detail-item i {
+      width: 16px;
+      color: #8b5cf6;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      background: #f1f5f9;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      color: #475569;
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      background: #8b5cf6;
+      color: white;
+    }
+
+    .survey-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .completed-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #10b981;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .start-btn:hover {
+      transform: scale(0.98);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    /* Badges */
+    .popular-badge, .new-badge, .trending-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    .popular-badge {
+      background: linear-gradient(135deg, #f59e0b, #dc2626);
+      color: white;
+      animation: pulse 1.5s infinite;
+    }
+
+    .new-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .trending-badge {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+    }
+
+    /* Progress Bar */
+    .completion-progress {
+      margin-top: 0.75rem;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem;
+      background: white;
+      border-radius: 24px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .empty-state i {
+      font-size: 64px;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1rem;
+      }
+      .nav-container {
+        padding: 1rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .surveys-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-summary {
+        flex-direction: column;
+        text-align: center;
+      }
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="navigateTo('dashboard')">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <span class="logo-text">TaskPay</span>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link" onclick="navigateTo('dashboard')">Dashboard</a>
+        <a class="nav-link" onclick="navigateTo('tasks')">Tasks</a>
+        <a class="nav-link active" onclick="navigateTo('surveys')">Surveys</a>
+        <a class="nav-link" onclick="navigateTo('withdrawals')">Withdraw</a>
+        <a class="nav-link" onclick="navigateTo('profile')">Profile</a>
+      </div>
+      <div class="user-menu">
+        <div class="user-avatar" id="userAvatar" onclick="navigateTo('profile')">U</div>
+        <button class="logout-btn" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="page-header">
+      <h1>📊 Premium Paid Surveys</h1>
+      <p>Share your opinion and earn money. Your voice matters to top brands!</p>
+    </div>
+
+    <div class="stats-summary" id="statsSummary">
+      <div class="stats-summary-item">
+        <div class="label">Surveys Completed</div>
+        <div class="value" id="completedCount">0</div>
+      </div>
+      <div class="stats-summary-item">
+        <div class="label">Total Earned</div>
+        <div class="value" id="surveysEarned">$0.00</div>
+      </div>
+      <div class="stats-summary-item">
+        <div class="label">Available Surveys</div>
+        <div class="value" id="availableCount">0</div>
+      </div>
+      <div class="stats-summary-item">
+        <div class="label">Survey Streak</div>
+        <div class="value" id="surveyStreak">0</div>
+      </div>
+    </div>
+
+    <div class="category-filters" id="categoryFilters"></div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All Surveys</button>
+      <button class="filter-btn" data-filter="available">Available</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
+      <button class="filter-btn" data-filter="highest">Highest Reward</button>
+      <button class="filter-btn" data-filter="short">Shortest</button>
+      <button class="filter-btn" data-filter="trending">🔥 Trending</button>
+    </div>
+
+    <div id="surveysContainer" class="surveys-grid"></div>
+  </div>
+
+  <script>
+    // Navigation function
+    function navigateTo(page) {
+      const pages = {
+        'dashboard': 'dashboard.html',
+        'tasks': 'tasks.html',
+        'surveys': 'surveys.html',
+        'withdrawals': 'withdrawal.html',
+        'profile': 'profile.html'
+      };
+      const pageUrl = pages[page];
+      if (pageUrl) window.location.href = pageUrl;
+      else showToast('Page coming soon!');
+    }
+
+    // Complete Survey Data - Enhanced with more surveys
+    const allSurveys = [
+      {
+        id: "survey_1",
+        title: "☕ Coffee Shop Habits",
+        description: "Help us understand coffee drinking habits for market research.",
+        reward: 0.80,
+        timeEstimate: "3 min",
+        questions: 3,
+        category: "consumer",
+        tags: ["Coffee", "Food & Drink", "Shopping"],
+        popular: true,
+        trending: true,
+        company: "Starbucks Research",
+        icon: "fa-mug-hot",
+        color: "#f59e0b",
+        completionRate: 87,
+        questionsList: ["How often do you visit coffee shops?", "What's your favorite coffee drink?", "How much do you typically spend per visit?"]
+      },
+      {
+        id: "survey_2",
+        title: "🎮 Mobile Gaming Survey",
+        description: "Share your mobile gaming preferences and habits.",
+        reward: 0.90,
+        timeEstimate: "4 min",
+        questions: 4,
+        category: "tech",
+        tags: ["Gaming", "Mobile", "Entertainment"],
+        popular: true,
+        trending: true,
+        company: "GameDev Studios",
+        icon: "fa-gamepad",
+        color: "#8b5cf6",
+        completionRate: 92,
+        questionsList: ["How many hours per week do you play mobile games?", "What's your favorite game genre?", "Do you make in-app purchases?", "What makes you download a new game?"]
+      },
+      {
+        id: "survey_3",
+        title: "📺 Streaming Services Survey",
+        description: "Tell us about your streaming service preferences.",
+        reward: 1.00,
+        timeEstimate: "5 min",
+        questions: 5,
+        category: "tech",
+        tags: ["Streaming", "Entertainment", "TV"],
+        popular: true,
+        company: "Media Insights",
+        icon: "fa-tv",
+        color: "#ec489a",
+        completionRate: 78,
+        questionsList: ["Which streaming services do you use?", "How much do you spend monthly?", "What type of content do you watch?", "How satisfied are you?", "Would you try a new service?"]
+      },
+      {
+        id: "survey_4",
+        title: "💻 Work From Home Tools",
+        description: "Share your experience with remote work tools.",
+        reward: 0.75,
+        timeEstimate: "3 min",
+        questions: 3,
+        category: "business",
+        tags: ["Remote Work", "Productivity", "Tools"],
+        company: "TechCorp Research",
+        icon: "fa-laptop-code",
+        color: "#06b6d4",
+        completionRate: 85,
+        questionsList: ["What tools do you use for work?", "How productive do you feel WFH?", "What would improve your WFH experience?"]
+      },
+      {
+        id: "survey_5",
+        title: "🍪 Snack Brand Preferences",
+        description: "Quick survey about your favorite snacks.",
+        reward: 0.65,
+        timeEstimate: "2 min",
+        questions: 2,
+        category: "consumer",
+        tags: ["Food", "Snacks", "Shopping"],
+        new: true,
+        company: "SnackCo",
+        icon: "fa-cookie-bite",
+        color: "#f59e0b",
+        completionRate: 95,
+        questionsList: ["How often do you buy snacks?", "What influences your snack choices?"]
+      },
+      {
+        id: "survey_6",
+        title: "🏃 Fitness & Wellness Habits",
+        description: "Tell us about your exercise and wellness routine.",
+        reward: 0.95,
+        timeEstimate: "4 min",
+        questions: 4,
+        category: "health",
+        tags: ["Fitness", "Wellness", "Health"],
+        trending: true,
+        company: "Wellness Institute",
+        icon: "fa-heartbeat",
+        color: "#10b981",
+        completionRate: 88,
+        questionsList: ["How often do you exercise?", "What type of workouts do you prefer?", "Do you use fitness apps?", "What motivates you to stay active?"]
+      },
+      {
+        id: "survey_7",
+        title: "🛍️ Online Shopping Habits",
+        description: "Share how you shop online and what influences your purchases.",
+        reward: 0.85,
+        timeEstimate: "4 min",
+        questions: 4,
+        category: "consumer",
+        tags: ["Shopping", "E-commerce", "Retail"],
+        popular: true,
+        company: "Retail Analytics",
+        icon: "fa-shopping-cart",
+        color: "#ef4444",
+        completionRate: 82,
+        questionsList: ["How often do you shop online?", "What's your favorite shopping platform?", "What influences your purchase decisions?", "How much do you spend monthly?"]
+      },
+      {
+        id: "survey_8",
+        title: "📱 Social Media Usage",
+        description: "Tell us about your social media habits.",
+        reward: 0.70,
+        timeEstimate: "3 min",
+        questions: 3,
+        category: "tech",
+        tags: ["Social Media", "Digital", "Apps"],
+        company: "Social Insights",
+        icon: "fa-hashtag",
+        color: "#3b82f6",
+        completionRate: 90,
+        questionsList: ["Which social media platforms do you use?", "How many hours per day?", "What type of content do you engage with?"]
+      },
+      {
+        id: "survey_9",
+        title: "🚗 Electric Vehicles Survey",
+        description: "Share your thoughts on electric vehicles.",
+        reward: 1.20,
+        timeEstimate: "6 min",
+        questions: 6,
+        category: "business",
+        tags: ["Automotive", "EV", "Sustainability"],
+        new: true,
+        trending: true,
+        company: "Auto Insights",
+        icon: "fa-car",
+        color: "#06b6d4",
+        completionRate: 75,
+        questionsList: ["Do you own an EV?", "What would make you switch to EV?", "What range do you need?", "Price expectations?", "Charging concerns?", "Brand preferences?"]
+      },
+      {
+        id: "survey_10",
+        title: "💳 Digital Banking Survey",
+        description: "How do you manage your finances digitally?",
+        reward: 1.10,
+        timeEstimate: "5 min",
+        questions: 5,
+        category: "business",
+        tags: ["Banking", "Finance", "Digital"],
+        popular: true,
+        company: "FinTech Research",
+        icon: "fa-credit-card",
+        color: "#8b5cf6",
+        completionRate: 79,
+        questionsList: ["Which banks do you use?", "Do you use digital wallets?", "What features matter most?", "Security concerns?", "Would you switch to digital-only bank?"]
+      }
+    ];
+
+    let surveys = [];
+    let currentUser = null;
+    let completedSurveys = [];
+    let currentFilter = 'all';
+    let currentCategory = 'all';
+    let surveysEarned = 0;
+    let surveyStreak = 0;
+
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+        return false;
+      }
+      currentUser = localStorage.getItem('taskpay_user_email');
+      if (!currentUser) {
+        currentUser = 'user@taskpay.com';
+        localStorage.setItem('taskpay_user_email', currentUser);
+      }
+      loadUserData();
+      return true;
+    }
+
+    function loadUserData() {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      const storedCompleted = localStorage.getItem(`taskpay_completed_surveys_${userKey}`);
+      completedSurveys = storedCompleted ? JSON.parse(storedCompleted) : [];
+      
+      surveysEarned = 0;
+      surveys = allSurveys.map(survey => {
+        const isCompleted = completedSurveys.includes(survey.id);
+        if (isCompleted) surveysEarned += survey.reward;
+        return { ...survey, completed: isCompleted };
+      });
+      
+      surveyStreak = Math.floor(Math.random() * 14) + 1;
+      
+      localStorage.setItem(`taskpay_total_earned_${userKey}`, surveysEarned.toFixed(2));
+      localStorage.setItem(`taskpay_surveys_done_${userKey}`, completedSurveys.length.toString());
+      
+      updateStats();
+      renderCategoryFilters();
+      renderSurveys();
+    }
+
+    function updateStats() {
+      const completedCount = surveys.filter(s => s.completed).length;
+      const availableCount = surveys.filter(s => !s.completed).length;
+      
+      document.getElementById('completedCount').textContent = completedCount;
+      document.getElementById('availableCount').textContent = availableCount;
+      document.getElementById('surveysEarned').textContent = `$${surveysEarned.toFixed(2)}`;
+      document.getElementById('surveyStreak').textContent = surveyStreak;
+      
+      const userName = currentUser.split('@')[0];
+      document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+    }
+
+    function renderCategoryFilters() {
+      const categories = [
+        { id: 'all', name: 'All', icon: 'fa-th-large' },
+        { id: 'consumer', name: '🛍️ Consumer', icon: 'fa-users' },
+        { id: 'tech', name: '💻 Tech & Gaming', icon: 'fa-gamepad' },
+        { id: 'business', name: '📊 Business', icon: 'fa-chart-line' },
+        { id: 'health', name: '🏃 Health & Wellness', icon: 'fa-heartbeat' }
+      ];
+      
+      const container = document.getElementById('categoryFilters');
+      container.innerHTML = categories.map(cat => `
+        <button class="category-btn ${currentCategory === cat.id ? 'active' : ''}" data-category="${cat.id}">
+          <i class="fas ${cat.icon}"></i>
+          <span>${cat.name}</span>
+        </button>
+      `).join('');
+      
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentCategory = btn.dataset.category;
+          renderCategoryFilters();
+          renderSurveys();
+        });
+      });
+    }
+
+    function renderSurveys() {
+      let filteredSurveys = [...surveys];
+      
+      if (currentCategory !== 'all') {
+        filteredSurveys = filteredSurveys.filter(s => s.category === currentCategory);
+      }
+      
+      switch(currentFilter) {
+        case 'available':
+          filteredSurveys = filteredSurveys.filter(s => !s.completed);
+          break;
+        case 'completed':
+          filteredSurveys = filteredSurveys.filter(s => s.completed);
+          break;
+        case 'highest':
+          filteredSurveys = [...filteredSurveys].sort((a, b) => b.reward - a.reward);
+          break;
+        case 'short':
+          filteredSurveys = [...filteredSurveys].sort((a, b) => a.questions - b.questions);
+          break;
+        case 'trending':
+          filteredSurveys = filteredSurveys.filter(s => s.trending || s.popular);
+          break;
+        default:
+          filteredSurveys = [...filteredSurveys];
+      }
+      
+      const container = document.getElementById('surveysContainer');
+      
+      if (filteredSurveys.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-poll"></i>
+            <h3>No surveys found</h3>
+            <p>${currentFilter === 'completed' ? 'You haven\'t completed any surveys yet.' : 'Check back later for new surveys!'}</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = filteredSurveys.map(survey => `
+        <div class="survey-card">
+          <div class="survey-header" style="background: linear-gradient(135deg, ${survey.color}, ${survey.color}dd);">
+            ${survey.popular ? '<div class="popular-badge"><i class="fas fa-fire"></i> Popular</div>' : ''}
+            ${survey.trending && !survey.popular ? '<div class="trending-badge"><i class="fas fa-chart-line"></i> Trending</div>' : ''}
+            ${survey.new ? '<div class="new-badge"><i class="fas fa-star"></i> New</div>' : ''}
+            <div class="survey-category">
+              <i class="fas ${survey.icon}"></i> ${survey.category.charAt(0).toUpperCase() + survey.category.slice(1)}
+            </div>
+            <h3 class="survey-title">${survey.title}</h3>
+            <p class="survey-description">${survey.description}</p>
+            <div class="survey-stats">
+              <span><i class="far fa-clock"></i> ${survey.timeEstimate}</span>
+              <span><i class="far fa-question-circle"></i> ${survey.questions} questions</span>
+            </div>
+          </div>
+          <div class="survey-content">
+            <div class="reward-section">
+              <div class="survey-reward">
+                $${survey.reward.toFixed(2)} <small>USD</small>
+              </div>
+              <div class="survey-time">
+                <i class="fas fa-hourglass-half"></i>
+                <span>${survey.timeEstimate}</span>
+              </div>
+            </div>
+            <div class="survey-details">
+              <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>${survey.company}</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-chart-line"></i>
+                <span>${survey.completionRate}% completion rate</span>
+              </div>
+            </div>
+            <div class="tags">
+              ${survey.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="completion-progress">
+              <div class="progress-fill" style="width: ${survey.completionRate}%"></div>
+            </div>
+            <div class="survey-footer">
+              ${survey.completed ? 
+                `<div class="completed-badge">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Completed • +$${survey.reward.toFixed(2)}</span>
+                </div>` : 
+                `<button class="start-btn" onclick="startSurvey('${survey.id}')">
+                  <i class="fas fa-play"></i> Take Survey
+                </button>`
+              }
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function startSurvey(surveyId) {
+      const survey = surveys.find(s => s.id === surveyId);
+      if (survey.completed) {
+        showToast('You already completed this survey!');
+        return;
+      }
+      sessionStorage.setItem('current_survey', JSON.stringify(survey));
+      showToast('Loading survey...');
+      setTimeout(() => window.location.href = `survey-detail.html?id=${surveyId}`, 500);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('taskpay_logged_in');
+        localStorage.removeItem('taskpay_user_email');
+        showToast('Logged out successfully');
+        setTimeout(() => window.location.href = 'login.html', 500);
+      }
+    }
+
+    window.navigateTo = navigateTo;
+    window.startSurvey = startSurvey;
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderSurveys();
+      });
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    
+    if (checkAuth()) {}
+  </script>
+</body>
+</html>

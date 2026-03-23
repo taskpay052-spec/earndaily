@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Sign in to earn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fb 0%, #eef2f8 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      max-width: 440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 40px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(30, 111, 92, 0.1);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .logo h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1e6f5c, #289672);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .logo p {
+      color: #6b7a86;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    .welcome-text {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .welcome-text h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #1a2c3e;
+      margin-bottom: 8px;
+    }
+
+    .welcome-text p {
+      color: #6b7a86;
+      font-size: 0.9rem;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1a2c3e;
+      margin-bottom: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 24px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: #fefefe;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #289672;
+      box-shadow: 0 0 0 3px rgba(40, 150, 114, 0.1);
+    }
+
+    .input-field::placeholder {
+      color: #b9c3ce;
+    }
+
+    .login-btn {
+      width: 100%;
+      background: #1e6f5c;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+
+    .login-btn:hover {
+      background: #0f5a49;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 111, 92, 0.3);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .divider {
+      text-align: center;
+      margin: 24px 0;
+      position: relative;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .divider span {
+      background: white;
+      padding: 0 12px;
+      position: relative;
+      color: #8e9eab;
+      font-size: 0.8rem;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .social-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 40px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #1a2c3e;
+    }
+
+    .social-btn:hover {
+      background: #f8fafc;
+      border-color: #289672;
+    }
+
+    .signup-link {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7a86;
+    }
+
+    .signup-link a {
+      color: #289672;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .demo-note {
+      background: #f0f9f6;
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #1e6f5c;
+    }
+
+    .error-message {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 10px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 32px 24px;
+      }
+      
+      .social-btn {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo">
+        <h1>TaskPay</h1>
+        <p>earn money with small tasks</p>
+      </div>
+
+      <div class="welcome-text">
+        <h2>Welcome back 👋</h2>
+        <p>Sign in to continue earning</p>
+      </div>
+
+      <div id="errorMsg" class="error-message"></div>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label class="input-label">Email or username</label>
+          <input type="text" class="input-field" id="email" placeholder="hello@taskpay.com" value="demo@taskpay.com">
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Password</label>
+          <input type="password" class="input-field" id="password" placeholder="••••••••" value="demo123">
+        </div>
+
+        <button type="submit" class="login-btn">Sign in →</button>
+      </form>
+
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+
+      <div class="social-buttons">
+        <button class="social-btn" id="googleBtn">
+          📧 Google
+        </button>
+        <button class="social-btn" id="appleBtn">
+          🍎 Apple
+        </button>
+      </div>
+
+      <div class="signup-link">
+        Don't have an account? <a href="#" id="signupLink">Sign up free</a>
+      </div>
+
+      <div class="demo-note">
+        ✨ Demo: Use "demo@taskpay.com" / any password to try the app
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple login simulation
+    const loginForm = document.getElementById('loginForm');
+    const errorMsgDiv = document.getElementById('errorMsg');
+    
+    function showError(message) {
+      errorMsgDiv.textContent = message;
+      errorMsgDiv.style.display = 'block';
+      setTimeout(() => {
+        errorMsgDiv.style.display = 'none';
+      }, 3000);
+    }
+    
+    function handleLogin(email, password) {
+      // Simple validation - in real app, this would connect to backend
+      if (!email || email.trim() === '') {
+        showError('Please enter your email');
+        return false;
+      }
+      
+      // For demo, accept any non-empty email with demo password or any password
+      // This simulates successful login
+      if (email.trim().length > 0) {
+        // Save user session info
+        localStorage.setItem('taskpay_logged_in', 'true');
+        localStorage.setItem('taskpay_user_email', email);
+        
+        // Redirect to home page
+        window.location.href = 'index.html';
+        return true;
+      } else {
+        showError('Invalid email or password');
+        return false;
+      }
+    }
+    
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      handleLogin(email, password);
+    });
+    
+    // Social login simulation
+    document.getElementById('googleBtn').addEventListener('click', () => {
+      handleLogin('google_user@example.com', 'google_auth');
+    });
+    
+    document.getElementById('appleBtn').addEventListener('click', () => {
+      handleLogin('apple_user@example.com', 'apple_auth');
+    });
+    
+    document.getElementById('signupLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      // For demo, just show message and allow signup via same flow
+      handleLogin('new_user@taskpay.com', 'signup');
+    });
+    
+    // If already logged in, redirect to home
+    if (localStorage.getItem('taskpay_logged_in') === 'true') {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

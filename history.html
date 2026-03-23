@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Transaction History</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon i {
+      color: white;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #065f46, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #475569;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #059669;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 8px;
+      transition: color 0.2s;
+    }
+
+    .logout-btn:hover {
+      color: #dc2626;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-icon.earnings {
+      background: #d1fae5;
+      color: #10b981;
+    }
+
+    .stat-icon.withdrawals {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    .stat-icon.tasks {
+      background: #fed7aa;
+      color: #f59e0b;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    /* Filter Section */
+    .filter-section {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #0f172a;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 40px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .filter-btn.active {
+      background: #10b981;
+      color: white;
+    }
+
+    .date-range {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .date-input {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .date-input label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      color: #64748b;
+    }
+
+    .date-input input {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.875rem;
+    }
+
+    .reset-btn {
+      padding: 0.5rem 1rem;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    /* Transaction Table */
+    .transactions-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .card-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .export-btn {
+      padding: 0.5rem 1rem;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .export-btn:hover {
+      background: #e2e8f0;
+    }
+
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #475569;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.875rem;
+    }
+
+    tr:hover {
+      background: #f8fafc;
+    }
+
+    /* Transaction Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge.earnings {
+      background: #d1fae5;
+      color: #10b981;
+    }
+
+    .badge.withdrawal {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    .badge.task {
+      background: #fed7aa;
+      color: #f59e0b;
+    }
+
+    .badge.survey {
+      background: #c7d2fe;
+      color: #4f46e5;
+    }
+
+    .badge.completed {
+      background: #d1fae5;
+      color: #10b981;
+    }
+
+    .badge.pending {
+      background: #fed7aa;
+      color: #f59e0b;
+    }
+
+    .amount-positive {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .amount-negative {
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+      color: #64748b;
+    }
+
+    /* Pagination */
+    .pagination {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .page-btn {
+      padding: 0.5rem 0.75rem;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .page-btn.active {
+      background: #10b981;
+      color: white;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1rem;
+      }
+      
+      .nav-container {
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      th, td {
+        padding: 0.75rem 1rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='dashboard.html'">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <span class="logo-text">TaskPay</span>
+      </div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="tasks.html" class="nav-link">Tasks</a>
+        <a href="surveys.html" class="nav-link">Surveys</a>
+        <a href="withdrawal.html" class="nav-link">Withdraw</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+        <a href="history.html" class="nav-link active">History</a>
+      </div>
+      <div class="user-menu">
+        <div class="user-avatar" id="userAvatar" onclick="window.location.href='profile.html'">U</div>
+        <button class="logout-btn" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon earnings">
+            <i class="fas fa-dollar-sign fa-2x"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="totalEarnings">$0.00</div>
+        <div class="stat-label">Total Earnings</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon withdrawals">
+            <i class="fas fa-arrow-down fa-2x"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="totalWithdrawn">$0.00</div>
+        <div class="stat-label">Total Withdrawn</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon tasks">
+            <i class="fas fa-check-circle fa-2x"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="totalTransactions">0</div>
+        <div class="stat-label">Total Transactions</div>
+      </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <div class="filter-title">Filter Transactions</div>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="earnings">Earnings</button>
+        <button class="filter-btn" data-filter="withdrawals">Withdrawals</button>
+        <button class="filter-btn" data-filter="task">Tasks</button>
+        <button class="filter-btn" data-filter="survey">Surveys</button>
+      </div>
+      <div class="date-range">
+        <div class="date-input">
+          <label>From Date</label>
+          <input type="date" id="dateFrom">
+        </div>
+        <div class="date-input">
+          <label>To Date</label>
+          <input type="date" id="dateTo">
+        </div>
+        <button class="reset-btn" id="resetFilters">Reset Filters</button>
+      </div>
+    </div>
+
+    <!-- Transactions Table -->
+    <div class="transactions-card">
+      <div class="card-header">
+        <h2><i class="fas fa-history"></i> Transaction History</h2>
+        <button class="export-btn" id="exportBtn">
+          <i class="fas fa-download"></i> Export CSV
+        </button>
+      </div>
+      <div class="table-container">
+        <table id="transactionsTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsBody">
+            <tr>
+              <td colspan="5">
+                <div class="empty-state">
+                  <i class="fas fa-inbox"></i>
+                  <h3>No transactions yet</h3>
+                  <p>Complete tasks and surveys to see your earnings here</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let allTransactions = [];
+    let filteredTransactions = [];
+    let currentFilter = 'all';
+    let currentPage = 1;
+    let itemsPerPage = 10;
+
+    // Sample transaction data generator
+    function generateSampleTransactions(userKey) {
+      const savedTransactions = localStorage.getItem(`taskpay_transactions_${userKey}`);
+      if (savedTransactions) {
+        return JSON.parse(savedTransactions);
+      }
+      
+      // Generate sample data based on actual earnings
+      const tasksDone = parseInt(localStorage.getItem(`taskpay_tasks_done_${userKey}`) || '0');
+      const surveysDone = parseInt(localStorage.getItem(`taskpay_surveys_done_${userKey}`) || '0');
+      const withdrawals = JSON.parse(localStorage.getItem(`taskpay_withdrawals_${userKey}`) || '[]');
+      
+      const transactions = [];
+      
+      // Generate task earnings
+      for (let i = 1; i <= tasksDone; i++) {
+        const amount = [0.35, 0.50, 0.45, 0.60, 0.70, 0.85, 0.55, 0.65][(i - 1) % 8];
+        const titles = [
+          "Rate Mobile App Icon", "Watch Product Preview", "Share a Fun Fact",
+          "Weather Screenshot", "Voice Feedback", "Website Usability Test",
+          "Social Media Share", "Product Review"
+        ];
+        const date = new Date();
+        date.setDate(date.getDate() - (tasksDone - i));
+        
+        transactions.push({
+          id: `task_${Date.now()}_${i}`,
+          date: date.toISOString().split('T')[0],
+          type: 'task',
+          category: 'earnings',
+          description: titles[(i - 1) % titles.length],
+          amount: amount,
+          status: 'completed'
+        });
+      }
+      
+      // Generate survey earnings
+      for (let i = 1; i <= surveysDone; i++) {
+        const amounts = [0.80, 0.90, 1.00, 0.75, 0.65];
+        const titles = [
+          "Coffee Shop Habits", "Mobile Gaming Survey", "Streaming Services",
+          "Work Tools Feedback", "Snack Brand Poll"
+        ];
+        const date = new Date();
+        date.setDate(date.getDate() - (surveysDone - i));
+        
+        transactions.push({
+          id: `survey_${Date.now()}_${i}`,
+          date: date.toISOString().split('T')[0],
+          type: 'survey',
+          category: 'earnings',
+          description: titles[(i - 1) % titles.length],
+          amount: amounts[(i - 1) % amounts.length],
+          status: 'completed'
+        });
+      }
+      
+      // Add withdrawals
+      withdrawals.forEach((withdrawal, index) => {
+        transactions.push({
+          id: withdrawal.id,
+          date: withdrawal.date,
+          type: 'withdrawal',
+          category: 'withdrawal',
+          description: `Withdrawal to ${withdrawal.method === 'paypal' ? 'PayPal' : withdrawal.method === 'bank' ? 'Bank Account' : 'Crypto Wallet'}`,
+          amount: withdrawal.amount,
+          status: withdrawal.status
+        });
+      });
+      
+      // Sort by date (newest first)
+      transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      localStorage.setItem(`taskpay_transactions_${userKey}`, JSON.stringify(transactions));
+      return transactions;
+    }
+
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+        return false;
+      }
+      currentUser = localStorage.getItem('taskpay_user_email');
+      loadUserData();
+      return true;
+    }
+
+    function loadUserData() {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      
+      // Load transactions
+      allTransactions = generateSampleTransactions(userKey);
+      
+      // Calculate stats
+      const totalEarnings = allTransactions
+        .filter(t => t.category === 'earnings')
+        .reduce((sum, t) => sum + t.amount, 0);
+      
+      const totalWithdrawn = allTransactions
+        .filter(t => t.category === 'withdrawal' && t.status === 'completed')
+        .reduce((sum, t) => sum + t.amount, 0);
+      
+      // Update stats display
+      document.getElementById('totalEarnings').textContent = `$${totalEarnings.toFixed(2)}`;
+      document.getElementById('totalWithdrawn').textContent = `$${totalWithdrawn.toFixed(2)}`;
+      document.getElementById('totalTransactions').textContent = allTransactions.length;
+      
+      const userName = currentUser.split('@')[0];
+      document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+      
+      applyFilters();
+    }
+
+    function applyFilters() {
+      let filtered = [...allTransactions];
+      
+      // Apply type filter
+      if (currentFilter !== 'all') {
+        if (currentFilter === 'earnings') {
+          filtered = filtered.filter(t => t.category === 'earnings');
+        } else if (currentFilter === 'withdrawals') {
+          filtered = filtered.filter(t => t.category === 'withdrawal');
+        } else {
+          filtered = filtered.filter(t => t.type === currentFilter);
+        }
+      }
+      
+      // Apply date filters
+      const fromDate = document.getElementById('dateFrom').value;
+      const toDate = document.getElementById('dateTo').value;
+      
+      if (fromDate) {
+        filtered = filtered.filter(t => t.date >= fromDate);
+      }
+      if (toDate) {
+        filtered = filtered.filter(t => t.date <= toDate);
+      }
+      
+      filteredTransactions = filtered;
+      currentPage = 1;
+      renderTable();
+      renderPagination();
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('transactionsBody');
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageTransactions = filteredTransactions.slice(start, end);
+      
+      if (pageTransactions.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5">
+              <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h3>No transactions found</h3>
+                <p>Try changing your filters</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = pageTransactions.map(transaction => {
+        let badgeClass = '';
+        let typeIcon = '';
+        let amountClass = '';
+        
+        if (transaction.category === 'earnings') {
+          badgeClass = 'earnings';
+          typeIcon = '<i class="fas fa-arrow-up"></i>';
+          amountClass = 'amount-positive';
+        } else {
+          badgeClass = 'withdrawal';
+          typeIcon = '<i class="fas fa-arrow-down"></i>';
+          amountClass = 'amount-negative';
+        }
+        
+        const typeBadge = transaction.type === 'task' ? 'task' : transaction.type === 'survey' ? 'survey' : 'withdrawal';
+        const statusBadge = transaction.status === 'completed' ? 'completed' : 'pending';
+        
+        return `
+          <tr>
+            <td>${formatDate(transaction.date)}</td>
+            <td>
+              <span class="badge ${typeBadge}">
+                ${typeIcon} ${transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
+              </span>
+            </td>
+            <td>${transaction.description}</td>
+            <td class="${amountClass}">
+              ${transaction.category === 'earnings' ? '+' : '-'}$${transaction.amount.toFixed(2)}
+            </td>
+            <td>
+              <span class="badge ${statusBadge}">
+                ${transaction.status === 'completed' ? '<i class="fas fa-check"></i>' : '<i class="fas fa-clock"></i>'} 
+                ${transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
+      const paginationDiv = document.getElementById('pagination');
+      
+      if (totalPages <= 1) {
+        paginationDiv.innerHTML = '';
+        return;
+      }
+      
+      let html = '';
+      for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      }
+      
+      paginationDiv.innerHTML = html;
+      
+      document.querySelectorAll('.page-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentPage = parseInt(btn.dataset.page);
+          renderTable();
+          renderPagination();
+        });
+      });
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function exportToCSV() {
+      if (filteredTransactions.length === 0) {
+        showToast('No transactions to export', 'error');
+        return;
+      }
+      
+      const headers = ['Date', 'Type', 'Description', 'Amount', 'Status'];
+      const rows = filteredTransactions.map(t => [
+        t.date,
+        t.type,
+        t.description,
+        `${t.category === 'earnings' ? '+' : '-'}$${t.amount.toFixed(2)}`,
+        t.status
+      ]);
+      
+      const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `taskpay_history_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      showToast('Export completed!');
+    }
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function logout() {
+      localStorage.removeItem('taskpay_logged_in');
+      localStorage.removeItem('taskpay_user_email');
+      window.location.href = 'login.html';
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        applyFilters();
+      });
+    });
+    
+    // Date filters
+    document.getElementById('dateFrom').addEventListener('change', applyFilters);
+    document.getElementById('dateTo').addEventListener('change', applyFilters);
+    
+    // Reset filters
+    document.getElementById('resetFilters').addEventListener('click', () => {
+      document.getElementById('dateFrom').value = '';
+      document.getElementById('dateTo').value = '';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+      currentFilter = 'all';
+      applyFilters();
+    });
+    
+    // Export button
+    document.getElementById('exportBtn').addEventListener('click', exportToCSV);
+    
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    
+    if (checkAuth()) {
+      // Initialize
+    }
+  </script>
+</body>
+</html>

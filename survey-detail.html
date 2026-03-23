@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Complete Survey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon i {
+      color: white;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #64748b;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #f1f5f9;
+      color: #8b5cf6;
+      transform: translateX(-5px);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 2rem;
+    }
+
+    .progress-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* Main Content */
+    .main-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Survey Header */
+    .survey-header {
+      background: white;
+      border-radius: 32px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .survey-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .survey-icon i {
+      font-size: 40px;
+      color: white;
+    }
+
+    .survey-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #0f172a, #334155);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .survey-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1rem;
+      background: #f8fafc;
+      border-radius: 40px;
+    }
+
+    .meta-item i {
+      color: #8b5cf6;
+    }
+
+    .reward-badge {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* Question Card */
+    .question-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .question-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-color: #8b5cf6;
+    }
+
+    .question-number {
+      display: inline-block;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #0f172a;
+    }
+
+    /* Options */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .option:hover {
+      border-color: #8b5cf6;
+      background: #faf5ff;
+      transform: translateX(8px);
+    }
+
+    .option.selected {
+      border-color: #8b5cf6;
+      background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+    }
+
+    .option-radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cbd5e1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .option.selected .option-radio {
+      border-color: #8b5cf6;
+    }
+
+    .option-radio::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #8b5cf6;
+      border-radius: 50%;
+      display: none;
+    }
+
+    .option.selected .option-radio::after {
+      display: block;
+    }
+
+    .option-text {
+      font-weight: 500;
+      color: #0f172a;
+    }
+
+    /* Rating Stars */
+    .rating-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .rating-star {
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .rating-star i {
+      font-size: 2rem;
+      color: #cbd5e1;
+      transition: all 0.2s;
+    }
+
+    .rating-star:hover i,
+    .rating-star.selected i {
+      color: #f59e0b;
+      transform: scale(1.1);
+    }
+
+    /* Text Input */
+    .text-input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      background: #f8fafc;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-btn.prev {
+      background: white;
+      border: 2px solid #e2e8f0;
+      color: #64748b;
+    }
+
+    .nav-btn.prev:hover {
+      border-color: #8b5cf6;
+      color: #8b5cf6;
+      transform: translateX(-5px);
+    }
+
+    .nav-btn.next {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border: none;
+      color: white;
+    }
+
+    .nav-btn.next:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .nav-btn.submit {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    /* Success Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 32px;
+      padding: 2.5rem;
+      max-width: 500px;
+      text-align: center;
+      animation: modalSlideIn 0.4s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-content i {
+      font-size: 80px;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content p {
+      color: #64748b;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-btn {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      z-index: 1100;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1rem;
+      }
+      .survey-title {
+        font-size: 1.5rem;
+      }
+      .question-text {
+        font-size: 1rem;
+      }
+      .nav-buttons {
+        flex-direction: column;
+      }
+      .nav-btn {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="navigateTo('dashboard')">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <span class="logo-text">TaskPay</span>
+      </div>
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Surveys</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="progress-container">
+    <div class="progress-wrapper">
+      <div class="progress-stats">
+        <span id="currentQuestionDisplay">Question 1</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container" id="surveyContainer">
+    <div class="survey-header" id="surveyHeader">
+      <!-- Dynamic content -->
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div class="nav-buttons" id="navButtons">
+      <button class="nav-btn prev" id="prevBtn" onclick="prevQuestion()">
+        <i class="fas fa-arrow-left"></i> Previous
+      </button>
+      <button class="nav-btn next" id="nextBtn" onclick="nextQuestion()">
+        Next <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <i class="fas fa-check-circle"></i>
+      <h2>Survey Completed! 🎉</h2>
+      <p>Thank you for sharing your valuable feedback!</p>
+      <p id="earnedAmount" style="color: #8b5cf6; font-weight: 700; font-size: 1.2rem;"></p>
+      <button class="modal-btn" onclick="closeModalAndReturn()">Return to Surveys</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSurvey = null;
+    let currentQuestionIndex = 0;
+    let answers = [];
+    let totalQuestions = 0;
+
+    function navigateTo(page) {
+      const pages = {
+        'dashboard': 'dashboard.html',
+        'surveys': 'surveys.html'
+      };
+      window.location.href = pages[page] || 'dashboard.html';
+    }
+
+    function goBack() {
+      window.location.href = 'surveys.html';
+    }
+
+    function loadSurveyData() {
+      const storedSurvey = sessionStorage.getItem('current_survey');
+      if (!storedSurvey) {
+        showToast('No survey found. Redirecting...');
+        setTimeout(() => window.location.href = 'surveys.html', 1500);
+        return;
+      }
+
+      currentSurvey = JSON.parse(storedSurvey);
+      totalQuestions = currentSurvey.questionsList.length;
+      answers = new Array(totalQuestions).fill(null);
+      
+      renderSurveyHeader();
+      renderCurrentQuestion();
+      updateProgress();
+    }
+
+    function renderSurveyHeader() {
+      document.getElementById('surveyHeader').innerHTML = `
+        <div class="survey-icon" style="background: linear-gradient(135deg, ${currentSurvey.color}, ${currentSurvey.color}dd);">
+          <i class="fas ${currentSurvey.icon}"></i>
+        </div>
+        <h1 class="survey-title">${currentSurvey.title}</h1>
+        <p style="color: #64748b; margin-top: 0.5rem;">${currentSurvey.description}</p>
+        <div class="survey-meta">
+          <div class="meta-item">
+            <i class="fas fa-clock"></i>
+            <span>${currentSurvey.timeEstimate}</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-question-circle"></i>
+            <span>${totalQuestions} questions</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-building"></i>
+            <span>${currentSurvey.company}</span>
+          </div>
+          <div class="reward-badge">
+            <i class="fas fa-dollar-sign"></i> ${currentSurvey.reward.toFixed(2)}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCurrentQuestion() {
+      const container = document.getElementById('questionsContainer');
+      const question = currentSurvey.questionsList[currentQuestionIndex];
+      const currentAnswer = answers[currentQuestionIndex];
+      
+      let inputHtml = '';
+      
+      // Determine input type based on question content
+      if (question.toLowerCase().includes('rate') || question.toLowerCase().includes('satisfied')) {
+        // Rating stars
+        inputHtml = `
+          <div class="rating-options" id="ratingOptions">
+            ${[1, 2, 3, 4, 5].map(star => `
+              <div class="rating-star ${currentAnswer === star ? 'selected' : ''}" data-rating="${star}" onclick="selectRating(${star})">
+                <i class="fas fa-star"></i>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (question.toLowerCase().includes('how often') || question.toLowerCase().includes('frequency')) {
+        // Frequency options
+        const options = ['Daily', 'Weekly', 'Monthly', 'Rarely', 'Never'];
+        inputHtml = `
+          <div class="options">
+            ${options.map(opt => `
+              <div class="option ${currentAnswer === opt ? 'selected' : ''}" onclick="selectOption('${opt}')">
+                <div class="option-radio"></div>
+                <span class="option-text">${opt}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        // Text input for open-ended questions
+        inputHtml = `
+          <textarea class="text-input" id="textAnswer" rows="4" placeholder="Type your answer here...">${currentAnswer || ''}</textarea>
+        `;
+      }
+      
+      container.innerHTML = `
+        <div class="question-card">
+          <div class="question-number">Question ${currentQuestionIndex + 1} of ${totalQuestions}</div>
+          <div class="question-text">${question}</div>
+          ${inputHtml}
+        </div>
+      `;
+      
+      // Add event listener for text input if applicable
+      if (!question.toLowerCase().includes('rate') && !question.toLowerCase().includes('satisfied') && 
+          !question.toLowerCase().includes('how often') && !question.toLowerCase().includes('frequency')) {
+        const textInput = document.getElementById('textAnswer');
+        if (textInput) {
+          textInput.addEventListener('input', (e) => {
+            answers[currentQuestionIndex] = e.target.value;
+          });
+        }
+      }
+      
+      // Update navigation buttons
+      updateNavButtons();
+    }
+
+    function selectOption(value) {
+      answers[currentQuestionIndex] = value;
+      renderCurrentQuestion();
+    }
+
+    function selectRating(rating) {
+      answers[currentQuestionIndex] = rating;
+      renderCurrentQuestion();
+    }
+
+    function updateNavButtons() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      prevBtn.style.display = currentQuestionIndex === 0 ? 'none' : 'flex';
+      
+      if (currentQuestionIndex === totalQuestions - 1) {
+        nextBtn.innerHTML = '<i class="fas fa-check-circle"></i> Submit Survey';
+        nextBtn.classList.add('submit');
+      } else {
+        nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+        nextBtn.classList.remove('submit');
+      }
+    }
+
+    function nextQuestion() {
+      // Validate current question is answered
+      const currentAnswer = answers[currentQuestionIndex];
+      if (!currentAnswer && currentAnswer !== 0) {
+        showToast('Please answer this question before continuing!');
+        return;
+      }
+      
+      if (currentQuestionIndex === totalQuestions - 1) {
+        // Submit survey
+        submitSurvey();
+      } else {
+        currentQuestionIndex++;
+        renderCurrentQuestion();
+        updateProgress();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderCurrentQuestion();
+        updateProgress();
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+      document.getElementById('progressFill').style.width = `${progress}%`;
+      document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+      document.getElementById('currentQuestionDisplay').textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+    }
+
+    function submitSurvey() {
+      // Validate all questions are answered
+      const unanswered = answers.some((answer, index) => !answer && answer !== 0);
+      if (unanswered) {
+        showToast('Please answer all questions before submitting!');
+        return;
+      }
+      
+      // Save completion to localStorage
+      const userKey = localStorage.getItem('taskpay_user_email')?.replace(/[^a-zA-Z0-9]/g, '_');
+      if (userKey) {
+        const completedSurveys = JSON.parse(localStorage.getItem(`taskpay_completed_surveys_${userKey}`) || '[]');
+        if (!completedSurveys.includes(currentSurvey.id)) {
+          completedSurveys.push(currentSurvey.id);
+          localStorage.setItem(`taskpay_completed_surveys_${userKey}`, JSON.stringify(completedSurveys));
+          
+          // Update total earnings
+          const currentEarnings = parseFloat(localStorage.getItem(`taskpay_total_earned_${userKey}`) || '0');
+          const newEarnings = currentEarnings + currentSurvey.reward;
+          localStorage.setItem(`taskpay_total_earned_${userKey}`, newEarnings.toFixed(2));
+          
+          // Update surveys done count
+          const surveysDone = parseInt(localStorage.getItem(`taskpay_surveys_done_${userKey}`) || '0');
+          localStorage.setItem(`taskpay_surveys_done_${userKey}`, (surveysDone + 1).toString());
+        }
+      }
+      
+      // Show success modal
+      document.getElementById('earnedAmount').innerHTML = `+$${currentSurvey.reward.toFixed(2)} earned!`;
+      document.getElementById('successModal').classList.add('active');
+    }
+
+    function closeModalAndReturn() {
+      document.getElementById('successModal').classList.remove('active');
+      window.location.href = 'surveys.html';
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Make functions global
+    window.selectOption = selectOption;
+    window.selectRating = selectRating;
+    window.nextQuestion = nextQuestion;
+    window.prevQuestion = prevQuestion;
+    window.closeModalAndReturn = closeModalAndReturn;
+    window.navigateTo = navigateTo;
+    window.goBack = goBack;
+    
+    // Initialize
+    loadSurveyData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Modern SaaS Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Light mode */
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --sidebar-bg: #0f172a;
+      --sidebar-hover: rgba(255, 255, 255, 0.08);
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --card-shadow-hover: 0 12px 24px -12px rgba(0, 0, 0, 0.15);
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --sidebar-bg: #020617;
+      --sidebar-hover: rgba(255, 255, 255, 0.05);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --card-shadow-hover: 0 12px 24px -12px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      background: var(--bg-primary);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      background: var(--sidebar-bg);
+      z-index: 1000;
+      transition: transform 0.3s ease, width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform: translateX(0);
+    }
+
+    /* Sidebar hidden state for desktop toggle */
+    .sidebar.sidebar-hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar.collapsed {
+      width: 80px;
+    }
+
+    .sidebar.collapsed .logo-text,
+    .sidebar.collapsed .logo-badge,
+    .sidebar.collapsed .nav-item span,
+    .sidebar.collapsed .nav-section-title {
+      display: none;
+    }
+
+    .sidebar.collapsed .nav-item {
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .sidebar.collapsed .nav-item i {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    /* Mobile overlay */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      
+      /* Override hidden class on mobile */
+      .sidebar.sidebar-hidden {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.collapsed {
+        width: 280px;
+      }
+      
+      .sidebar.collapsed .logo-text,
+      .sidebar.collapsed .logo-badge,
+      .sidebar.collapsed .nav-item span,
+      .sidebar.collapsed .nav-section-title {
+        display: block;
+      }
+    }
+
+    .sidebar-header {
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .logo-icon i {
+      font-size: 24px;
+      color: white;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .logo-badge {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .sidebar-nav {
+      padding: 1.5rem;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.75rem;
+      padding-left: 12px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      color: #94a3b8;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-item i {
+      width: 24px;
+      font-size: 1.2rem;
+    }
+
+    .nav-item span {
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .nav-item:hover {
+      background: var(--sidebar-hover);
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Tooltip */
+    [data-tooltip] {
+      position: relative;
+    }
+
+    [data-tooltip]:before {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      margin-left: 12px;
+    }
+
+    .sidebar.collapsed .nav-item:hover[data-tooltip]:before {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 280px;
+      padding: 2rem;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* When sidebar is hidden on desktop, adjust main content margin */
+    .sidebar.sidebar-hidden ~ .main-content {
+      margin-left: 0;
+    }
+
+    .sidebar.collapsed ~ .main-content {
+      margin-left: 80px;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0 !important;
+      }
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .menu-toggle-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-toggle-btn:hover {
+      background: var(--border-color);
+    }
+
+    .page-title h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .page-title p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-top: 4px;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Dropdown Styles */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-trigger {
+      cursor: pointer;
+      background: var(--bg-secondary);
+      padding: 0.5rem;
+      border-radius: 12px;
+      transition: all 0.2s;
+      border: 1px solid var(--border-color);
+    }
+
+    .dropdown-trigger:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      min-width: 280px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s;
+      border: 1px solid var(--border-color);
+    }
+
+    .dropdown-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .notification-item {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.2s;
+    }
+
+    .notification-item:hover {
+      background: var(--bg-primary);
+    }
+
+    .profile-menu {
+      min-width: 200px;
+    }
+
+    .profile-menu-item {
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .profile-menu-item:hover {
+      background: var(--bg-primary);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      padding: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-icon.earnings { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .stat-icon.tasks { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+    .stat-icon.surveys { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .stat-icon.streak { background: rgba(236, 72, 153, 0.1); color: #ec489a; }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .stat-trend {
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trend-up { color: #10b981; }
+    .trend-down { color: #ef4444; }
+
+    /* Loading Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, var(--border-color) 25%, var(--bg-primary) 50%, var(--border-color) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Charts Section */
+    .charts-section {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-card {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .chart-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .chart-filters {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+    }
+
+    .filter-btn.active {
+      background: #10b981;
+      color: white;
+      border-color: #10b981;
+    }
+
+    .filter-btn:hover:not(.active) {
+      background: var(--border-color);
+    }
+
+    canvas {
+      max-height: 250px;
+    }
+
+    /* Activities Section */
+    .activities-section {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .activity-card {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: var(--bg-primary);
+      border-radius: 16px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .task-item:hover {
+      transform: translateX(4px);
+      background: var(--border-color);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      z-index: 2000;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #10b981;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .charts-section,
+      .activities-section {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 1rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .user-section {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Premium Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div>
+          <div class="logo-text">TaskPay</div>
+          <div class="logo-badge">Premium Dashboard</div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Main</div>
+        <div class="nav-item active" data-page="dashboard">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-page="tasks">
+          <i class="fas fa-tasks"></i>
+          <span>Tasks</span>
+        </div>
+        <div class="nav-item" data-page="surveys">
+          <i class="fas fa-poll"></i>
+          <span>Surveys</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Account</div>
+        <div class="nav-item" data-page="withdrawals">
+          <i class="fas fa-wallet"></i>
+          <span>Withdrawals</span>
+        </div>
+        <div class="nav-item" data-page="profile">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </div>
+        <div class="nav-item" data-page="referrals">
+          <i class="fas fa-users"></i>
+          <span>Referrals</span>
+        </div>
+        <div class="nav-item" data-page="history">
+          <i class="fas fa-history"></i>
+          <span>History</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Support</div>
+        <div class="nav-item" data-page="support">
+          <i class="fas fa-headset"></i>
+          <span>Support</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <button class="menu-toggle-btn" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">
+          <h1>Dashboard</h1>
+          <p>Welcome back! Here's your performance overview</p>
+        </div>
+      </div>
+      <div class="user-section">
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+        
+        <!-- Notifications Dropdown -->
+        <div class="dropdown">
+          <div class="dropdown-trigger notification-bell">
+            <i class="far fa-bell"></i>
+            <span style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px;" id="notificationCount">3</span>
+          </div>
+          <div class="dropdown-menu" id="notificationMenu">
+            <div class="notification-item">
+              <i class="fas fa-check-circle" style="color: #10b981;"></i>
+              <strong>Task completed!</strong>
+              <p style="font-size: 12px; margin-top: 4px;">You earned $0.50 from "Rate Mobile App"</p>
+            </div>
+            <div class="notification-item">
+              <i class="fas fa-poll" style="color: #3b82f6;"></i>
+              <strong>New survey available</strong>
+              <p style="font-size: 12px; margin-top: 4px;">Complete for $1.00</p>
+            </div>
+            <div class="notification-item">
+              <i class="fas fa-fire" style="color: #f59e0b;"></i>
+              <strong>7-day streak!</strong>
+              <p style="font-size: 12px; margin-top: 4px;">Keep it up for bonus rewards</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+          <div class="dropdown-trigger user-card">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <div class="user-info">
+              <h4 id="userName">Loading...</h4>
+              <p id="userEmail">user@example.com</p>
+            </div>
+            <i class="fas fa-chevron-down" style="color: var(--text-secondary); font-size: 0.75rem;"></i>
+          </div>
+          <div class="dropdown-menu profile-menu" id="profileMenu">
+            <div class="profile-menu-item" data-action="profile">
+              <i class="fas fa-user"></i>
+              <span>Profile Settings</span>
+            </div>
+            <div class="profile-menu-item" data-action="settings">
+              <i class="fas fa-cog"></i>
+              <span>Account Settings</span>
+            </div>
+            <div class="profile-menu-item" data-action="logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Grid with Loading Skeletons -->
+    <div class="stats-grid" id="statsGrid">
+      <!-- Skeleton will be replaced by JS -->
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Earnings Overview</h3>
+          <div class="chart-filters">
+            <button class="filter-btn active" data-chart="earnings" data-period="7">7d</button>
+            <button class="filter-btn" data-chart="earnings" data-period="30">30d</button>
+            <button class="filter-btn" data-chart="earnings" data-period="all">All</button>
+          </div>
+        </div>
+        <canvas id="earningsChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Completion Rate</h3>
+          <div class="chart-filters">
+            <button class="filter-btn active" data-chart="completion" data-period="7">7d</button>
+            <button class="filter-btn" data-chart="completion" data-period="30">30d</button>
+          </div>
+        </div>
+        <canvas id="completionChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Tasks & Surveys -->
+    <div class="activities-section">
+      <div class="activity-card">
+        <div class="activity-header">
+          <h3>🔥 Quick Tasks</h3>
+          <span class="view-all" style="color: #10b981; cursor: pointer;" id="viewAllTasksBtn">View All →</span>
+        </div>
+        <div class="task-list" id="quickTasks"></div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-header">
+          <h3>📋 Featured Surveys</h3>
+          <span class="view-all" style="color: #10b981; cursor: pointer;" id="viewAllSurveysBtn">View All →</span>
+        </div>
+        <div class="task-list" id="featuredSurveys"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let earningsChart, completionChart;
+    let isLoading = false;
+    let currentEarningsPeriod = '7';
+    let currentCompletionPeriod = '7';
+
+    const earningsData = {
+      '7': [4.2, 5.8, 7.5, 6.3, 8.9, 12.4, 10.2],
+      '30': [4.2, 5.8, 7.5, 6.3, 8.9, 12.4, 10.2, 11.5, 9.8, 10.2, 12.1, 13.5, 14.2, 15.1, 14.8, 16.2, 17.5, 16.9, 18.3, 19.1, 20.5, 21.2, 22.8, 23.5, 24.1, 25.3, 26.0, 27.2, 28.5, 29.0],
+      'all': [2.1, 3.2, 4.5, 5.8, 6.2, 7.1, 8.3, 9.5, 10.8, 12.1, 13.4, 14.7, 16.0, 17.3, 18.6, 19.9, 21.2, 22.5, 23.8, 25.1, 26.4, 27.7, 29.0, 30.3, 31.6, 32.9, 34.2, 35.5, 36.8, 38.1]
+    };
+
+    const completionData = {
+      '7': [45, 52, 58, 63, 71, 78, 85],
+      '30': [45, 48, 52, 55, 58, 62, 65, 68, 71, 74, 77, 80, 82, 84, 86, 88, 89, 90, 91, 92, 93, 94, 94, 95, 95, 96, 96, 97, 97, 98]
+    };
+
+    const quickTasks = [
+      { id: 1, title: "Rate Mobile App Icon", reward: 0.35, time: "30 sec", icon: "fa-star" },
+      { id: 2, title: "Watch Product Preview", reward: 0.50, time: "1 min", icon: "fa-play" },
+      { id: 3, title: "Share a Fun Fact", reward: 0.45, time: "2 min", icon: "fa-pen" },
+      { id: 4, title: "Weather Screenshot", reward: 0.60, time: "1 min", icon: "fa-cloud-sun" }
+    ];
+
+    const featuredSurveys = [
+      { id: 1, title: "Coffee Shop Habits", reward: 0.80, questions: 3, icon: "fa-mug-hot" },
+      { id: 2, title: "Mobile Gaming Survey", reward: 0.90, questions: 4, icon: "fa-gamepad" },
+      { id: 3, title: "Streaming Services", reward: 1.00, questions: 5, icon: "fa-tv" }
+    ];
+
+    // Navigation function - links all pages
+    function navigateTo(page) {
+      const pages = {
+        'dashboard': 'dashboard.html',
+        'tasks': 'tasks.html',
+        'surveys': 'surveys.html',
+        'withdrawals': 'withdrawal.html',
+        'profile': 'profile.html',
+        'referrals': 'referral.html',
+        'history': 'history.html',
+        'support': 'support.html'
+      };
+      
+      const pageUrl = pages[page];
+      if (pageUrl) {
+        window.location.href = pageUrl;
+      } else {
+        showToast('Page coming soon!');
+      }
+    }
+
+    // Auth Check
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+        return false;
+      }
+      currentUser = localStorage.getItem('taskpay_user_email');
+      loadUserData();
+      return true;
+    }
+
+    // Load User Data
+    function loadUserData() {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      const totalEarned = parseFloat(localStorage.getItem(`taskpay_total_earned_${userKey}`) || '128.50');
+      const tasksDone = parseInt(localStorage.getItem(`taskpay_tasks_done_${userKey}`) || '42');
+      const surveysDone = parseInt(localStorage.getItem(`taskpay_surveys_done_${userKey}`) || '18');
+      
+      const stats = [
+        { value: `$${totalEarned.toFixed(2)}`, label: 'Total Earnings', icon: 'earnings', trend: '+12.5%', trendUp: true },
+        { value: tasksDone, label: 'Tasks Completed', icon: 'tasks', trend: '+8 this week', trendUp: true },
+        { value: surveysDone, label: 'Surveys Completed', icon: 'surveys', trend: '+3 this week', trendUp: true },
+        { value: Math.floor(Math.random() * 30) + 1, label: 'Day Streak', icon: 'streak', trend: 'Keep it up!', trendUp: true }
+      ];
+      
+      renderStats(stats);
+      
+      const userName = currentUser.split('@')[0];
+      document.getElementById('userName').textContent = userName;
+      document.getElementById('userEmail').textContent = currentUser;
+      document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+    }
+
+    function renderStats(stats) {
+      const container = document.getElementById('statsGrid');
+      container.innerHTML = stats.map(stat => `
+        <div class="stat-card" onclick="navigateTo('${stat.label === 'Tasks Completed' ? 'tasks' : stat.label === 'Surveys Completed' ? 'surveys' : 'dashboard'}')">
+          <div class="stat-header">
+            <div class="stat-icon ${stat.icon}">
+              <i class="fas ${stat.icon === 'earnings' ? 'fa-dollar-sign' : stat.icon === 'tasks' ? 'fa-check-circle' : stat.icon === 'surveys' ? 'fa-poll' : 'fa-fire'} fa-2x"></i>
+            </div>
+          </div>
+          <div class="stat-value">${stat.value}</div>
+          <div class="stat-label">${stat.label}</div>
+          <div class="stat-trend">
+            <i class="fas fa-arrow-${stat.trendUp ? 'up' : 'down'} trend-${stat.trendUp ? 'up' : 'down'}"></i>
+            <span>${stat.trend}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Initialize Charts
+    function initCharts() {
+      const ctx1 = document.getElementById('earningsChart').getContext('2d');
+      const ctx2 = document.getElementById('completionChart').getContext('2d');
+      
+      earningsChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: generateLabels(currentEarningsPeriod),
+          datasets: [{
+            label: 'Earnings ($)',
+            data: earningsData[currentEarningsPeriod],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#10b981',
+            pointBorderColor: 'white',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          animation: {
+            duration: 1000,
+            easing: 'easeInOutQuart'
+          },
+          plugins: { 
+            legend: { display: false }, 
+            tooltip: { 
+              backgroundColor: '#0f172a',
+              callbacks: {
+                label: function(context) {
+                  return `$${context.parsed.y.toFixed(2)}`;
+                }
+              }
+            } 
+          },
+          scales: { y: { grid: { color: 'var(--border-color)' }, ticks: { callback: v => '$' + v } } }
+        }
+      });
+      
+      completionChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: generateLabels(currentCompletionPeriod),
+          datasets: [{
+            label: 'Completion Rate (%)',
+            data: completionData[currentCompletionPeriod],
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#3b82f6',
+            pointBorderColor: 'white',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          animation: {
+            duration: 1000,
+            easing: 'easeInOutQuart'
+          },
+          plugins: { 
+            legend: { display: false },
+            tooltip: { 
+              backgroundColor: '#0f172a',
+              callbacks: {
+                label: function(context) {
+                  return `${context.parsed.y}%`;
+                }
+              }
+            }
+          },
+          scales: { y: { grid: { color: 'var(--border-color)' }, ticks: { callback: v => v + '%' }, min: 0, max: 100 } }
+        }
+      });
+    }
+
+    function generateLabels(period) {
+      if (period === '7') return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      if (period === '30') return Array.from({length: 30}, (_, i) => `Day ${i+1}`);
+      return Array.from({length: 30}, (_, i) => `Week ${i+1}`);
+    }
+
+    function updateChart(chart, period, type) {
+      if (type === 'earnings') {
+        chart.data.datasets[0].data = earningsData[period];
+        chart.data.labels = generateLabels(period);
+      } else {
+        chart.data.datasets[0].data = completionData[period];
+        chart.data.labels = generateLabels(period);
+      }
+      chart.update();
+    }
+
+    // Sidebar Toggle Functionality
+    function initSidebarToggle() {
+      const sidebar = document.getElementById('sidebar');
+      const menuToggle = document.getElementById('menuToggle');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      const isMobile = () => window.innerWidth <= 768;
+      
+      const closeMobileSidebar = () => {
+        if (isMobile()) {
+          sidebar.classList.remove('mobile-open');
+          overlay.classList.remove('active');
+        }
+      };
+      
+      const openMobileSidebar = () => {
+        if (isMobile()) {
+          sidebar.classList.add('mobile-open');
+          overlay.classList.add('active');
+        }
+      };
+      
+      const toggleDesktopSidebar = () => {
+        if (!isMobile()) {
+          sidebar.classList.toggle('sidebar-hidden');
+          const isHidden = sidebar.classList.contains('sidebar-hidden');
+          localStorage.setItem('sidebar_hidden', isHidden);
+        }
+      };
+      
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isMobile()) {
+          if (sidebar.classList.contains('mobile-open')) {
+            closeMobileSidebar();
+          } else {
+            openMobileSidebar();
+          }
+        } else {
+          toggleDesktopSidebar();
+        }
+      });
+      
+      overlay.addEventListener('click', closeMobileSidebar);
+      
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!isMobile()) {
+            closeMobileSidebar();
+            const savedHiddenState = localStorage.getItem('sidebar_hidden');
+            if (savedHiddenState === 'true') {
+              sidebar.classList.add('sidebar-hidden');
+            } else {
+              sidebar.classList.remove('sidebar-hidden');
+            }
+          } else {
+            sidebar.classList.remove('sidebar-hidden');
+            closeMobileSidebar();
+          }
+        }, 100);
+      });
+      
+      if (!isMobile()) {
+        const savedHiddenState = localStorage.getItem('sidebar_hidden');
+        if (savedHiddenState === 'true') {
+          sidebar.classList.add('sidebar-hidden');
+        }
+      }
+      
+      if (isMobile()) {
+        sidebar.classList.remove('sidebar-hidden');
+        closeMobileSidebar();
+      }
+    }
+
+    // Theme Toggle
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const themeIcon = document.querySelector('#themeToggle i');
+      themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        const icon = document.querySelector('#themeToggle i');
+        icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        showToast(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`);
+      });
+    }
+
+    // Dropdown Functions
+    function initDropdowns() {
+      const dropdowns = document.querySelectorAll('.dropdown');
+      
+      dropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector('.dropdown-trigger');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          menu.classList.toggle('show');
+        });
+        
+        document.addEventListener('click', () => {
+          menu.classList.remove('show');
+        });
+      });
+      
+      // Profile menu actions
+      document.querySelectorAll('.profile-menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          const action = item.dataset.action;
+          if (action === 'logout') {
+            if (confirm('Are you sure you want to logout?')) {
+              localStorage.removeItem('taskpay_logged_in');
+              localStorage.removeItem('taskpay_user_email');
+              showToast('Logged out successfully');
+              setTimeout(() => window.location.href = 'login.html', 1000);
+            }
+          } else if (action === 'profile') {
+            navigateTo('profile');
+          } else {
+            showToast(`${action} page coming soon!`);
+          }
+        });
+      });
+    }
+
+    // Chart Filters
+    function initChartFilters() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const chart = btn.dataset.chart;
+          const period = btn.dataset.period;
+          
+          document.querySelectorAll(`.filter-btn[data-chart="${chart}"]`).forEach(b => {
+            b.classList.remove('active');
+          });
+          btn.classList.add('active');
+          
+          if (chart === 'earnings') {
+            currentEarningsPeriod = period;
+            updateChart(earningsChart, period, 'earnings');
+          } else {
+            currentCompletionPeriod = period;
+            updateChart(completionChart, period, 'completion');
+          }
+        });
+      });
+    }
+
+    function renderTasks() {
+      const tasksContainer = document.getElementById('quickTasks');
+      tasksContainer.innerHTML = quickTasks.map(task => `
+        <div class="task-item" onclick="navigateTo('tasks')">
+          <div class="task-info">
+            <div class="task-icon"><i class="fas ${task.icon}" style="color: #10b981;"></i></div>
+            <div class="task-details">
+              <h4>${task.title}</h4>
+              <p>${task.time} · Quick task</p>
+            </div>
+          </div>
+          <div class="task-reward" style="color: #10b981; font-weight: 700;">+$${task.reward}</div>
+        </div>
+      `).join('');
+      
+      const surveysContainer = document.getElementById('featuredSurveys');
+      surveysContainer.innerHTML = featuredSurveys.map(survey => `
+        <div class="task-item" onclick="navigateTo('surveys')">
+          <div class="task-info">
+            <div class="task-icon"><i class="fas ${survey.icon}" style="color: #8b5cf6;"></i></div>
+            <div class="task-details">
+              <h4>${survey.title}</h4>
+              <p>${survey.questions} questions · ${survey.reward === 1.00 ? 'Hot 🔥' : 'Popular'}</p>
+            </div>
+          </div>
+          <div class="task-reward" style="color: #10b981; font-weight: 700;">+$${survey.reward}</div>
+        </div>
+      `).join('');
+    }
+
+    // Sidebar Navigation
+    function initSidebarNavigation() {
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const page = item.getAttribute('data-page');
+          if (page) {
+            // Close mobile sidebar when navigating
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 768) {
+              sidebar.classList.remove('mobile-open');
+              overlay.classList.remove('active');
+            }
+            navigateTo(page);
+          }
+        });
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas fa-check-circle" style="color: #10b981;"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    window.showToast = showToast;
+    window.navigateTo = navigateTo;
+    
+    // Initialize everything
+    if (checkAuth()) {
+      initSidebarToggle();
+      initTheme();
+      initCharts();
+      initChartFilters();
+      initDropdowns();
+      initSidebarNavigation();
+      renderTasks();
+      
+      // Add event listeners for view all buttons
+      document.getElementById('viewAllTasksBtn').addEventListener('click', () => navigateTo('tasks'));
+      document.getElementById('viewAllSurveysBtn').addEventListener('click', () => navigateTo('surveys'));
+    }
+  </script>
+</body>
+</html>
