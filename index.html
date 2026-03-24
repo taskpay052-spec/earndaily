@@ -115,7 +115,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 1rem;
     }
 
     .btn-login {
@@ -722,7 +722,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="https://via.placeholder.com/500x400/10b981/ffffff?text=TaskPay+Dashboard" alt="Dashboard Preview">
+      <img src="https://via.placeholder.com/500x400/10b981/ffffff?text=TaskPay+Dashboard" alt="TaskPay Dashboard Preview">
       <div class="floating-card">
         <i class="fas fa-dollar-sign" style="color: #10b981;"></i>
         <span>+$12.50 earned today</span>
@@ -883,7 +883,6 @@
       toast.style.fontSize = '0.875rem';
       toast.style.zIndex = '1000';
       toast.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-      toast.style.animation = 'slideUp 0.3s ease';
       toast.textContent = message;
       document.body.appendChild(toast);
       setTimeout(() => toast.remove(), 2500);
@@ -899,38 +898,8 @@
       item.addEventListener('click', closeMenu);
     });
 
-    // Animation on scroll (for desktop only)
-    if (window.innerWidth > 768) {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.feature-card, .step').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease';
-        observer.observe(el);
-      });
-    } else {
-      document.querySelectorAll('.feature-card, .step').forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      });
-    }
-
     window.navigateTo = navigateTo;
     window.scrollToSection = scrollToSection;
-    window.showToast = showToast;
   </script>
 </body>
 </html>
