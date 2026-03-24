@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>TaskPay · Earn with small tasks & surveys</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>TaskPay · Earn Money with Micro-Tasks & Surveys</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     * {
@@ -14,20 +14,51 @@
     }
 
     body {
-      background: #f8fafc;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       color: #0f172a;
       line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #059669, #10b981);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #059669;
     }
 
     /* Navigation Bar */
     .navbar {
-      background: white;
-      border-bottom: 1px solid #e2e8f0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(5, 150, 105, 0.1);
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(10px);
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .nav-container {
@@ -42,17 +73,33 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
+      width: 38px;
+      height: 38px;
       background: linear-gradient(135deg, #059669, #10b981);
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+      }
     }
 
     .logo-icon i {
@@ -62,7 +109,7 @@
 
     .logo-text {
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 800;
       background: linear-gradient(135deg, #065f46, #059669);
       background-clip: text;
       -webkit-background-clip: text;
@@ -75,340 +122,475 @@
       gap: 2rem;
     }
 
-    .user-info {
-      display: flex;
+    .nav-link {
+      text-decoration: none;
+      color: #475569;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover:after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: #059669;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
       align-items: center;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #065f46, #059669, #10b981);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #475569;
+      margin-bottom: 2rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #059669;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .hero-buttons {
+      display: flex;
       gap: 1rem;
     }
 
-    .user-avatar {
-      width: 40px;
-      height: 40px;
+    .btn-primary {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #059669;
+      border: 2px solid #059669;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: #059669;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .hero-image:hover img {
+      transform: scale(1.02);
+    }
+
+    .floating-card {
+      position: absolute;
+      background: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .floating-card:nth-child(1) {
+      top: 10%;
+      left: -10%;
+    }
+
+    .floating-card:nth-child(2) {
+      bottom: 20%;
+      right: -10%;
+      animation-delay: 1s;
+    }
+
+    /* Features Section */
+    .features {
+      background: white;
+      padding: 5rem 2rem;
+    }
+
+    .section-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #0f172a, #334155);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.4s;
+      border: 1px solid #e2e8f0;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: #10b981;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .feature-icon i {
+      font-size: 32px;
+      color: white;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      color: #64748b;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
       background: linear-gradient(135deg, #059669, #10b981);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-weight: 600;
-    }
-
-    .user-details {
-      text-align: right;
-    }
-
-    .user-name {
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: #0f172a;
-    }
-
-    .user-email {
-      font-size: 0.75rem;
-      color: #64748b;
-    }
-
-    .logout-btn {
-      background: none;
-      border: none;
-      color: #64748b;
-      cursor: pointer;
-      font-size: 1.1rem;
-      transition: color 0.2s;
-      padding: 8px;
-    }
-
-    .logout-btn:hover {
-      color: #dc2626;
-    }
-
-    /* Main Container */
-    .main-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    /* Welcome Section */
-    .welcome-section {
-      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-      border-radius: 24px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      border: 1px solid #d1fae5;
-    }
-
-    .welcome-content h1 {
-      font-size: 1.875rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      color: #065f46;
+      margin: 0 auto 1rem;
+    }
+
+    .step h3 {
       margin-bottom: 0.5rem;
     }
 
-    .welcome-content p {
-      color: #374151;
-      font-size: 1rem;
+    .step p {
+      color: #64748b;
     }
 
-    /* Stats Cards */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .stat-card {
+    /* Testimonials */
+    .testimonials {
+      padding: 5rem 2rem;
       background: white;
-      border-radius: 20px;
-      padding: 1.5rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 2rem;
       border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
     }
 
-    .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      border-color: #cbd5e1;
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
-    .stat-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    .stat-icon {
-      width: 48px;
-      height: 48px;
-      background: #f0fdf4;
-      border-radius: 16px;
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 1rem;
     }
 
-    .stat-icon i {
-      font-size: 24px;
-      color: #059669;
+    .testimonial-avatar i {
+      font-size: 28px;
+      color: white;
     }
 
-    .stat-value {
-      font-size: 2rem;
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1rem;
+      color: #334155;
+    }
+
+    .testimonial-name {
       font-weight: 700;
       color: #0f172a;
-      margin-bottom: 0.25rem;
     }
 
-    .stat-label {
-      color: #64748b;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    /* Section Headers */
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-header h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #0f172a;
-    }
-
-    .section-badge {
-      background: #f1f5f9;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      color: #475569;
-    }
-
-    /* Tasks Grid */
-    .tasks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .task-card {
-      background: white;
-      border-radius: 20px;
-      padding: 1.25rem;
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .task-card:hover {
-      border-color: #cbd5e1;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      transform: translateY(-2px);
-    }
-
-    .task-type-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      width: fit-content;
-    }
-
-    .task-type-badge.task {
-      background: #fef3c7;
-      color: #d97706;
-    }
-
-    .task-type-badge.survey {
-      background: #e0e7ff;
-      color: #4f46e5;
-    }
-
-    .task-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 0.5rem;
-    }
-
-    .task-description {
+    .testimonial-role {
       font-size: 0.875rem;
       color: #64748b;
-      margin-bottom: 1rem;
-      line-height: 1.5;
     }
 
-    .task-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-    }
-
-    .task-reward {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #f1f5f9;
-      padding: 0.375rem 0.75rem;
-      border-radius: 12px;
-      font-weight: 600;
-      color: #059669;
-      font-size: 0.875rem;
-    }
-
-    .task-reward i {
-      font-size: 12px;
-    }
-
-    .btn-start {
-      background: #059669;
-      color: white;
-      border: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-start:hover {
-      background: #047857;
-      transform: scale(0.98);
-    }
-
-    .completed-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #f0fdf4;
-      color: #059669;
-      padding: 0.5rem 1rem;
-      border-radius: 12px;
-      font-weight: 500;
-      font-size: 0.875rem;
-    }
-
-    .completed-badge i {
-      font-size: 14px;
-    }
-
-    /* Empty State */
-    .empty-state {
-      background: white;
-      border-radius: 20px;
-      padding: 3rem;
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, #065f46, #059669);
+      padding: 4rem 2rem;
       text-align: center;
-      border: 1px solid #e2e8f0;
+      color: white;
     }
 
-    .empty-state i {
-      font-size: 48px;
-      color: #cbd5e1;
+    .cta h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
 
-    .empty-state p {
-      color: #64748b;
+    .cta p {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .btn-cta {
+      background: white;
+      color: #059669;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     /* Footer */
     .footer {
-      background: white;
-      border-top: 1px solid #e2e8f0;
-      padding: 2rem;
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 3rem 2rem;
       text-align: center;
-      margin-top: 2rem;
     }
 
     .footer-content {
       max-width: 1280px;
       margin: 0 auto;
-      color: #64748b;
-      font-size: 0.875rem;
     }
 
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #0f172a;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
-      font-size: 0.875rem;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      animation: slideUp 0.3s ease;
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
 
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(20px);
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #10b981;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: #94a3b8;
+      font-size: 1.3rem;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #10b981;
+      transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
       }
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
+      
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-stats {
+        justify-content: center;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .floating-card {
+        display: none;
+      }
+      
+      .section-title {
+        font-size: 2rem;
       }
     }
 
@@ -417,27 +599,15 @@
         padding: 1rem;
       }
       
-      .main-container {
-        padding: 1rem;
+      .nav-links {
+        gap: 1rem;
       }
       
-      .user-details {
-        display: none;
+      .hero {
+        padding: 2rem 1rem;
       }
       
-      .welcome-section {
-        padding: 1.5rem;
-      }
-      
-      .welcome-content h1 {
-        font-size: 1.5rem;
-      }
-      
-      .tasks-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .stats-grid {
+      .features-grid, .steps-grid, .testimonials-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -447,372 +617,273 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo">
+      <div class="logo" onclick="window.location.href='index.html'">
         <div class="logo-icon">
           <i class="fas fa-tasks"></i>
         </div>
         <span class="logo-text">TaskPay</span>
       </div>
       <div class="nav-links">
-        <div class="user-info">
-          <div class="user-details">
-            <div class="user-name" id="userName">Loading...</div>
-            <div class="user-email" id="userEmail">user@example.com</div>
-          </div>
-          <div class="user-avatar" id="userAvatar">
-            <i class="fas fa-user"></i>
-          </div>
-          <button class="logout-btn" id="logoutBtn">
-            <i class="fas fa-sign-out-alt"></i>
-          </button>
-        </div>
+        <a href="#" class="nav-link" onclick="scrollToSection('features')">Features</a>
+        <a href="#" class="nav-link" onclick="scrollToSection('how-it-works')">How It Works</a>
+        <a href="#" class="nav-link" onclick="scrollToSection('testimonials')">Testimonials</a>
+        <button class="btn-login" onclick="window.location.href='login.html'">Sign In</button>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <div class="main-container">
-    <!-- Welcome Section -->
-    <div class="welcome-section" id="welcomeSection">
-      <div class="welcome-content">
-        <h1 id="greetingText">Welcome back! 👋</h1>
-        <p>Complete small tasks and surveys to earn real money. Every minute counts!</p>
-      </div>
-    </div>
-
-    <!-- Stats Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Earn Real Money<br>with Micro-Tasks & Surveys</h1>
+      <p>Complete simple tasks, share your opinion, and get paid instantly. Join thousands of users earning $5-$50 daily!</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Active Users</div>
         </div>
-        <div class="stat-value" id="tasksCompletedCount">0</div>
-        <div class="stat-label">Tasks Completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon">
-            <i class="fas fa-poll"></i>
-          </div>
+        <div class="stat-item">
+          <div class="stat-number">$2.5M+</div>
+          <div class="stat-label">Paid Out</div>
         </div>
-        <div class="stat-value" id="surveysCompletedCount">0</div>
-        <div class="stat-label">Surveys Completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon">
-            <i class="fas fa-dollar-sign"></i>
-          </div>
+        <div class="stat-item">
+          <div class="stat-number">4.8⭐</div>
+          <div class="stat-label">User Rating</div>
         </div>
-        <div class="stat-value" id="totalEarnedDisplay">$0.00</div>
-        <div class="stat-label">Total Earned</div>
+      </div>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="window.location.href='register.html'">Start Earning Now</button>
+        <button class="btn-secondary" onclick="scrollToSection('how-it-works')">How It Works →</button>
       </div>
     </div>
+    <div class="hero-image">
+      <img src="https://via.placeholder.com/500x400/10b981/ffffff?text=TaskPay+Dashboard" alt="Dashboard Preview">
+      <div class="floating-card">
+        <i class="fas fa-dollar-sign" style="color: #10b981;"></i>
+        <span>+$12.50 earned today</span>
+      </div>
+      <div class="floating-card">
+        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+        <span>8 tasks completed</span>
+      </div>
+    </div>
+  </div>
 
-    <!-- Tasks Section -->
-    <div class="section-header">
-      <h2>⚡ Available Tasks</h2>
-      <span class="section-badge">Quick & Easy</span>
+  <!-- Features Section -->
+  <div class="features" id="features">
+    <div class="section-container">
+      <h2 class="section-title">Why Choose TaskPay?</h2>
+      <p class="section-subtitle">The easiest way to earn extra income in your free time</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Instant Payouts</h3>
+          <p>Get paid instantly to your wallet. No waiting, no minimum thresholds.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Work Anywhere</h3>
+          <p>Complete tasks from your phone or computer. Earn on the go!</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Flexible Hours</h3>
+          <p>Work whenever you want. No schedules, no commitments.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure & Trusted</h3>
+          <p>Your data is safe with us. SSL encrypted, 100% secure platform.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Support</h3>
+          <p>Our support team is always here to help you 24/7.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Daily New Tasks</h3>
+          <p>Fresh tasks and surveys added every day. Never run out!</p>
+        </div>
+      </div>
     </div>
-    <div id="tasksContainer" class="tasks-grid">
-      <!-- Dynamic tasks will be injected here -->
-    </div>
+  </div>
 
-    <!-- Surveys Section -->
-    <div class="section-header">
-      <h2>📋 Featured Surveys</h2>
-      <span class="section-badge">Share Your Opinion</span>
+  <!-- How It Works -->
+  <div class="how-it-works" id="how-it-works">
+    <div class="section-container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Start earning in 3 simple steps</p>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Create Account</h3>
+          <p>Sign up for free in under 2 minutes. No credit card required.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Complete Tasks</h3>
+          <p>Choose from hundreds of tasks and surveys. Each takes 1-5 minutes.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Get Paid</h3>
+          <p>Earn instantly to your wallet. Withdraw anytime to PayPal or bank.</p>
+        </div>
+      </div>
     </div>
-    <div id="surveysContainer" class="tasks-grid">
-      <!-- Dynamic surveys will be injected here -->
+  </div>
+
+  <!-- Testimonials -->
+  <div class="testimonials" id="testimonials">
+    <div class="section-container">
+      <h2 class="section-title">What Our Users Say</h2>
+      <p class="section-subtitle">Join 50,000+ happy earners worldwide</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <p class="testimonial-text">"TaskPay has been a game-changer! I earn an extra $200/month just during my commute. Highly recommend!"</p>
+          <div class="testimonial-name">Sarah Johnson</div>
+          <div class="testimonial-role">Student, 200+ tasks completed</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <p class="testimonial-text">"Best micro-task platform out there. Fast payouts and actually interesting tasks. Love it!"</p>
+          <div class="testimonial-name">Michael Chen</div>
+          <div class="testimonial-role">Freelancer, $1,200 earned</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <p class="testimonial-text">"Perfect for making extra cash in my free time. The surveys are engaging and pay well!"</p>
+          <div class="testimonial-name">Emily Rodriguez</div>
+          <div class="testimonial-role">Stay-at-home mom, 500+ tasks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="cta">
+    <div class="section-container">
+      <h2>Ready to Start Earning?</h2>
+      <p>Join thousands of users who are already making money with TaskPay</p>
+      <button class="btn-cta" onclick="window.location.href='register.html'">Create Free Account →</button>
     </div>
   </div>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
-      <p>© 2024 TaskPay. Earn real money with micro-tasks and surveys.</p>
-      <p style="margin-top: 0.5rem; font-size: 0.75rem;">✨ Instant payouts · Secure platform · 24/7 support</p>
+      <div class="footer-links">
+        <a href="#" onclick="scrollToSection('features')">Features</a>
+        <a href="#" onclick="scrollToSection('how-it-works')">How It Works</a>
+        <a href="#" onclick="scrollToSection('testimonials')">Testimonials</a>
+        <a href="login.html">Sign In</a>
+        <a href="register.html">Register</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p>© 2024 TaskPay. All rights reserved. Earn real money with micro-tasks and surveys.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.75rem;">✨ Instant payouts · 24/7 support · 100% free to join</p>
     </div>
   </footer>
 
   <script>
-    // Task and Survey Data
-    let tasksData = [
-      { id: "task_1", title: "Rate a mobile app icon", description: "Quick 5-second rating task. Tell us what you think!", reward: 0.35, type: "task", completed: false, timeEstimate: "30 sec" },
-      { id: "task_2", title: "Watch product preview", description: "Short 30-second ad with 1 simple question", reward: 0.50, type: "task", completed: false, timeEstimate: "1 min" },
-      { id: "task_3", title: "Share a fun fact", description: "Quick web search, share an interesting fact", reward: 0.45, type: "task", completed: false, timeEstimate: "2 min" },
-      { id: "task_4", title: "Weather screenshot", description: "Upload your local weather screenshot", reward: 0.60, type: "task", completed: false, timeEstimate: "1 min" },
-      { id: "task_5", title: "Voice feedback", description: "20-second voice clip about a new feature", reward: 0.70, type: "task", completed: false, timeEstimate: "1 min" }
-    ];
-    
-    let surveysData = [
-      { id: "survey_1", title: "Coffee Shop Habits", description: "Share your coffee preferences in 3 quick questions", reward: 0.80, type: "survey", completed: false, qCount: 3, timeEstimate: "2 min" },
-      { id: "survey_2", title: "Mobile Gaming Survey", description: "Tell us about your gaming habits", reward: 0.90, type: "survey", completed: false, qCount: 4, timeEstimate: "3 min" },
-      { id: "survey_3", title: "Streaming Services", description: "Which platforms do you use?", reward: 1.00, type: "survey", completed: false, qCount: 5, timeEstimate: "4 min" },
-      { id: "survey_4", title: "Work Tools Feedback", description: "Share your work-from-home setup", reward: 0.75, type: "survey", completed: false, qCount: 3, timeEstimate: "2 min" },
-      { id: "survey_5", title: "Snack Brand Poll", description: "Quick 2-question rating", reward: 0.65, type: "survey", completed: false, qCount: 2, timeEstimate: "1 min" }
-    ];
-    
-    // State
-    let userBalance = 0;
-    let tasksCompleted = 0;
-    let surveysCompleted = 0;
-    let totalEarned = 0;
-    let currentUser = null;
-    
-    // Auth Check
-    function checkAuth() {
-      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
-      if (isLoggedIn !== 'true') {
-        window.location.href = 'login.html';
-        return false;
-      }
-      currentUser = localStorage.getItem('taskpay_user_email') || 'User';
-      displayUserInfo();
-      return true;
-    }
-    
-    function displayUserInfo() {
-      const userName = currentUser.split('@')[0];
-      document.getElementById('userName').textContent = userName;
-      document.getElementById('userEmail').textContent = currentUser;
-      document.getElementById('userAvatar').innerHTML = userName.charAt(0).toUpperCase();
-      
-      // Greeting based on time
-      const hour = new Date().getHours();
-      let greeting = '';
-      if (hour < 12) greeting = 'Good morning';
-      else if (hour < 18) greeting = 'Good afternoon';
-      else greeting = 'Good evening';
-      
-      document.getElementById('greetingText').textContent = `${greeting}, ${userName}! 👋`;
-    }
-    
-    function logout() {
-      localStorage.removeItem('taskpay_logged_in');
-      localStorage.removeItem('taskpay_user_email');
-      window.location.href = 'login.html';
-    }
-    
-    // Load/Save Progress
-    function loadProgress() {
-      const userKey = currentUser ? currentUser.replace(/[^a-zA-Z0-9]/g, '_') : 'default';
-      
-      const storedBalance = localStorage.getItem(`taskpay_balance_${userKey}`);
-      const storedTasksComp = localStorage.getItem(`taskpay_tasks_done_${userKey}`);
-      const storedSurveysComp = localStorage.getItem(`taskpay_surveys_done_${userKey}`);
-      const storedTotalEarned = localStorage.getItem(`taskpay_total_earned_${userKey}`);
-      const completedTasksIds = localStorage.getItem(`taskpay_completed_tasks_${userKey}`) ? JSON.parse(localStorage.getItem(`taskpay_completed_tasks_${userKey}`)) : [];
-      const completedSurveysIds = localStorage.getItem(`taskpay_completed_surveys_${userKey}`) ? JSON.parse(localStorage.getItem(`taskpay_completed_surveys_${userKey}`)) : [];
-      
-      if (storedBalance) userBalance = parseFloat(storedBalance);
-      if (storedTasksComp) tasksCompleted = parseInt(storedTasksComp);
-      if (storedSurveysComp) surveysCompleted = parseInt(storedSurveysComp);
-      if (storedTotalEarned) totalEarned = parseFloat(storedTotalEarned);
-      
-      tasksData = tasksData.map(task => ({
-        ...task,
-        completed: completedTasksIds.includes(task.id)
-      }));
-      surveysData = surveysData.map(survey => ({
-        ...survey,
-        completed: completedSurveysIds.includes(survey.id)
-      }));
-      
-      updateStats();
-    }
-    
-    function saveProgress() {
-      const userKey = currentUser ? currentUser.replace(/[^a-zA-Z0-9]/g, '_') : 'default';
-      
-      const completedTaskIds = tasksData.filter(t => t.completed).map(t => t.id);
-      const completedSurveyIds = surveysData.filter(s => s.completed).map(s => s.id);
-      
-      localStorage.setItem(`taskpay_completed_tasks_${userKey}`, JSON.stringify(completedTaskIds));
-      localStorage.setItem(`taskpay_completed_surveys_${userKey}`, JSON.stringify(completedSurveyIds));
-      localStorage.setItem(`taskpay_balance_${userKey}`, userBalance.toFixed(2));
-      localStorage.setItem(`taskpay_tasks_done_${userKey}`, tasksCompleted);
-      localStorage.setItem(`taskpay_surveys_done_${userKey}`, surveysCompleted);
-      localStorage.setItem(`taskpay_total_earned_${userKey}`, totalEarned.toFixed(2));
-    }
-    
-    function updateStats() {
-      document.getElementById('tasksCompletedCount').textContent = tasksCompleted;
-      document.getElementById('surveysCompletedCount').textContent = surveysCompleted;
-      document.getElementById('totalEarnedDisplay').textContent = `$${totalEarned.toFixed(2)}`;
-    }
-    
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 2500);
-    }
-    
-    function completeTask(item, type) {
-      if (item.completed) {
-        showToast(`⏳ You already completed this ${type}!`);
-        return;
-      }
-      
-      if (type === 'survey') {
-        showSurveyModal(item);
-      } else {
-        item.completed = true;
-        userBalance += item.reward;
-        totalEarned += item.reward;
-        tasksCompleted++;
-        saveProgress();
-        updateStats();
-        renderContent();
-        showToast(`✅ ${item.title} completed! +$${item.reward.toFixed(2)}`);
+    // Smooth scroll to section
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-    
-    function showSurveyModal(survey) {
-      const modal = document.createElement('div');
-      modal.style.position = 'fixed';
-      modal.style.top = '0';
-      modal.style.left = '0';
-      modal.style.width = '100%';
-      modal.style.height = '100%';
-      modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-      modal.style.backdropFilter = 'blur(4px)';
-      modal.style.display = 'flex';
-      modal.style.alignItems = 'center';
-      modal.style.justifyContent = 'center';
-      modal.style.zIndex = '2000';
-      modal.style.padding = '1rem';
-      
-      const card = document.createElement('div');
-      card.style.backgroundColor = 'white';
-      card.style.borderRadius = '24px';
-      card.style.maxWidth = '400px';
-      card.style.width = '100%';
-      card.style.padding = '1.5rem';
-      card.style.textAlign = 'center';
-      
-      card.innerHTML = `
-        <i class="fas fa-poll" style="font-size: 48px; color: #059669; margin-bottom: 1rem;"></i>
-        <h3 style="margin-bottom: 0.5rem; color: #0f172a;">${survey.title}</h3>
-        <p style="color: #64748b; margin-bottom: 1.5rem;">${survey.description} · ${survey.qCount} questions</p>
-        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
-          <button class="survey-option" style="background: #f1f5f9; border: none; padding: 0.75rem; border-radius: 12px; cursor: pointer;">👍 Yes / Agree</button>
-          <button class="survey-option" style="background: #f1f5f9; border: none; padding: 0.75rem; border-radius: 12px; cursor: pointer;">🤔 Neutral</button>
-          <button class="survey-option" style="background: #f1f5f9; border: none; padding: 0.75rem; border-radius: 12px; cursor: pointer;">👎 Not really</button>
-        </div>
-        <button id="cancelSurvey" style="background: none; border: none; color: #94a3b8; cursor: pointer;">Cancel</button>
-      `;
-      
-      modal.appendChild(card);
-      document.body.appendChild(modal);
-      
-      const options = card.querySelectorAll('.survey-option');
-      options.forEach(btn => {
-        btn.onclick = () => {
-          survey.completed = true;
-          userBalance += survey.reward;
-          totalEarned += survey.reward;
-          surveysCompleted++;
-          saveProgress();
-          updateStats();
-          renderContent();
-          showToast(`📊 ${survey.title} completed! +$${survey.reward.toFixed(2)}`);
-          modal.remove();
-        };
+
+    // Add animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
       });
-      
-      document.getElementById('cancelSurvey').onclick = () => {
-        modal.remove();
-        showToast('Survey cancelled');
-      };
-    }
-    
-    function renderContent() {
-      const tasksContainer = document.getElementById('tasksContainer');
-      const surveysContainer = document.getElementById('surveysContainer');
-      
-      // Render Tasks
-      if (tasksData.filter(t => !t.completed).length === 0 && tasksData.length > 0) {
-        tasksContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="fas fa-check-circle"></i>
-            <p>Great job! You've completed all tasks. New ones coming soon! 🎉</p>
-          </div>
-        `;
-      } else {
-        tasksContainer.innerHTML = tasksData.map(task => `
-          <div class="task-card">
-            <div class="task-type-badge task">
-              <i class="fas fa-bolt"></i> Task
-            </div>
-            <h3 class="task-title">${task.title}</h3>
-            <p class="task-description">${task.description}</p>
-            <div class="task-footer">
-              <div class="task-reward">
-                <i class="fas fa-dollar-sign"></i>
-                ${task.reward.toFixed(2)}
-              </div>
-              ${task.completed ? 
-                '<div class="completed-badge"><i class="fas fa-check"></i> Completed</div>' : 
-                `<button class="btn-start" data-id="${task.id}" data-type="task"><i class="fas fa-play"></i> Start Task</button>`
-              }
-            </div>
-          </div>
-        `).join('');
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Animate stats numbers on load
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+      const target = stat.textContent;
+      if (target.includes('K+')) {
+        const value = parseInt(target);
+        let current = 0;
+        const increment = value / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= value) {
+            stat.textContent = target;
+            clearInterval(timer);
+          } else {
+            stat.textContent = Math.floor(current) + 'K+';
+          }
+        }, 20);
+      } else if (target.includes('M+')) {
+        const value = parseFloat(target) * 1000000;
+        let current = 0;
+        const increment = value / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= value) {
+            stat.textContent = target;
+            clearInterval(timer);
+          } else {
+            stat.textContent = '$' + (current / 1000000).toFixed(1) + 'M+';
+          }
+        }, 20);
       }
-      
-      // Render Surveys
-      if (surveysData.filter(s => !s.completed).length === 0 && surveysData.length > 0) {
-        surveysContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="fas fa-trophy"></i>
-            <p>Amazing! All surveys completed. Check back tomorrow! 🌟</p>
-          </div>
-        `;
-      } else {
-        surveysContainer.innerHTML = surveysData.map(survey => `
-          <div class="task-card">
-            <div class="task-type-badge survey">
-              <i class="fas fa-poll"></i> Survey
-            </div>
-            <h3 class="task-title">${survey.title}</h3>
-            <p class="task-description">${survey.description} · ${survey.qCount} questions · ${survey.timeEstimate}</p>
-            <div class="task-footer">
-              <div class="task-reward">
-                <i class="fas fa-dollar-sign"></i>
-                ${survey.reward.toFixed(2)}
-              </div>
-              ${survey.completed ? 
-                '<div class="completed-badge"><i class="fas fa-check"></i> Completed</div>' : 
-                `<button class="btn-start" data-id="${survey.id}" data-type="survey"><i class="fas fa-play"></i> Take Survey</button>`
-              }
-            </div>
-          </div>
-        `).join('');
-      }
-      
-      // Add event listeners to buttons
-      document.querySelectorAll('.btn-start').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const id = btn.dataset.id;
-          const type = btn.dataset.type;
-          const item = type === 'task' ? tasksData.find(t => t.id === id) : surveysData.find(s => s.id === id);
-          completeTask(item, type);
-        });
-      });
-    }
-    
-    // Initialize
-    if (checkAuth()) {
-      loadProgress();
-      renderContent();
-      document.getElementById('logoutBtn').addEventListener('click', logout);
-    }
+    });
+
+    // Add floating animation delay
+    const floatingCards = document.querySelectorAll('.floating-card');
+    floatingCards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.5}s`;
+    });
+
+    // Make functions global
+    window.scrollToSection = scrollToSection;
   </script>
 </body>
 </html>
