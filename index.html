@@ -575,7 +575,7 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo" onclick="window.location.href='index.html'">
+      <div class="logo" onclick="goToPage('index.html')">
         <div class="logo-icon">
           <i class="fas fa-tasks"></i>
         </div>
@@ -590,7 +590,7 @@
       <h1>Earn Real Money<br>with Micro-Tasks & Surveys</h1>
       <p>Complete simple tasks, share your opinion, and get paid instantly. Join thousands of users earning daily!</p>
       <div class="hero-buttons">
-        <button class="btn-primary" onclick="window.location.href='login.html'">Start Earning Now</button>
+        <button class="btn-primary" id="startEarningBtn">Start Earning Now</button>
         <button class="btn-secondary" onclick="scrollToSection('how-it-works')">How It Works →</button>
       </div>
     </div>
@@ -678,7 +678,7 @@
     <div class="section-container">
       <h2>Ready to Start Earning?</h2>
       <p>Join thousands of users who are already making money with TaskPay</p>
-      <button class="btn-cta" onclick="window.location.href='login.html'">Create Free Account →</button>
+      <button class="btn-cta" id="createAccountBtn">Create Free Account →</button>
     </div>
   </div>
 
@@ -691,7 +691,13 @@
   </footer>
 
   <script>
-    // Navigation function
+    // Universal navigation function
+    function goToPage(url) {
+      console.log('Navigating to:', url);
+      window.location.href = url;
+    }
+
+    // Navigation function for sidebar
     function navigateTo(page) {
       const pages = {
         'tasks': 'tasks.html',
@@ -750,17 +756,34 @@
       setTimeout(() => toast.remove(), 2500);
     }
 
-    // Event Listeners
-    document.getElementById('closeMenu').addEventListener('click', closeMenu);
-    document.getElementById('sidebarOverlay').addEventListener('click', closeMenu);
+    // Event Listeners for buttons
+    document.getElementById('startEarningBtn')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Start Earning button clicked - redirecting to login.html');
+      window.location.href = 'login.html';
+    });
+
+    document.getElementById('createAccountBtn')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Create Account button clicked - redirecting to login.html');
+      window.location.href = 'login.html';
+    });
+
+    // Sidebar close listeners
+    document.getElementById('closeMenu')?.addEventListener('click', closeMenu);
+    document.getElementById('sidebarOverlay')?.addEventListener('click', closeMenu);
 
     // Close menu when clicking a menu item
     document.querySelectorAll('.sidebar-item').forEach(item => {
       item.addEventListener('click', closeMenu);
     });
 
+    // Make functions globally available
     window.navigateTo = navigateTo;
     window.scrollToSection = scrollToSection;
+    window.goToPage = goToPage;
+    
+    console.log('Page loaded. Buttons should work now.');
   </script>
 </body>
 </html>
