@@ -53,7 +53,7 @@
       margin: 0 auto;
       padding: 0.8rem 1rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
     }
 
@@ -87,30 +87,6 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .btn-login {
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: white;
-      border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      white-space: nowrap;
-    }
-
-    .btn-login:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
     }
 
     /* Mobile Sidebar Menu */
@@ -604,9 +580,6 @@
           <i class="fas fa-tasks"></i>
         </div>
         <span class="logo-text">TaskPay</span>
-      </div>
-      <div class="nav-links">
-        <button class="btn-login" onclick="window.location.href='login.html'">Sign In</button>
       </div>
     </div>
   </nav>
