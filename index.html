@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
   <title>TaskPay · Earn Money with Micro-Tasks & Surveys</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -19,11 +19,12 @@
       color: #0f172a;
       line-height: 1.5;
       overflow-x: hidden;
+      width: 100%;
     }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -35,10 +36,6 @@
       border-radius: 4px;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #059669;
-    }
-
     /* Navigation Bar */
     .navbar {
       background: rgba(255, 255, 255, 0.95);
@@ -47,24 +44,14 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      animation: slideDown 0.5s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      width: 100%;
     }
 
     .nav-container {
       max-width: 1280px;
+      width: 100%;
       margin: 0 auto;
-      padding: 1rem 2rem;
+      padding: 0.8rem 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -73,42 +60,28 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
+      flex-shrink: 0;
     }
 
     .logo-icon {
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       background: linear-gradient(135deg, #059669, #10b981);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
-      }
-      50% {
-        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-      }
     }
 
     .logo-icon i {
       color: white;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .logo-text {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: 800;
       background: linear-gradient(135deg, #065f46, #059669);
       background-clip: text;
@@ -119,80 +92,52 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 0.8rem;
     }
 
     .nav-link {
       text-decoration: none;
       color: #475569;
       font-weight: 500;
+      font-size: 0.9rem;
       transition: all 0.3s;
-      position: relative;
-    }
-
-    .nav-link:after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(135deg, #059669, #10b981);
-      transition: width 0.3s;
-    }
-
-    .nav-link:hover:after {
-      width: 100%;
-    }
-
-    .nav-link:hover {
-      color: #059669;
+      white-space: nowrap;
     }
 
     .btn-login {
       background: linear-gradient(135deg, #059669, #10b981);
       color: white;
       border: none;
-      padding: 0.6rem 1.5rem;
+      padding: 0.5rem 1rem;
       border-radius: 40px;
       font-weight: 600;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.3s;
-    }
-
-    .btn-login:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
     }
 
     /* Hero Section */
     .hero {
       max-width: 1280px;
+      width: 100%;
       margin: 0 auto;
-      padding: 4rem 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      animation: fadeInUp 0.8s ease;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .hero-content {
+      text-align: center;
+      width: 100%;
     }
 
     .hero-content h1 {
-      font-size: 3.5rem;
+      font-size: 2rem;
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
       background: linear-gradient(135deg, #065f46, #059669, #10b981);
       background-clip: text;
       -webkit-background-clip: text;
@@ -200,206 +145,178 @@
     }
 
     .hero-content p {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #475569;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      padding: 0 0.5rem;
     }
 
     .hero-stats {
       display: flex;
-      gap: 2rem;
-      margin-bottom: 2rem;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .stat-item {
       text-align: center;
+      flex: 1;
+      min-width: 80px;
     }
 
     .stat-number {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: #059669;
     }
 
     .stat-label {
-      font-size: 0.875rem;
+      font-size: 0.7rem;
       color: #64748b;
     }
 
     .hero-buttons {
       display: flex;
-      gap: 1rem;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: center;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, #059669, #10b981);
       color: white;
       border: none;
-      padding: 0.8rem 2rem;
+      padding: 0.8rem 1.5rem;
       border-radius: 40px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.3s;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+      width: 100%;
+      max-width: 280px;
     }
 
     .btn-secondary {
       background: white;
       color: #059669;
       border: 2px solid #059669;
-      padding: 0.8rem 2rem;
+      padding: 0.8rem 1.5rem;
       border-radius: 40px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.3s;
-    }
-
-    .btn-secondary:hover {
-      background: #059669;
-      color: white;
-      transform: translateY(-2px);
+      width: 100%;
+      max-width: 280px;
     }
 
     .hero-image {
       position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
     }
 
     .hero-image img {
       width: 100%;
-      border-radius: 24px;
+      height: auto;
+      border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-    }
-
-    .hero-image:hover img {
-      transform: scale(1.02);
     }
 
     .floating-card {
-      position: absolute;
-      background: white;
-      padding: 0.8rem 1.2rem;
-      border-radius: 50px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .floating-card:nth-child(1) {
-      top: 10%;
-      left: -10%;
-    }
-
-    .floating-card:nth-child(2) {
-      bottom: 20%;
-      right: -10%;
-      animation-delay: 1s;
+      display: none;
     }
 
     /* Features Section */
     .features {
       background: white;
-      padding: 5rem 2rem;
+      padding: 3rem 1rem;
+      width: 100%;
     }
 
     .section-container {
       max-width: 1280px;
+      width: 100%;
       margin: 0 auto;
     }
 
     .section-title {
       text-align: center;
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       font-weight: 800;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #0f172a, #334155);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+      margin-bottom: 0.8rem;
+      padding: 0 1rem;
     }
 
     .section-subtitle {
       text-align: center;
       color: #64748b;
-      margin-bottom: 3rem;
-      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      padding: 0 1rem;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      padding: 0 1rem;
     }
 
     .feature-card {
       background: #f8fafc;
-      border-radius: 24px;
-      padding: 2rem;
+      border-radius: 20px;
+      padding: 1.5rem;
       text-align: center;
       transition: all 0.4s;
       border: 1px solid #e2e8f0;
     }
 
-    .feature-card:hover {
-      transform: translateY(-8px);
-      border-color: #10b981;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    }
-
     .feature-icon {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       background: linear-gradient(135deg, #059669, #10b981);
-      border-radius: 20px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.5rem;
+      margin: 0 auto 1rem;
     }
 
     .feature-icon i {
-      font-size: 32px;
+      font-size: 28px;
       color: white;
     }
 
     .feature-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
     }
 
     .feature-card p {
       color: #64748b;
+      font-size: 0.9rem;
     }
 
     /* How It Works */
     .how-it-works {
-      padding: 5rem 2rem;
+      padding: 3rem 1rem;
       background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      width: 100%;
     }
 
     .steps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
 
     .step {
       text-align: center;
-      position: relative;
+      padding: 1rem;
     }
 
     .step-number {
@@ -411,47 +328,45 @@
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
       margin: 0 auto 1rem;
     }
 
     .step h3 {
+      font-size: 1.1rem;
       margin-bottom: 0.5rem;
     }
 
     .step p {
       color: #64748b;
+      font-size: 0.9rem;
     }
 
     /* Testimonials */
     .testimonials {
-      padding: 5rem 2rem;
+      padding: 3rem 1rem;
       background: white;
+      width: 100%;
     }
 
     .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      padding: 0 1rem;
     }
 
     .testimonial-card {
       background: #f8fafc;
-      border-radius: 24px;
-      padding: 2rem;
+      border-radius: 20px;
+      padding: 1.5rem;
       border: 1px solid #e2e8f0;
-      transition: all 0.3s;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
     .testimonial-avatar {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       background: linear-gradient(135deg, #059669, #10b981);
       border-radius: 50%;
       display: flex;
@@ -461,7 +376,7 @@
     }
 
     .testimonial-avatar i {
-      font-size: 28px;
+      font-size: 24px;
       color: white;
     }
 
@@ -469,146 +384,221 @@
       font-style: italic;
       margin-bottom: 1rem;
       color: #334155;
+      font-size: 0.9rem;
     }
 
     .testimonial-name {
       font-weight: 700;
       color: #0f172a;
+      font-size: 0.9rem;
     }
 
     .testimonial-role {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: #64748b;
     }
 
     /* CTA Section */
     .cta {
       background: linear-gradient(135deg, #065f46, #059669);
-      padding: 4rem 2rem;
+      padding: 3rem 1rem;
       text-align: center;
       color: white;
+      width: 100%;
     }
 
     .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      padding: 0 1rem;
     }
 
     .cta p {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       opacity: 0.9;
+      font-size: 0.9rem;
+      padding: 0 1rem;
     }
 
     .btn-cta {
       background: white;
       color: #059669;
       border: none;
-      padding: 1rem 2.5rem;
+      padding: 0.8rem 2rem;
       border-radius: 50px;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s;
-    }
-
-    .btn-cta:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     /* Footer */
     .footer {
       background: #0f172a;
       color: #94a3b8;
-      padding: 3rem 2rem;
+      padding: 2rem 1rem;
       text-align: center;
-    }
-
-    .footer-content {
-      max-width: 1280px;
-      margin: 0 auto;
+      width: 100%;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
     }
 
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
+      font-size: 0.8rem;
       transition: color 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: #10b981;
     }
 
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .social-links a {
       color: #94a3b8;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       transition: all 0.3s;
     }
 
-    .social-links a:hover {
-      color: #10b981;
-      transform: translateY(-3px);
+    .footer p {
+      font-size: 0.75rem;
     }
 
-    /* Responsive */
-    @media (max-width: 968px) {
+    /* Tablet & Desktop */
+    @media (min-width: 768px) {
+      .nav-container {
+        padding: 1rem 2rem;
+      }
+      
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .logo-text {
+        font-size: 1.4rem;
+      }
+      
       .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
+        padding: 4rem 2rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+      }
+      
+      .hero-content {
+        text-align: left;
+        flex: 1;
       }
       
       .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.1rem;
+        padding: 0;
       }
       
       .hero-stats {
-        justify-content: center;
+        justify-content: flex-start;
       }
       
       .hero-buttons {
-        justify-content: center;
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+      
+      .btn-primary, .btn-secondary {
+        width: auto;
+        max-width: none;
+      }
+      
+      .hero-image {
+        flex: 1;
+        max-width: 500px;
       }
       
       .floating-card {
-        display: none;
+        display: flex;
+        position: absolute;
+        background: white;
+        padding: 0.6rem 1rem;
+        border-radius: 40px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        animation: float 3s ease-in-out infinite;
+      }
+      
+      .floating-card:nth-child(1) {
+        top: 5%;
+        left: -15%;
+      }
+      
+      .floating-card:nth-child(2) {
+        bottom: 15%;
+        right: -15%;
+        animation-delay: 1s;
+      }
+      
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+      
+      .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
       }
       
       .section-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1rem;
       }
     }
 
-    @media (max-width: 768px) {
-      .nav-container {
-        padding: 1rem;
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
       
-      .nav-links {
-        gap: 1rem;
+      .hero-content h1 {
+        font-size: 3.5rem;
       }
-      
-      .hero {
-        padding: 2rem 1rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
-      
-      .features-grid, .steps-grid, .testimonials-grid {
-        grid-template-columns: 1fr;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   </style>
@@ -626,7 +616,6 @@
       <div class="nav-links">
         <a href="#" class="nav-link" onclick="scrollToSection('features')">Features</a>
         <a href="#" class="nav-link" onclick="scrollToSection('how-it-works')">How It Works</a>
-        <a href="#" class="nav-link" onclick="scrollToSection('testimonials')">Testimonials</a>
         <button class="btn-login" onclick="window.location.href='login.html'">Sign In</button>
       </div>
     </div>
@@ -798,8 +787,8 @@
         <a href="#" onclick="scrollToSection('testimonials')">Testimonials</a>
         <a href="login.html">Sign In</a>
         <a href="register.html">Register</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
       </div>
       <div class="social-links">
         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -807,8 +796,8 @@
         <a href="#"><i class="fab fa-instagram"></i></a>
         <a href="#"><i class="fab fa-linkedin"></i></a>
       </div>
-      <p>© 2024 TaskPay. All rights reserved. Earn real money with micro-tasks and surveys.</p>
-      <p style="margin-top: 0.5rem; font-size: 0.75rem;">✨ Instant payouts · 24/7 support · 100% free to join</p>
+      <p>© 2024 TaskPay. All rights reserved.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.7rem;">✨ Instant payouts · 24/7 support · 100% free to join</p>
     </div>
   </footer>
 
@@ -821,68 +810,36 @@
       }
     }
 
-    // Add animation on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Add animation on scroll (for desktop only to save performance)
+    if (window.innerWidth > 768) {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
       });
-    }, observerOptions);
+    } else {
+      // On mobile, just show all elements
+      document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
+    }
 
-    document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'all 0.6s ease';
-      observer.observe(el);
-    });
-
-    // Animate stats numbers on load
-    const statNumbers = document.querySelectorAll('.stat-number');
-    statNumbers.forEach(stat => {
-      const target = stat.textContent;
-      if (target.includes('K+')) {
-        const value = parseInt(target);
-        let current = 0;
-        const increment = value / 50;
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= value) {
-            stat.textContent = target;
-            clearInterval(timer);
-          } else {
-            stat.textContent = Math.floor(current) + 'K+';
-          }
-        }, 20);
-      } else if (target.includes('M+')) {
-        const value = parseFloat(target) * 1000000;
-        let current = 0;
-        const increment = value / 50;
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= value) {
-            stat.textContent = target;
-            clearInterval(timer);
-          } else {
-            stat.textContent = '$' + (current / 1000000).toFixed(1) + 'M+';
-          }
-        }, 20);
-      }
-    });
-
-    // Add floating animation delay
-    const floatingCards = document.querySelectorAll('.floating-card');
-    floatingCards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.5}s`;
-    });
-
-    // Make functions global
     window.scrollToSection = scrollToSection;
   </script>
 </body>
