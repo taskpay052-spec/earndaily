@@ -60,32 +60,9 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
       flex-shrink: 0;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-      background: none;
-      border: none;
-      transition: all 0.3s;
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: #1e293b;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .hamburger:hover span {
-      background: #059669;
     }
 
     .logo-icon {
@@ -236,14 +213,15 @@
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      align-items: center;
+      text-align: center;
     }
 
     .hero-content {
-      text-align: center;
+      max-width: 800px;
       width: 100%;
     }
 
@@ -262,7 +240,6 @@
       font-size: 1rem;
       color: #475569;
       margin-bottom: 2rem;
-      padding: 0 0.5rem;
     }
 
     .hero-buttons {
@@ -270,6 +247,7 @@
       flex-direction: column;
       gap: 0.8rem;
       align-items: center;
+      justify-content: center;
     }
 
     .btn-primary {
@@ -309,24 +287,6 @@
       background: #059669;
       color: white;
       transform: translateY(-2px);
-    }
-
-    .hero-image {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .floating-card {
-      display: none;
     }
 
     /* Features Section */
@@ -516,10 +476,6 @@
         padding: 1rem 2rem;
       }
       
-      .hamburger {
-        display: none;
-      }
-      
       .logo-icon {
         width: 36px;
         height: 36px;
@@ -531,14 +487,6 @@
       
       .hero {
         padding: 5rem 2rem;
-        flex-direction: row;
-        align-items: center;
-        gap: 4rem;
-      }
-      
-      .hero-content {
-        text-align: left;
-        flex: 1;
       }
       
       .hero-content h1 {
@@ -547,46 +495,16 @@
       
       .hero-content p {
         font-size: 1.1rem;
-        padding: 0;
       }
       
       .hero-buttons {
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: center;
       }
       
       .btn-primary, .btn-secondary {
         width: auto;
         max-width: none;
-      }
-      
-      .hero-image {
-        flex: 1;
-        max-width: 500px;
-      }
-      
-      .floating-card {
-        display: flex;
-        position: absolute;
-        background: white;
-        padding: 0.6rem 1rem;
-        border-radius: 40px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        align-items: center;
-        gap: 8px;
-        font-size: 0.8rem;
-        animation: float 3s ease-in-out infinite;
-      }
-      
-      .floating-card:nth-child(1) {
-        top: 5%;
-        left: -15%;
-      }
-      
-      .floating-card:nth-child(2) {
-        bottom: 15%;
-        right: -15%;
-        animation-delay: 1s;
       }
       
       .features-grid {
@@ -615,14 +533,6 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      
-      .hamburger {
-        display: flex;
-      }
-      
       .hero {
         padding: 2rem 1rem;
       }
@@ -634,11 +544,6 @@
       .section-title {
         font-size: 1.6rem;
       }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
     }
   </style>
 </head>
@@ -695,11 +600,6 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo" onclick="window.location.href='index.html'">
-        <button class="hamburger" id="hamburgerBtn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
         <div class="logo-icon">
           <i class="fas fa-tasks"></i>
         </div>
@@ -719,17 +619,6 @@
       <div class="hero-buttons">
         <button class="btn-primary" onclick="window.location.href='register.html'">Start Earning Now</button>
         <button class="btn-secondary" onclick="scrollToSection('how-it-works')">How It Works →</button>
-      </div>
-    </div>
-    <div class="hero-image">
-      <img src="https://via.placeholder.com/500x400/10b981/ffffff?text=TaskPay+Dashboard" alt="TaskPay Dashboard Preview">
-      <div class="floating-card">
-        <i class="fas fa-dollar-sign" style="color: #10b981;"></i>
-        <span>+$12.50 earned today</span>
-      </div>
-      <div class="floating-card">
-        <i class="fas fa-check-circle" style="color: #10b981;"></i>
-        <span>8 tasks completed</span>
       </div>
     </div>
   </div>
@@ -889,7 +778,6 @@
     }
 
     // Event Listeners
-    document.getElementById('hamburgerBtn').addEventListener('click', openMenu);
     document.getElementById('closeMenu').addEventListener('click', closeMenu);
     document.getElementById('sidebarOverlay').addEventListener('click', closeMenu);
 
