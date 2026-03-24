@@ -243,16 +243,28 @@
       }
     }
 
-    /* Top Bar - New Layout */
+    /* Top Bar - Dashboard Title Above Icons */
     .top-bar {
       margin-bottom: 2rem;
     }
 
-    .top-row {
+    .dashboard-title {
+      margin-bottom: 1rem;
+    }
+
+    .dashboard-title h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .icons-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
     }
 
     .menu-toggle-btn {
@@ -406,20 +418,6 @@
 
     .profile-menu-item:hover {
       background: var(--bg-primary);
-    }
-
-    /* Dashboard Title */
-    .dashboard-title {
-      margin-bottom: 1.5rem;
-    }
-
-    .dashboard-title h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #10b981, #059669);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
     }
 
     /* Stats Cards - Horizontal Row */
@@ -765,9 +763,12 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <!-- Top Bar - Icons in top row -->
+    <!-- Top Bar - Dashboard Title Above Icons -->
     <div class="top-bar">
-      <div class="top-row">
+      <div class="dashboard-title">
+        <h1>Dashboard</h1>
+      </div>
+      <div class="icons-row">
         <button class="menu-toggle-btn" id="menuToggle">
           <i class="fas fa-bars"></i>
         </button>
@@ -825,11 +826,6 @@
             </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Dashboard Title Below Icons -->
-      <div class="dashboard-title">
-        <h1>Dashboard</h1>
       </div>
     </div>
 
