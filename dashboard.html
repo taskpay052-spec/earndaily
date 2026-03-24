@@ -245,16 +245,14 @@
 
     /* Top Bar - New Layout */
     .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 2rem;
     }
 
-    .left-section {
+    .top-row {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      margin-bottom: 1rem;
     }
 
     .menu-toggle-btn {
@@ -273,15 +271,6 @@
 
     .menu-toggle-btn:hover {
       background: var(--border-color);
-    }
-
-    .page-title h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #10b981, #059669);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
     }
 
     .user-actions {
@@ -417,6 +406,20 @@
 
     .profile-menu-item:hover {
       background: var(--bg-primary);
+    }
+
+    /* Dashboard Title */
+    .dashboard-title {
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-title h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     /* Stats Cards - Horizontal Row */
@@ -762,69 +765,71 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <!-- Top Bar - New Layout -->
+    <!-- Top Bar - Icons in top row -->
     <div class="top-bar">
-      <div class="left-section">
+      <div class="top-row">
         <button class="menu-toggle-btn" id="menuToggle">
           <i class="fas fa-bars"></i>
         </button>
-        <div class="page-title">
-          <h1>Dashboard</h1>
+        <div class="user-actions">
+          <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          
+          <div class="dropdown">
+            <div class="dropdown-trigger notification-bell">
+              <i class="far fa-bell"></i>
+              <span class="notification-badge" id="notificationCount">3</span>
+            </div>
+            <div class="dropdown-menu" id="notificationMenu">
+              <div class="notification-item">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                <strong>Task completed!</strong>
+                <p style="font-size: 11px; margin-top: 4px;">You earned $0.50 from "Rate Mobile App"</p>
+              </div>
+              <div class="notification-item">
+                <i class="fas fa-poll" style="color: #3b82f6;"></i>
+                <strong>New survey available</strong>
+                <p style="font-size: 11px; margin-top: 4px;">Complete for $1.00</p>
+              </div>
+              <div class="notification-item">
+                <i class="fas fa-fire" style="color: #f59e0b;"></i>
+                <strong>7-day streak!</strong>
+                <p style="font-size: 11px; margin-top: 4px;">Keep it up for bonus rewards</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <div class="dropdown-trigger user-card">
+              <div class="user-avatar" id="userAvatar">U</div>
+              <div class="user-info">
+                <h4 id="userName">Loading...</h4>
+                <p id="userEmail">user@example.com</p>
+              </div>
+              <i class="fas fa-chevron-down" style="color: var(--text-secondary); font-size: 0.7rem;"></i>
+            </div>
+            <div class="dropdown-menu profile-menu" id="profileMenu">
+              <div class="profile-menu-item" data-action="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile Settings</span>
+              </div>
+              <div class="profile-menu-item" data-action="settings">
+                <i class="fas fa-cog"></i>
+                <span>Account Settings</span>
+              </div>
+              <div class="profile-menu-item" data-action="logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="user-actions">
-        <button class="theme-toggle" id="themeToggle">
-          <i class="fas fa-moon"></i>
-        </button>
-        
-        <div class="dropdown">
-          <div class="dropdown-trigger notification-bell">
-            <i class="far fa-bell"></i>
-            <span class="notification-badge" id="notificationCount">3</span>
-          </div>
-          <div class="dropdown-menu" id="notificationMenu">
-            <div class="notification-item">
-              <i class="fas fa-check-circle" style="color: #10b981;"></i>
-              <strong>Task completed!</strong>
-              <p style="font-size: 11px; margin-top: 4px;">You earned $0.50 from "Rate Mobile App"</p>
-            </div>
-            <div class="notification-item">
-              <i class="fas fa-poll" style="color: #3b82f6;"></i>
-              <strong>New survey available</strong>
-              <p style="font-size: 11px; margin-top: 4px;">Complete for $1.00</p>
-            </div>
-            <div class="notification-item">
-              <i class="fas fa-fire" style="color: #f59e0b;"></i>
-              <strong>7-day streak!</strong>
-              <p style="font-size: 11px; margin-top: 4px;">Keep it up for bonus rewards</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <div class="dropdown-trigger user-card">
-            <div class="user-avatar" id="userAvatar">U</div>
-            <div class="user-info">
-              <h4 id="userName">Loading...</h4>
-              <p id="userEmail">user@example.com</p>
-            </div>
-            <i class="fas fa-chevron-down" style="color: var(--text-secondary); font-size: 0.7rem;"></i>
-          </div>
-          <div class="dropdown-menu profile-menu" id="profileMenu">
-            <div class="profile-menu-item" data-action="profile">
-              <i class="fas fa-user"></i>
-              <span>Profile Settings</span>
-            </div>
-            <div class="profile-menu-item" data-action="settings">
-              <i class="fas fa-cog"></i>
-              <span>Account Settings</span>
-            </div>
-            <div class="profile-menu-item" data-action="logout">
-              <i class="fas fa-sign-out-alt"></i>
-              <span>Logout</span>
-            </div>
-          </div>
-        </div>
+      
+      <!-- Dashboard Title Below Icons -->
+      <div class="dashboard-title">
+        <h1>Dashboard</h1>
       </div>
     </div>
 
