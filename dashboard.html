@@ -15,7 +15,6 @@
     }
 
     :root {
-      /* Light mode */
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
       --sidebar-bg: #0f172a;
@@ -113,19 +112,15 @@
       .sidebar {
         transform: translateX(-100%);
       }
-      
       .sidebar.mobile-open {
         transform: translateX(0);
       }
-      
       .sidebar.sidebar-hidden {
         transform: translateX(-100%);
       }
-      
       .sidebar.collapsed {
         width: 280px;
       }
-      
       .sidebar.collapsed .logo-text,
       .sidebar.collapsed .logo-badge,
       .sidebar.collapsed .nav-item span,
@@ -226,34 +221,6 @@
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
-    [data-tooltip] {
-      position: relative;
-    }
-
-    [data-tooltip]:before {
-      content: attr(data-tooltip);
-      position: absolute;
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #1f2937;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.2s;
-      margin-left: 12px;
-    }
-
-    .sidebar.collapsed .nav-item:hover[data-tooltip]:before {
-      opacity: 1;
-      visibility: visible;
-    }
-
     .main-content {
       margin-left: 280px;
       padding: 1.5rem;
@@ -276,32 +243,18 @@
       }
     }
 
-    /* Top Bar - Mobile Optimized */
+    /* Top Bar - New Layout */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    @media (max-width: 768px) {
-      .top-bar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .top-bar > div:first-child {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-      }
-      
-      .user-section {
-        justify-content: flex-end;
-        width: 100%;
-      }
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .menu-toggle-btn {
@@ -323,7 +276,7 @@
     }
 
     .page-title h1 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 800;
       background: linear-gradient(135deg, #10b981, #059669);
       background-clip: text;
@@ -331,29 +284,28 @@
       color: transparent;
     }
 
-    @media (max-width: 768px) {
-      .page-title h1 {
-        font-size: 1.3rem;
-      }
-      
-      .page-title p {
-        font-size: 0.75rem;
-      }
-    }
-
-    .page-title p {
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      margin-top: 4px;
-    }
-
-    .user-section {
+    .user-actions {
       display: flex;
       align-items: center;
       gap: 0.8rem;
     }
 
-    /* Dropdown Styles */
+    .theme-toggle {
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+    }
+
     .dropdown {
       position: relative;
     }
@@ -361,35 +313,64 @@
     .dropdown-trigger {
       cursor: pointer;
       background: var(--bg-secondary);
-      padding: 0.4rem;
-      border-radius: 12px;
+      padding: 0.5rem;
+      border-radius: 10px;
       transition: all 0.2s;
       border: 1px solid var(--border-color);
-    }
-
-    @media (max-width: 768px) {
-      .dropdown-trigger.user-card {
-        padding: 0.3rem 0.8rem;
-      }
-      
-      .user-info h4 {
-        font-size: 0.8rem;
-      }
-      
-      .user-info p {
-        font-size: 0.65rem;
-      }
-      
-      .user-avatar {
-        width: 32px;
-        height: 32px;
-        font-size: 0.8rem;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
 
     .dropdown-trigger:hover {
       transform: translateY(-2px);
       box-shadow: var(--card-shadow);
+    }
+
+    .notification-bell {
+      position: relative;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ef4444;
+      color: white;
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 10px;
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.4rem 0.8rem;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .user-info h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .user-info p {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
     }
 
     .dropdown-menu {
@@ -409,21 +390,6 @@
       border: 1px solid var(--border-color);
     }
 
-    @media (max-width: 768px) {
-      .dropdown-menu {
-        min-width: 220px;
-        right: -10px;
-      }
-      
-      .notification-item {
-        padding: 0.8rem;
-      }
-      
-      .notification-item strong {
-        font-size: 0.85rem;
-      }
-    }
-
     .dropdown-menu.show {
       opacity: 1;
       visibility: visible;
@@ -440,10 +406,6 @@
       background: var(--bg-primary);
     }
 
-    .profile-menu {
-      min-width: 180px;
-    }
-
     .profile-menu-item {
       padding: 0.7rem 1rem;
       display: flex;
@@ -453,12 +415,16 @@
       transition: background 0.2s;
     }
 
-    /* Stats Cards - Mobile Grid */
+    .profile-menu-item:hover {
+      background: var(--bg-primary);
+    }
+
+    /* Stats Cards - Horizontal Row */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     @media (max-width: 1024px) {
@@ -470,7 +436,6 @@
     @media (max-width: 640px) {
       .stats-grid {
         grid-template-columns: 1fr;
-        gap: 0.8rem;
       }
     }
 
@@ -483,25 +448,6 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
-    }
-
-    @media (max-width: 768px) {
-      .stat-card {
-        padding: 0.9rem;
-      }
-      
-      .stat-value {
-        font-size: 1.5rem;
-      }
-      
-      .stat-icon {
-        width: 40px;
-        height: 40px;
-      }
-      
-      .stat-icon i {
-        font-size: 1.2rem !important;
-      }
     }
 
     .stat-card:hover {
@@ -560,7 +506,7 @@
       gap: 4px;
     }
 
-    /* Charts Section - Mobile */
+    /* Charts Section */
     .charts-section {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -571,7 +517,6 @@
     @media (max-width: 768px) {
       .charts-section {
         grid-template-columns: 1fr;
-        gap: 1rem;
       }
     }
 
@@ -581,21 +526,6 @@
       padding: 1rem;
       box-shadow: var(--card-shadow);
       transition: all 0.3s;
-    }
-
-    @media (max-width: 768px) {
-      .chart-card {
-        padding: 0.8rem;
-      }
-      
-      .chart-header h3 {
-        font-size: 0.9rem;
-      }
-      
-      .filter-btn {
-        padding: 0.2rem 0.6rem;
-        font-size: 0.7rem;
-      }
     }
 
     .chart-card:hover {
@@ -644,13 +574,7 @@
       width: 100% !important;
     }
 
-    @media (max-width: 768px) {
-      canvas {
-        max-height: 180px;
-      }
-    }
-
-    /* Activities Section - Mobile */
+    /* Activities Section */
     .activities-section {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -661,7 +585,6 @@
     @media (max-width: 768px) {
       .activities-section {
         grid-template-columns: 1fr;
-        gap: 1rem;
       }
     }
 
@@ -671,16 +594,6 @@
       padding: 1rem;
       box-shadow: var(--card-shadow);
       transition: all 0.3s;
-    }
-
-    @media (max-width: 768px) {
-      .activity-card {
-        padding: 0.9rem;
-      }
-      
-      .activity-header h3 {
-        font-size: 0.95rem;
-      }
     }
 
     .activity-card:hover {
@@ -715,29 +628,6 @@
       border-radius: 14px;
       transition: all 0.2s;
       cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .task-item {
-        padding: 0.6rem;
-      }
-      
-      .task-icon {
-        width: 32px;
-        height: 32px;
-      }
-      
-      .task-details h4 {
-        font-size: 0.8rem;
-      }
-      
-      .task-details p {
-        font-size: 0.65rem;
-      }
-      
-      .task-reward {
-        font-size: 0.8rem;
-      }
     }
 
     .task-item:hover {
@@ -778,15 +668,6 @@
       font-size: 0.85rem;
     }
 
-    .theme-toggle {
-      cursor: pointer;
-      padding: 0.4rem;
-      border-radius: 10px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      transition: all 0.2s;
-    }
-
     .toast {
       position: fixed;
       bottom: 1rem;
@@ -813,17 +694,6 @@
       to {
         opacity: 1;
         transform: translateX(0);
-      }
-    }
-
-    /* Hide scrollbar on mobile */
-    @media (max-width: 768px) {
-      ::-webkit-scrollbar {
-        width: 3px;
-      }
-      
-      .sidebar {
-        width: 260px;
       }
     }
   </style>
@@ -892,27 +762,25 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <!-- Top Bar -->
+    <!-- Top Bar - New Layout -->
     <div class="top-bar">
-      <div style="display: flex; align-items: center; gap: 0.8rem;">
+      <div class="left-section">
         <button class="menu-toggle-btn" id="menuToggle">
           <i class="fas fa-bars"></i>
         </button>
         <div class="page-title">
           <h1>Dashboard</h1>
-          <p>Welcome back! Here's your performance overview</p>
         </div>
       </div>
-      <div class="user-section">
+      <div class="user-actions">
         <button class="theme-toggle" id="themeToggle">
           <i class="fas fa-moon"></i>
         </button>
         
-        <!-- Notifications Dropdown -->
         <div class="dropdown">
           <div class="dropdown-trigger notification-bell">
             <i class="far fa-bell"></i>
-            <span style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 9px; padding: 2px 5px; border-radius: 10px;" id="notificationCount">3</span>
+            <span class="notification-badge" id="notificationCount">3</span>
           </div>
           <div class="dropdown-menu" id="notificationMenu">
             <div class="notification-item">
@@ -933,7 +801,6 @@
           </div>
         </div>
 
-        <!-- Profile Dropdown -->
         <div class="dropdown">
           <div class="dropdown-trigger user-card">
             <div class="user-avatar" id="userAvatar">U</div>
@@ -961,7 +828,7 @@
       </div>
     </div>
 
-    <!-- Stats Grid -->
+    <!-- Stats Grid - Horizontal Row -->
     <div class="stats-grid" id="statsGrid"></div>
 
     <!-- Charts Section -->
@@ -1009,12 +876,8 @@
   </div>
 
   <script>
-    // All your existing JavaScript code remains exactly the same
-    // (Copy your existing JavaScript here)
-    
     let currentUser = null;
     let earningsChart, completionChart;
-    let isLoading = false;
     let currentEarningsPeriod = '7';
     let currentCompletionPeriod = '7';
 
