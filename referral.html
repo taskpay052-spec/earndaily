@@ -2,644 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
   <title>TaskPay · Referral Program</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      font-family: 'Inter', sans-serif;
-      color: #0f172a;
-      min-height: 100vh;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-family: 'Inter', sans-serif; color: #0f172a; min-height: 100vh; }
 
     /* Navigation */
-    .navbar {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #10b981, #059669);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-icon i {
-      color: white;
-      font-size: 18px;
-    }
-
-    .logo-text {
-      font-size: 1.3rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #065f46, #059669);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-link {
-      text-decoration: none;
-      color: #475569;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: #059669;
-    }
-
-    .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #10b981, #059669);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .logout-btn {
-      background: none;
-      border: none;
-      color: #64748b;
-      cursor: pointer;
-      font-size: 1.2rem;
-      padding: 8px;
-      transition: color 0.2s;
-    }
-
-    .logout-btn:hover {
-      color: #dc2626;
-    }
+    .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(226,232,240,0.5); position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1280px; margin: 0 auto; padding: 0.8rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon i { color: white; font-size: 16px; }
+    .logo-text { font-size: 1.2rem; font-weight: 800; background: linear-gradient(135deg, #065f46, #059669); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: none; }
+    .user-menu { display: flex; align-items: center; gap: 0.8rem; }
+    .user-avatar { width: 36px; height: 36px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+    .logout-btn { background: none; border: none; color: #64748b; cursor: pointer; font-size: 1.1rem; padding: 6px; }
 
     /* Main Container */
-    .main-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
+    .main-container { max-width: 1280px; margin: 0 auto; padding: 1rem; }
 
     /* Hero Section */
-    .hero-section {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border-radius: 32px;
-      padding: 3rem;
-      margin-bottom: 2rem;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-
-    .hero-content p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      margin-bottom: 1.5rem;
-      max-width: 600px;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-stat {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 1rem 1.5rem;
-      border-radius: 20px;
-      text-align: center;
-    }
-
-    .hero-stat-value {
-      font-size: 2rem;
-      font-weight: 800;
-    }
-
-    .hero-stat-label {
-      font-size: 0.75rem;
-      opacity: 0.8;
-    }
+    .hero-section { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 1.5rem; margin-bottom: 1rem; color: white; position: relative; overflow: hidden; }
+    .hero-content h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .hero-content p { font-size: 0.75rem; opacity: 0.9; margin-bottom: 1rem; }
+    .hero-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .hero-stat { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 0.6rem 1rem; border-radius: 16px; text-align: center; flex: 1; }
+    .hero-stat-value { font-size: 1.2rem; font-weight: 800; }
+    .hero-stat-label { font-size: 0.6rem; opacity: 0.8; }
 
     /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 24px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.15);
-    }
-
-    .stat-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    .stat-icon.referrals {
-      background: #d1fae5;
-      color: #10b981;
-    }
-
-    .stat-icon.earned {
-      background: #fed7aa;
-      color: #f59e0b;
-    }
-
-    .stat-icon.rank {
-      background: #c7d2fe;
-      color: #4f46e5;
-    }
-
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-label {
-      font-size: 0.875rem;
-      color: #64748b;
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
+    .stat-card { background: white; border-radius: 20px; padding: 1rem; text-align: center; transition: all 0.3s; }
+    .stat-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.6rem; }
+    .stat-icon.referrals { background: #d1fae5; color: #10b981; }
+    .stat-icon.earned { background: #fed7aa; color: #f59e0b; }
+    .stat-icon.rank { background: #c7d2fe; color: #4f46e5; }
+    .stat-value { font-size: 1.2rem; font-weight: 800; }
+    .stat-label { font-size: 0.6rem; color: #64748b; }
 
     /* Referral Link Section */
-    .referral-section {
-      background: white;
-      border-radius: 24px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .referral-link-box {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-
-    .referral-input {
-      flex: 1;
-      padding: 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px;
-      font-family: inherit;
-      font-size: 0.875rem;
-      background: #f8fafc;
-      color: #0f172a;
-    }
-
-    .copy-btn {
-      padding: 1rem 2rem;
-      background: #10b981;
-      color: white;
-      border: none;
-      border-radius: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .copy-btn:hover {
-      background: #059669;
-      transform: scale(0.98);
-    }
-
-    .share-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .share-btn {
-      flex: 1;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .share-btn.whatsapp {
-      background: #25D366;
-      color: white;
-    }
-
-    .share-btn.telegram {
-      background: #0088cc;
-      color: white;
-    }
-
-    .share-btn.twitter {
-      background: #1DA1F2;
-      color: white;
-    }
-
-    .share-btn.facebook {
-      background: #1877f2;
-      color: white;
-    }
-
-    .share-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(0.95);
-    }
+    .referral-section { background: white; border-radius: 20px; padding: 1.2rem; margin-bottom: 1rem; }
+    .section-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px; }
+    .referral-link-box { display: flex; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .referral-input { flex: 1; padding: 0.7rem; border: 1.5px solid #e2e8f0; border-radius: 14px; font-size: 0.7rem; background: #f8fafc; }
+    .copy-btn { padding: 0.7rem 1rem; background: #10b981; color: white; border: none; border-radius: 14px; font-weight: 600; font-size: 0.7rem; cursor: pointer; }
+    .share-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .share-btn { padding: 0.6rem; border: none; border-radius: 12px; font-weight: 600; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .share-btn.whatsapp { background: #25D366; color: white; }
+    .share-btn.telegram { background: #0088cc; color: white; }
+    .share-btn.twitter { background: #1DA1F2; color: white; }
+    .share-btn.facebook { background: #1877f2; color: white; }
 
     /* Commission Tiers */
-    .tiers-section {
-      background: white;
-      border-radius: 24px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .tier-card {
-      background: #f8fafc;
-      border-radius: 20px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tier-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .tier-card.popular {
-      border: 2px solid #10b981;
-    }
-
-    .popular-badge {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: #10b981;
-      color: white;
-      padding: 0.25rem 1rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      border-bottom-left-radius: 12px;
-    }
-
-    .tier-icon {
-      width: 60px;
-      height: 60px;
-      background: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-    }
-
-    .tier-icon i {
-      font-size: 28px;
-      color: #10b981;
-    }
-
-    .tier-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .tier-commission {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #10b981;
-      margin-bottom: 0.5rem;
-    }
-
-    .tier-commission small {
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    .tier-requirement {
-      font-size: 0.875rem;
-      color: #64748b;
-      margin-bottom: 1rem;
-    }
-
-    .tier-benefit {
-      font-size: 0.75rem;
-      color: #475569;
-    }
+    .tiers-section { background: white; border-radius: 20px; padding: 1.2rem; margin-bottom: 1rem; }
+    .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1rem; }
+    .tier-card { background: #f8fafc; border-radius: 16px; padding: 0.8rem; text-align: center; position: relative; }
+    .tier-card.popular { border: 1.5px solid #10b981; }
+    .popular-badge { position: absolute; top: -8px; right: 8px; background: #10b981; color: white; padding: 0.15rem 0.5rem; font-size: 0.55rem; font-weight: 600; border-radius: 20px; }
+    .tier-icon { width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; }
+    .tier-icon i { font-size: 20px; color: #10b981; }
+    .tier-name { font-size: 0.8rem; font-weight: 700; }
+    .tier-commission { font-size: 1rem; font-weight: 800; color: #10b981; }
+    .tier-commission small { font-size: 0.55rem; }
+    .tier-requirement { font-size: 0.6rem; color: #64748b; margin: 0.3rem 0; }
+    .tier-benefit { font-size: 0.55rem; color: #475569; }
 
     /* Referrals List */
-    .referrals-section {
-      background: white;
-      border-radius: 24px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
+    .referrals-section { background: white; border-radius: 20px; padding: 1.2rem; margin-bottom: 1rem; }
+    .referrals-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .referrals-list { max-height: 300px; overflow-y: auto; }
+    .referral-item { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem; border-bottom: 1px solid #f1f5f9; }
+    .referral-info { display: flex; align-items: center; gap: 0.8rem; }
+    .referral-avatar { width: 36px; height: 36px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.8rem; }
+    .referral-details h4 { font-size: 0.75rem; font-weight: 600; }
+    .referral-details p { font-size: 0.6rem; color: #64748b; }
+    .referral-earnings { text-align: right; }
+    .referral-earnings .amount { font-weight: 700; color: #10b981; font-size: 0.7rem; }
+    .referral-earnings .date { font-size: 0.55rem; color: #64748b; }
+    .empty-referrals { text-align: center; padding: 1.5rem; color: #64748b; }
+    .empty-referrals i { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
 
-    .referrals-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .referrals-list {
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    .referral-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      border-bottom: 1px solid #f1f5f9;
-      transition: all 0.2s;
-    }
-
-    .referral-item:hover {
-      background: #f8fafc;
-    }
-
-    .referral-info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .referral-avatar {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #10b981, #059669);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-    }
-
-    .referral-details h4 {
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .referral-details p {
-      font-size: 0.7rem;
-      color: #64748b;
-    }
-
-    .referral-earnings {
-      text-align: right;
-    }
-
-    .referral-earnings .amount {
-      font-weight: 700;
-      color: #10b981;
-    }
-
-    .referral-earnings .date {
-      font-size: 0.7rem;
-      color: #64748b;
-    }
-
-    .empty-referrals {
-      text-align: center;
-      padding: 3rem;
-      color: #64748b;
-    }
-
-    /* Leaderboard Preview */
-    .leaderboard-section {
-      background: white;
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .leaderboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .leaderboard-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.75rem;
-      border-bottom: 1px solid #f1f5f9;
-    }
-
-    .rank {
-      width: 32px;
-      font-weight: 800;
-      font-size: 1.1rem;
-    }
-
-    .rank.gold {
-      color: #f59e0b;
-    }
-
-    .rank.silver {
-      color: #94a3b8;
-    }
-
-    .rank.bronze {
-      color: #cd7f32;
-    }
-
-    .leaderboard-user {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .leaderboard-avatar {
-      width: 32px;
-      height: 32px;
-      background: #f1f5f9;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.75rem;
-    }
-
-    .leaderboard-referrals {
-      font-weight: 600;
-    }
-
-    .view-all-btn {
-      background: none;
-      border: none;
-      color: #10b981;
-      cursor: pointer;
-      font-weight: 500;
-    }
+    /* Leaderboard */
+    .leaderboard-section { background: white; border-radius: 20px; padding: 1.2rem; }
+    .leaderboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .leaderboard-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.6rem; border-bottom: 1px solid #f1f5f9; }
+    .rank { width: 28px; font-weight: 800; font-size: 0.9rem; }
+    .rank.gold { color: #f59e0b; }
+    .rank.silver { color: #94a3b8; }
+    .rank.bronze { color: #cd7f32; }
+    .leaderboard-user { flex: 1; display: flex; align-items: center; gap: 0.6rem; }
+    .leaderboard-avatar { width: 28px; height: 28px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.7rem; }
+    .leaderboard-referrals { font-weight: 600; font-size: 0.7rem; }
+    .view-all-btn { background: none; border: none; color: #10b981; cursor: pointer; font-size: 0.7rem; font-weight: 500; }
 
     /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: #0f172a;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 12px;
-      z-index: 1000;
-      animation: slideIn 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 0.5rem 1rem; border-radius: 40px; font-size: 0.7rem; z-index: 1000; white-space: nowrap; }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(100px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .main-container {
-        padding: 1rem;
-      }
-      
-      .nav-container {
-        padding: 1rem;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .hero-section {
-        padding: 2rem;
-      }
-      
-      .hero-content h1 {
-        font-size: 1.75rem;
-      }
-      
-      .share-buttons {
-        flex-direction: column;
-      }
+    @media (min-width: 768px) {
+      .main-container { padding: 2rem; }
+      .nav-links { display: flex; }
+      .hero-content h1 { font-size: 2rem; }
+      .hero-stat-value { font-size: 1.5rem; }
+      .share-buttons { grid-template-columns: repeat(4, 1fr); }
+      .stat-value { font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -647,25 +116,19 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo" onclick="window.location.href='dashboard.html'">
-        <div class="logo-icon">
-          <i class="fas fa-tasks"></i>
-        </div>
+        <div class="logo-icon"><i class="fas fa-tasks"></i></div>
         <span class="logo-text">TaskPay</span>
       </div>
       <div class="nav-links">
         <a href="dashboard.html" class="nav-link">Dashboard</a>
         <a href="tasks.html" class="nav-link">Tasks</a>
         <a href="surveys.html" class="nav-link">Surveys</a>
-        <a href="withdrawal.html" class="nav-link">Withdraw</a>
         <a href="profile.html" class="nav-link">Profile</a>
-        <a href="history.html" class="nav-link">History</a>
         <a href="referral.html" class="nav-link active">Referral</a>
       </div>
       <div class="user-menu">
         <div class="user-avatar" id="userAvatar" onclick="window.location.href='profile.html'">U</div>
-        <button class="logout-btn" id="logoutBtn">
-          <i class="fas fa-sign-out-alt"></i>
-        </button>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
       </div>
     </div>
   </nav>
@@ -675,369 +138,109 @@
     <div class="hero-section">
       <div class="hero-content">
         <h1>Invite Friends, Earn More! 🎉</h1>
-        <p>Share your unique referral link and earn 10% commission when your friends complete tasks and surveys. The more you invite, the more you earn!</p>
+        <p>Share your link & earn 10% commission when friends complete tasks</p>
         <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-value" id="totalReferrals">0</div>
-            <div class="hero-stat-label">Total Referrals</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value" id="referralEarnings">$0</div>
-            <div class="hero-stat-label">Commission Earned</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value" id="referralRank">Bronze</div>
-            <div class="hero-stat-label">Your Rank</div>
-          </div>
+          <div class="hero-stat"><div class="hero-stat-value" id="totalReferrals">0</div><div class="hero-stat-label">Referrals</div></div>
+          <div class="hero-stat"><div class="hero-stat-value" id="referralEarnings">$0</div><div class="hero-stat-label">Earned</div></div>
+          <div class="hero-stat"><div class="hero-stat-value" id="referralRank">Bronze</div><div class="hero-stat-label">Rank</div></div>
         </div>
       </div>
     </div>
 
     <!-- Stats Grid -->
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon referrals">
-          <i class="fas fa-users fa-2x"></i>
-        </div>
-        <div class="stat-value" id="activeReferrals">0</div>
-        <div class="stat-label">Active Referrals</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon earned">
-          <i class="fas fa-dollar-sign fa-2x"></i>
-        </div>
-        <div class="stat-value" id="pendingCommission">$0</div>
-        <div class="stat-label">Pending Commission</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon rank">
-          <i class="fas fa-trophy fa-2x"></i>
-        </div>
-        <div class="stat-value" id="globalRank">#--</div>
-        <div class="stat-label">Global Rank</div>
-      </div>
+      <div class="stat-card"><div class="stat-icon referrals"><i class="fas fa-users fa-lg"></i></div><div class="stat-value" id="activeReferrals">0</div><div class="stat-label">Active</div></div>
+      <div class="stat-card"><div class="stat-icon earned"><i class="fas fa-dollar-sign fa-lg"></i></div><div class="stat-value" id="pendingCommission">$0</div><div class="stat-label">Pending</div></div>
+      <div class="stat-card"><div class="stat-icon rank"><i class="fas fa-trophy fa-lg"></i></div><div class="stat-value" id="globalRank">#--</div><div class="stat-label">Global Rank</div></div>
     </div>
 
-    <!-- Referral Link Section -->
+    <!-- Referral Link -->
     <div class="referral-section">
-      <div class="section-title">
-        <i class="fas fa-link" style="color: #10b981;"></i>
-        Your Unique Referral Link
-      </div>
+      <div class="section-title"><i class="fas fa-link" style="color:#10b981;"></i> Your Referral Link</div>
       <div class="referral-link-box">
         <input type="text" class="referral-input" id="referralLink" readonly>
-        <button class="copy-btn" id="copyBtn">
-          <i class="fas fa-copy"></i> Copy Link
-        </button>
+        <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
       </div>
       <div class="share-buttons">
-        <button class="share-btn whatsapp" id="shareWhatsapp">
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="share-btn telegram" id="shareTelegram">
-          <i class="fab fa-telegram"></i> Telegram
-        </button>
-        <button class="share-btn twitter" id="shareTwitter">
-          <i class="fab fa-twitter"></i> Twitter
-        </button>
-        <button class="share-btn facebook" id="shareFacebook">
-          <i class="fab fa-facebook"></i> Facebook
-        </button>
+        <button class="share-btn whatsapp" id="shareWhatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-btn telegram" id="shareTelegram"><i class="fab fa-telegram"></i> Telegram</button>
+        <button class="share-btn twitter" id="shareTwitter"><i class="fab fa-twitter"></i> Twitter</button>
+        <button class="share-btn facebook" id="shareFacebook"><i class="fab fa-facebook"></i> Facebook</button>
       </div>
     </div>
 
     <!-- Commission Tiers -->
     <div class="tiers-section">
-      <div class="section-title">
-        <i class="fas fa-chart-line" style="color: #10b981;"></i>
-        Commission Tiers
-      </div>
+      <div class="section-title"><i class="fas fa-chart-line" style="color:#10b981;"></i> Commission Tiers</div>
       <div class="tiers-grid">
-        <div class="tier-card">
-          <div class="tier-icon">
-            <i class="fas fa-star"></i>
-          </div>
-          <div class="tier-name">Bronze</div>
-          <div class="tier-commission">5% <small>commission</small></div>
-          <div class="tier-requirement">0-4 referrals</div>
-          <div class="tier-benefit">✓ Basic referral rewards</div>
-        </div>
-        <div class="tier-card popular">
-          <div class="popular-badge">Most Popular</div>
-          <div class="tier-icon">
-            <i class="fas fa-gem"></i>
-          </div>
-          <div class="tier-name">Silver</div>
-          <div class="tier-commission">10% <small>commission</small></div>
-          <div class="tier-requirement">5-19 referrals</div>
-          <div class="tier-benefit">✓ Double rewards ✓ Priority support</div>
-        </div>
-        <div class="tier-card">
-          <div class="tier-icon">
-            <i class="fas fa-crown"></i>
-          </div>
-          <div class="tier-name">Gold</div>
-          <div class="tier-commission">15% <small>commission</small></div>
-          <div class="tier-requirement">20+ referrals</div>
-          <div class="tier-benefit">✓ Triple rewards ✓ VIP support ✓ Early access</div>
-        </div>
+        <div class="tier-card"><div class="tier-icon"><i class="fas fa-star"></i></div><div class="tier-name">Bronze</div><div class="tier-commission">5%</div><div class="tier-requirement">0-4 refs</div></div>
+        <div class="tier-card popular"><div class="popular-badge">Popular</div><div class="tier-icon"><i class="fas fa-gem"></i></div><div class="tier-name">Silver</div><div class="tier-commission">10%</div><div class="tier-requirement">5-19 refs</div></div>
+        <div class="tier-card"><div class="tier-icon"><i class="fas fa-crown"></i></div><div class="tier-name">Gold</div><div class="tier-commission">15%</div><div class="tier-requirement">20+ refs</div></div>
       </div>
     </div>
 
     <!-- Referrals List -->
     <div class="referrals-section">
-      <div class="referrals-header">
-        <div class="section-title">
-          <i class="fas fa-user-friends" style="color: #10b981;"></i>
-          Your Referrals
-        </div>
-        <span id="referralCount" style="color: #64748b; font-size: 0.875rem;">0 friends joined</span>
-      </div>
-      <div class="referrals-list" id="referralsList">
-        <div class="empty-referrals">
-          <i class="fas fa-user-plus" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-          <p>No referrals yet</p>
-          <p style="font-size: 0.75rem;">Share your link and invite friends to earn!</p>
-        </div>
-      </div>
+      <div class="referrals-header"><div class="section-title"><i class="fas fa-user-friends" style="color:#10b981;"></i> Your Referrals</div><span id="referralCount" style="font-size:0.7rem; color:#64748b;">0 joined</span></div>
+      <div class="referrals-list" id="referralsList"><div class="empty-referrals"><i class="fas fa-user-plus"></i><p>No referrals yet</p><p style="font-size:0.65rem;">Share your link to earn!</p></div></div>
     </div>
 
-    <!-- Leaderboard Preview -->
+    <!-- Leaderboard -->
     <div class="leaderboard-section">
-      <div class="leaderboard-header">
-        <div class="section-title">
-          <i class="fas fa-trophy" style="color: #f59e0b;"></i>
-          Top Referrers
-        </div>
-        <button class="view-all-btn" onclick="showToast('Full leaderboard coming soon!')">
-          View All <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
-      <div id="leaderboardList">
-        <!-- Dynamic leaderboard content -->
-      </div>
+      <div class="leaderboard-header"><div class="section-title"><i class="fas fa-trophy" style="color:#f59e0b;"></i> Top Referrers</div><button class="view-all-btn" onclick="showToast('Full leaderboard coming soon!')">View All →</button></div>
+      <div id="leaderboardList"></div>
     </div>
   </div>
 
   <script>
     let currentUser = null;
-    let referralData = {
-      code: '',
-      referrals: [],
-      totalEarned: 0,
-      pendingCommission: 0
-    };
+    let referralData = { code: '', referrals: [], totalEarned: 0, pendingCommission: 0 };
+    const leaderboardData = [{ name: 'Alex J', referrals: 47, rank: 1 }, { name: 'Maria G', referrals: 38, rank: 2 }, { name: 'David K', referrals: 32, rank: 3 }, { name: 'Sarah W', referrals: 28, rank: 4 }, { name: 'James B', referrals: 25, rank: 5 }];
 
-    // Sample leaderboard data
-    const leaderboardData = [
-      { name: 'Alex Johnson', referrals: 47, rank: 1 },
-      { name: 'Maria Garcia', referrals: 38, rank: 2 },
-      { name: 'David Kim', referrals: 32, rank: 3 },
-      { name: 'Sarah Williams', referrals: 28, rank: 4 },
-      { name: 'James Brown', referrals: 25, rank: 5 }
-    ];
-
-    function checkAuth() {
-      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
-      if (isLoggedIn !== 'true') {
-        window.location.href = 'login.html';
-        return false;
-      }
-      currentUser = localStorage.getItem('taskpay_user_email');
-      loadReferralData();
-      return true;
-    }
-
-    function loadReferralData() {
-      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
-      
-      // Generate unique referral code
-      const storedCode = localStorage.getItem(`taskpay_referral_code_${userKey}`);
-      if (storedCode) {
-        referralData.code = storedCode;
-      } else {
-        referralData.code = generateReferralCode();
-        localStorage.setItem(`taskpay_referral_code_${userKey}`, referralData.code);
-      }
-      
-      // Load referrals
-      const storedReferrals = localStorage.getItem(`taskpay_referrals_${userKey}`);
-      if (storedReferrals) {
-        referralData.referrals = JSON.parse(storedReferrals);
-      } else {
-        // Sample referrals for demo
-        referralData.referrals = [
-          { name: 'Emily Chen', email: 'emily@example.com', joined: '2024-01-15', earned: 12.50, active: true },
-          { name: 'Michael Lee', email: 'michael@example.com', joined: '2024-01-20', earned: 8.75, active: true },
-          { name: 'Jessica Wang', email: 'jessica@example.com', joined: '2024-01-25', earned: 5.25, active: false }
-        ];
-        localStorage.setItem(`taskpay_referrals_${userKey}`, JSON.stringify(referralData.referrals));
-      }
-      
-      // Load earnings
-      const storedEarnings = localStorage.getItem(`taskpay_referral_earnings_${userKey}`);
-      if (storedEarnings) {
-        referralData.totalEarned = parseFloat(storedEarnings);
-      } else {
-        referralData.totalEarned = 26.50;
-        localStorage.setItem(`taskpay_referral_earnings_${userKey}`, referralData.totalEarned);
-      }
-      
-      // Calculate pending commission (simulated)
+    function checkAuth() { if (localStorage.getItem('taskpay_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } currentUser = localStorage.getItem('taskpay_user_email'); loadData(); return true; }
+    function loadData() {
+      const key = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      referralData.code = localStorage.getItem(`taskpay_referral_code_${key}`) || generateCode();
+      localStorage.setItem(`taskpay_referral_code_${key}`, referralData.code);
+      referralData.referrals = JSON.parse(localStorage.getItem(`taskpay_referrals_${key}`) || '[{"name":"Emily Chen","email":"emily@example.com","joined":"2024-01-15","earned":12.50,"active":true},{"name":"Michael Lee","email":"michael@example.com","joined":"2024-01-20","earned":8.75,"active":true},{"name":"Jessica Wang","email":"jessica@example.com","joined":"2024-01-25","earned":5.25,"active":false}]');
+      referralData.totalEarned = parseFloat(localStorage.getItem(`taskpay_referral_earnings_${key}`) || '26.50');
       referralData.pendingCommission = referralData.totalEarned * 0.2;
-      
       updateUI();
     }
-
-    function generateReferralCode() {
-      const userName = currentUser.split('@')[0];
-      const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase();
-      return `${userName.toUpperCase()}-${randomStr}`;
-    }
-
+    function generateCode() { const u = currentUser.split('@')[0]; return `${u.toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`; }
     function updateUI() {
-      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
-      const baseUrl = window.location.origin + window.location.pathname.replace('referral.html', '');
-      const fullLink = `${baseUrl}?ref=${referralData.code}`;
-      
-      document.getElementById('referralLink').value = fullLink;
+      const key = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      document.getElementById('referralLink').value = `${window.location.origin}${window.location.pathname.replace('referral.html', '')}?ref=${referralData.code}`;
       document.getElementById('totalReferrals').textContent = referralData.referrals.length;
       document.getElementById('activeReferrals').textContent = referralData.referrals.filter(r => r.active).length;
       document.getElementById('referralEarnings').textContent = `$${referralData.totalEarned.toFixed(2)}`;
       document.getElementById('pendingCommission').textContent = `$${referralData.pendingCommission.toFixed(2)}`;
-      document.getElementById('referralCount').textContent = `${referralData.referrals.length} friends joined`;
-      
-      // Calculate rank based on referrals
-      let rank = 'Bronze';
-      if (referralData.referrals.length >= 20) rank = 'Gold 🏆';
-      else if (referralData.referrals.length >= 5) rank = 'Silver ⭐';
-      else rank = 'Bronze 🥉';
+      document.getElementById('referralCount').textContent = `${referralData.referrals.length} joined`;
+      let rank = 'Bronze 🥉'; if (referralData.referrals.length >= 20) rank = 'Gold 🏆'; else if (referralData.referrals.length >= 5) rank = 'Silver ⭐';
       document.getElementById('referralRank').textContent = rank;
-      
-      // Calculate global rank (simulated)
-      const globalRank = Math.max(1, 50 - referralData.referrals.length);
-      document.getElementById('globalRank').textContent = `#${globalRank}`;
-      
-      const userName = currentUser.split('@')[0];
-      document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
-      
-      renderReferralsList();
-      renderLeaderboard();
+      document.getElementById('globalRank').textContent = `#${Math.max(1, 50 - referralData.referrals.length)}`;
+      document.getElementById('userAvatar').textContent = currentUser.split('@')[0].charAt(0).toUpperCase();
+      renderReferrals(); renderLeaderboard();
     }
-
-    function renderReferralsList() {
-      const container = document.getElementById('referralsList');
-      
-      if (referralData.referrals.length === 0) {
-        container.innerHTML = `
-          <div class="empty-referrals">
-            <i class="fas fa-user-plus" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-            <p>No referrals yet</p>
-            <p style="font-size: 0.75rem;">Share your link and invite friends to earn!</p>
-          </div>
-        `;
-        return;
-      }
-      
-      container.innerHTML = referralData.referrals.map(ref => `
-        <div class="referral-item">
-          <div class="referral-info">
-            <div class="referral-avatar">
-              ${ref.name.charAt(0)}
-            </div>
-            <div class="referral-details">
-              <h4>${ref.name}</h4>
-              <p>${ref.email}</p>
-            </div>
-          </div>
-          <div class="referral-earnings">
-            <div class="amount">+$${ref.earned.toFixed(2)}</div>
-            <div class="date">Joined ${formatDate(ref.joined)}</div>
-          </div>
-        </div>
-      `).join('');
+    function renderReferrals() {
+      const c = document.getElementById('referralsList');
+      if (!referralData.referrals.length) { c.innerHTML = '<div class="empty-referrals"><i class="fas fa-user-plus"></i><p>No referrals yet</p><p style="font-size:0.65rem;">Share your link to earn!</p></div>'; return; }
+      c.innerHTML = referralData.referrals.map(r => `<div class="referral-item"><div class="referral-info"><div class="referral-avatar">${r.name.charAt(0)}</div><div class="referral-details"><h4>${r.name}</h4><p>${r.email}</p></div></div><div class="referral-earnings"><div class="amount">+$${r.earned.toFixed(2)}</div><div class="date">${new Date(r.joined).toLocaleDateString()}</div></div></div>`).join('');
     }
-
     function renderLeaderboard() {
-      const container = document.getElementById('leaderboardList');
-      
-      container.innerHTML = leaderboardData.map(user => `
-        <div class="leaderboard-item">
-          <div class="rank ${user.rank === 1 ? 'gold' : user.rank === 2 ? 'silver' : user.rank === 3 ? 'bronze' : ''}">
-            ${user.rank === 1 ? '🥇' : user.rank === 2 ? '🥈' : user.rank === 3 ? '🥉' : `#${user.rank}`}
-          </div>
-          <div class="leaderboard-user">
-            <div class="leaderboard-avatar">${user.name.charAt(0)}</div>
-            <span>${user.name}</span>
-          </div>
-          <div class="leaderboard-referrals">
-            ${user.referrals} referrals
-          </div>
-        </div>
-      `).join('');
+      document.getElementById('leaderboardList').innerHTML = leaderboardData.map(u => `<div class="leaderboard-item"><div class="rank ${u.rank === 1 ? 'gold' : u.rank === 2 ? 'silver' : u.rank === 3 ? 'bronze' : ''}">${u.rank === 1 ? '🥇' : u.rank === 2 ? '🥈' : u.rank === 3 ? '🥉' : `#${u.rank}`}</div><div class="leaderboard-user"><div class="leaderboard-avatar">${u.name.charAt(0)}</div><span>${u.name}</span></div><div class="leaderboard-referrals">${u.referrals} refs</div></div>`).join('');
     }
-
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-
-    function copyToClipboard() {
-      const linkInput = document.getElementById('referralLink');
-      linkInput.select();
-      document.execCommand('copy');
-      showToast('Referral link copied to clipboard!');
-    }
-
-    function shareOnPlatform(platform) {
-      const link = document.getElementById('referralLink').value;
-      const text = `Join me on TaskPay and start earning money by completing simple tasks! Use my referral link: ${link}`;
-      let url = '';
-      
-      switch(platform) {
-        case 'whatsapp':
-          url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-          break;
-        case 'telegram':
-          url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join TaskPay and earn money!')}`;
-          break;
-        case 'twitter':
-          url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-          break;
-        case 'facebook':
-          url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
-          break;
-      }
-      
-      window.open(url, '_blank', 'noopener,noreferrer');
-      showToast(`Share on ${platform.charAt(0).toUpperCase() + platform.slice(1)}`);
-    }
-
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
-
-    function logout() {
-      localStorage.removeItem('taskpay_logged_in');
-      localStorage.removeItem('taskpay_user_email');
-      window.location.href = 'login.html';
-    }
-
-    // Event listeners
-    document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
-    document.getElementById('shareWhatsapp').addEventListener('click', () => shareOnPlatform('whatsapp'));
-    document.getElementById('shareTelegram').addEventListener('click', () => shareOnPlatform('telegram'));
-    document.getElementById('shareTwitter').addEventListener('click', () => shareOnPlatform('twitter'));
-    document.getElementById('shareFacebook').addEventListener('click', () => shareOnPlatform('facebook'));
-    document.getElementById('logoutBtn').addEventListener('click', logout);
-
-    if (checkAuth()) {
-      // Initialize
-    }
+    function copyToClipboard() { document.getElementById('referralLink').select(); document.execCommand('copy'); showToast('Link copied!'); }
+    function share(p) { const l = document.getElementById('referralLink').value; const t = `Join TaskPay! Earn money with tasks & surveys: ${l}`; const u = { whatsapp: `https://wa.me/?text=${encodeURIComponent(t)}`, telegram: `https://t.me/share/url?url=${encodeURIComponent(l)}&text=${encodeURIComponent('Join TaskPay!')}`, twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}`, facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(l)}` }[p]; if (u) window.open(u, '_blank'); showToast(`Share on ${p}`); }
+    function showToast(m) { const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `<i class="fas fa-check-circle"></i> ${m}`; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
+    function logout() { localStorage.removeItem('taskpay_logged_in'); localStorage.removeItem('taskpay_user_email'); window.location.href = 'login.html'; }
+    document.getElementById('copyBtn').onclick = copyToClipboard;
+    document.getElementById('shareWhatsapp').onclick = () => share('whatsapp');
+    document.getElementById('shareTelegram').onclick = () => share('telegram');
+    document.getElementById('shareTwitter').onclick = () => share('twitter');
+    document.getElementById('shareFacebook').onclick = () => share('facebook');
+    document.getElementById('logoutBtn').onclick = logout;
+    if (checkAuth()) {}
   </script>
 </body>
 </html>
