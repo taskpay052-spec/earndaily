@@ -60,9 +60,32 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       cursor: pointer;
       flex-shrink: 0;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #1e293b;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger:hover span {
+      background: #059669;
     }
 
     .logo-icon {
@@ -95,20 +118,11 @@
       gap: 0.8rem;
     }
 
-    .nav-link {
-      text-decoration: none;
-      color: #475569;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.3s;
-      white-space: nowrap;
-    }
-
     .btn-login {
       background: linear-gradient(135deg, #059669, #10b981);
       color: white;
       border: none;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 40px;
       font-weight: 600;
       font-size: 0.85rem;
@@ -117,12 +131,112 @@
       white-space: nowrap;
     }
 
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Mobile Sidebar Menu */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: white;
+      box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+      z-index: 201;
+      transition: left 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-menu.active {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-header .logo {
+      margin: 0;
+    }
+
+    .close-menu {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #64748b;
+      transition: all 0.3s;
+    }
+
+    .close-menu:hover {
+      color: #059669;
+      transform: rotate(90deg);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #475569;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sidebar-item i {
+      width: 24px;
+      font-size: 1.1rem;
+      color: #10b981;
+    }
+
+    .sidebar-item:hover {
+      background: #f1f5f9;
+      color: #059669;
+      transform: translateX(5px);
+    }
+
     /* Hero Section */
     .hero {
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 3rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -147,33 +261,8 @@
     .hero-content p {
       font-size: 1rem;
       color: #475569;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       padding: 0 0.5rem;
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      text-align: center;
-      flex: 1;
-      min-width: 80px;
-    }
-
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #059669;
-    }
-
-    .stat-label {
-      font-size: 0.7rem;
-      color: #64748b;
     }
 
     .hero-buttons {
@@ -187,7 +276,7 @@
       background: linear-gradient(135deg, #059669, #10b981);
       color: white;
       border: none;
-      padding: 0.8rem 1.5rem;
+      padding: 0.8rem 1.8rem;
       border-radius: 40px;
       font-weight: 600;
       font-size: 0.95rem;
@@ -197,11 +286,16 @@
       max-width: 280px;
     }
 
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
     .btn-secondary {
       background: white;
       color: #059669;
       border: 2px solid #059669;
-      padding: 0.8rem 1.5rem;
+      padding: 0.8rem 1.8rem;
       border-radius: 40px;
       font-weight: 600;
       font-size: 0.95rem;
@@ -209,6 +303,12 @@
       transition: all 0.3s;
       width: 100%;
       max-width: 280px;
+    }
+
+    .btn-secondary:hover {
+      background: #059669;
+      color: white;
+      transform: translateY(-2px);
     }
 
     .hero-image {
@@ -232,7 +332,7 @@
     /* Features Section */
     .features {
       background: white;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       width: 100%;
     }
 
@@ -244,41 +344,46 @@
 
     .section-title {
       text-align: center;
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 800;
-      margin-bottom: 0.8rem;
-      padding: 0 1rem;
+      margin-bottom: 1rem;
+      color: #0f172a;
     }
 
     .section-subtitle {
       text-align: center;
       color: #64748b;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
-      padding: 0 1rem;
+      margin-bottom: 3rem;
+      font-size: 1rem;
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.2rem;
+      gap: 1.5rem;
       padding: 0 1rem;
     }
 
     .feature-card {
       background: #f8fafc;
-      border-radius: 20px;
-      padding: 1.5rem;
+      border-radius: 24px;
+      padding: 2rem;
       text-align: center;
       transition: all 0.4s;
       border: 1px solid #e2e8f0;
     }
 
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      border-color: #10b981;
+    }
+
     .feature-icon {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       background: linear-gradient(135deg, #059669, #10b981);
-      border-radius: 16px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -286,23 +391,24 @@
     }
 
     .feature-icon i {
-      font-size: 28px;
+      font-size: 32px;
       color: white;
     }
 
     .feature-card h3 {
       font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
     }
 
     .feature-card p {
       color: #64748b;
       font-size: 0.9rem;
+      line-height: 1.6;
     }
 
     /* How It Works */
     .how-it-works {
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       background: linear-gradient(135deg, #f8fafc, #f1f5f9);
       width: 100%;
     }
@@ -310,31 +416,40 @@
     .steps-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 2rem;
       padding: 0 1rem;
     }
 
     .step {
       text-align: center;
-      padding: 1rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 24px;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
     }
 
     .step-number {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       background: linear-gradient(135deg, #059669, #10b981);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin: 0 auto 1rem;
     }
 
     .step h3 {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
     }
 
@@ -343,80 +458,25 @@
       font-size: 0.9rem;
     }
 
-    /* Testimonials */
-    .testimonials {
-      padding: 3rem 1rem;
-      background: white;
-      width: 100%;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.2rem;
-      padding: 0 1rem;
-    }
-
-    .testimonial-card {
-      background: #f8fafc;
-      border-radius: 20px;
-      padding: 1.5rem;
-      border: 1px solid #e2e8f0;
-    }
-
-    .testimonial-avatar {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, #059669, #10b981);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    .testimonial-avatar i {
-      font-size: 24px;
-      color: white;
-    }
-
-    .testimonial-text {
-      font-style: italic;
-      margin-bottom: 1rem;
-      color: #334155;
-      font-size: 0.9rem;
-    }
-
-    .testimonial-name {
-      font-weight: 700;
-      color: #0f172a;
-      font-size: 0.9rem;
-    }
-
-    .testimonial-role {
-      font-size: 0.75rem;
-      color: #64748b;
-    }
-
     /* CTA Section */
     .cta {
       background: linear-gradient(135deg, #065f46, #059669);
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       text-align: center;
       color: white;
       width: 100%;
     }
 
     .cta h2 {
-      font-size: 1.6rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
       padding: 0 1rem;
     }
 
     .cta p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       opacity: 0.9;
-      font-size: 0.9rem;
+      font-size: 1rem;
       padding: 0 1rem;
     }
 
@@ -424,12 +484,17 @@
       background: white;
       color: #059669;
       border: none;
-      padding: 0.8rem 2rem;
+      padding: 1rem 2.5rem;
       border-radius: 50px;
       font-weight: 700;
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     /* Footer */
@@ -441,42 +506,18 @@
       width: 100%;
     }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-size: 0.8rem;
-      transition: color 0.3s;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .social-links a {
-      color: #94a3b8;
-      font-size: 1.1rem;
-      transition: all 0.3s;
-    }
-
     .footer p {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
 
     /* Tablet & Desktop */
     @media (min-width: 768px) {
       .nav-container {
         padding: 1rem 2rem;
+      }
+      
+      .hamburger {
+        display: none;
       }
       
       .logo-icon {
@@ -489,10 +530,10 @@
       }
       
       .hero {
-        padding: 4rem 2rem;
+        padding: 5rem 2rem;
         flex-direction: row;
         align-items: center;
-        gap: 3rem;
+        gap: 4rem;
       }
       
       .hero-content {
@@ -507,10 +548,6 @@
       .hero-content p {
         font-size: 1.1rem;
         padding: 0;
-      }
-      
-      .hero-stats {
-        justify-content: flex-start;
       }
       
       .hero-buttons {
@@ -554,7 +591,7 @@
       
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        gap: 1.8rem;
       }
       
       .steps-grid {
@@ -562,17 +599,8 @@
         gap: 2rem;
       }
       
-      .testimonials-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      }
-      
       .section-title {
         font-size: 2.2rem;
-      }
-      
-      .section-subtitle {
-        font-size: 1rem;
       }
     }
 
@@ -586,36 +614,98 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .hero {
+        padding: 2rem 1rem;
+      }
+      
+      .hero-content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+    }
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   </style>
 </head>
 <body>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar-menu" id="sidebarMenu">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <span class="logo-text">TaskPay</span>
+      </div>
+      <button class="close-menu" id="closeMenu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-item" onclick="navigateTo('tasks')">
+        <i class="fas fa-tasks"></i>
+        <span>Tasks</span>
+      </div>
+      <div class="sidebar-item" onclick="navigateTo('surveys')">
+        <i class="fas fa-poll"></i>
+        <span>Surveys</span>
+      </div>
+      <div class="sidebar-item" onclick="navigateTo('deposit')">
+        <i class="fas fa-plus-circle"></i>
+        <span>Deposit</span>
+      </div>
+      <div class="sidebar-item" onclick="navigateTo('withdrawal')">
+        <i class="fas fa-wallet"></i>
+        <span>Withdrawal</span>
+      </div>
+      <div class="sidebar-item" onclick="navigateTo('profile')">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </div>
+      <div class="sidebar-item" onclick="navigateTo('referrals')">
+        <i class="fas fa-users"></i>
+        <span>Referrals</span>
+      </div>
+      <div class="sidebar-item" onclick="navigateTo('history')">
+        <i class="fas fa-history"></i>
+        <span>History</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo" onclick="window.location.href='index.html'">
+        <button class="hamburger" id="hamburgerBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div class="logo-icon">
           <i class="fas fa-tasks"></i>
         </div>
         <span class="logo-text">TaskPay</span>
       </div>
       <div class="nav-links">
-        <a href="#" class="nav-link" onclick="scrollToSection('features')">Features</a>
-        <a href="#" class="nav-link" onclick="scrollToSection('how-it-works')">How It Works</a>
         <button class="btn-login" onclick="window.location.href='login.html'">Sign In</button>
       </div>
     </div>
@@ -625,21 +715,7 @@
   <div class="hero">
     <div class="hero-content">
       <h1>Earn Real Money<br>with Micro-Tasks & Surveys</h1>
-      <p>Complete simple tasks, share your opinion, and get paid instantly. Join thousands of users earning $5-$50 daily!</p>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-number">50K+</div>
-          <div class="stat-label">Active Users</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">$2.5M+</div>
-          <div class="stat-label">Paid Out</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">4.8⭐</div>
-          <div class="stat-label">User Rating</div>
-        </div>
-      </div>
+      <p>Complete simple tasks, share your opinion, and get paid instantly. Join thousands of users earning daily!</p>
       <div class="hero-buttons">
         <button class="btn-primary" onclick="window.location.href='register.html'">Start Earning Now</button>
         <button class="btn-secondary" onclick="scrollToSection('how-it-works')">How It Works →</button>
@@ -735,40 +811,6 @@
     </div>
   </div>
 
-  <!-- Testimonials -->
-  <div class="testimonials" id="testimonials">
-    <div class="section-container">
-      <h2 class="section-title">What Our Users Say</h2>
-      <p class="section-subtitle">Join 50,000+ happy earners worldwide</p>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-avatar">
-            <i class="fas fa-user"></i>
-          </div>
-          <p class="testimonial-text">"TaskPay has been a game-changer! I earn an extra $200/month just during my commute. Highly recommend!"</p>
-          <div class="testimonial-name">Sarah Johnson</div>
-          <div class="testimonial-role">Student, 200+ tasks completed</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-avatar">
-            <i class="fas fa-user"></i>
-          </div>
-          <p class="testimonial-text">"Best micro-task platform out there. Fast payouts and actually interesting tasks. Love it!"</p>
-          <div class="testimonial-name">Michael Chen</div>
-          <div class="testimonial-role">Freelancer, $1,200 earned</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-avatar">
-            <i class="fas fa-user"></i>
-          </div>
-          <p class="testimonial-text">"Perfect for making extra cash in my free time. The surveys are engaging and pay well!"</p>
-          <div class="testimonial-name">Emily Rodriguez</div>
-          <div class="testimonial-role">Stay-at-home mom, 500+ tasks</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- CTA Section -->
   <div class="cta">
     <div class="section-container">
@@ -781,27 +823,32 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-links">
-        <a href="#" onclick="scrollToSection('features')">Features</a>
-        <a href="#" onclick="scrollToSection('how-it-works')">How It Works</a>
-        <a href="#" onclick="scrollToSection('testimonials')">Testimonials</a>
-        <a href="login.html">Sign In</a>
-        <a href="register.html">Register</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-      <div class="social-links">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-      </div>
       <p>© 2024 TaskPay. All rights reserved.</p>
       <p style="margin-top: 0.5rem; font-size: 0.7rem;">✨ Instant payouts · 24/7 support · 100% free to join</p>
     </div>
   </footer>
 
   <script>
+    // Navigation function
+    function navigateTo(page) {
+      const pages = {
+        'tasks': 'tasks.html',
+        'surveys': 'surveys.html',
+        'deposit': 'deposit.html',
+        'withdrawal': 'withdrawal.html',
+        'profile': 'profile.html',
+        'referrals': 'referral.html',
+        'history': 'history.html'
+      };
+      
+      const pageUrl = pages[page];
+      if (pageUrl) {
+        window.location.href = pageUrl;
+      } else {
+        showToast('Page coming soon!');
+      }
+    }
+
     // Smooth scroll to section
     function scrollToSection(sectionId) {
       const element = document.getElementById(sectionId);
@@ -810,7 +857,49 @@
       }
     }
 
-    // Add animation on scroll (for desktop only to save performance)
+    // Sidebar Menu Functions
+    function openMenu() {
+      document.getElementById('sidebarMenu').classList.add('active');
+      document.getElementById('sidebarOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      document.getElementById('sidebarMenu').classList.remove('active');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.style.position = 'fixed';
+      toast.style.bottom = '2rem';
+      toast.style.left = '50%';
+      toast.style.transform = 'translateX(-50%)';
+      toast.style.background = '#0f172a';
+      toast.style.color = 'white';
+      toast.style.padding = '0.75rem 1.5rem';
+      toast.style.borderRadius = '50px';
+      toast.style.fontSize = '0.875rem';
+      toast.style.zIndex = '1000';
+      toast.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+      toast.style.animation = 'slideUp 0.3s ease';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    }
+
+    // Event Listeners
+    document.getElementById('hamburgerBtn').addEventListener('click', openMenu);
+    document.getElementById('closeMenu').addEventListener('click', closeMenu);
+    document.getElementById('sidebarOverlay').addEventListener('click', closeMenu);
+
+    // Close menu when clicking a menu item
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', closeMenu);
+    });
+
+    // Animation on scroll (for desktop only)
     if (window.innerWidth > 768) {
       const observerOptions = {
         threshold: 0.1,
@@ -826,21 +915,22 @@
         });
       }, observerOptions);
 
-      document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+      document.querySelectorAll('.feature-card, .step').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.6s ease';
         observer.observe(el);
       });
     } else {
-      // On mobile, just show all elements
-      document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+      document.querySelectorAll('.feature-card, .step').forEach(el => {
         el.style.opacity = '1';
         el.style.transform = 'translateY(0)';
       });
     }
 
+    window.navigateTo = navigateTo;
     window.scrollToSection = scrollToSection;
+    window.showToast = showToast;
   </script>
 </body>
 </html>
