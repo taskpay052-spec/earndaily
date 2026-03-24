@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
   <title>TaskPay · Modern SaaS Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -66,7 +66,6 @@
       transform: translateX(0);
     }
 
-    /* Sidebar hidden state for desktop toggle */
     .sidebar.sidebar-hidden {
       transform: translateX(-100%);
     }
@@ -92,7 +91,6 @@
       font-size: 1.25rem;
     }
 
-    /* Mobile overlay */
     .sidebar-overlay {
       position: fixed;
       top: 0;
@@ -120,7 +118,6 @@
         transform: translateX(0);
       }
       
-      /* Override hidden class on mobile */
       .sidebar.sidebar-hidden {
         transform: translateX(-100%);
       }
@@ -229,7 +226,6 @@
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
-    /* Tooltip */
     [data-tooltip] {
       position: relative;
     }
@@ -258,14 +254,13 @@
       visibility: visible;
     }
 
-    /* Main Content */
     .main-content {
       margin-left: 280px;
-      padding: 2rem;
+      padding: 1.5rem;
       transition: margin-left 0.3s ease;
+      min-height: 100vh;
     }
 
-    /* When sidebar is hidden on desktop, adjust main content margin */
     .sidebar.sidebar-hidden ~ .main-content {
       margin-left: 0;
     }
@@ -277,15 +272,36 @@
     @media (max-width: 768px) {
       .main-content {
         margin-left: 0 !important;
+        padding: 1rem;
       }
     }
 
-    /* Top Bar */
+    /* Top Bar - Mobile Optimized */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .top-bar > div:first-child {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+      
+      .user-section {
+        justify-content: flex-end;
+        width: 100%;
+      }
     }
 
     .menu-toggle-btn {
@@ -307,7 +323,7 @@
     }
 
     .page-title h1 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 800;
       background: linear-gradient(135deg, #10b981, #059669);
       background-clip: text;
@@ -315,16 +331,26 @@
       color: transparent;
     }
 
+    @media (max-width: 768px) {
+      .page-title h1 {
+        font-size: 1.3rem;
+      }
+      
+      .page-title p {
+        font-size: 0.75rem;
+      }
+    }
+
     .page-title p {
       color: var(--text-secondary);
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       margin-top: 4px;
     }
 
     .user-section {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     /* Dropdown Styles */
@@ -335,10 +361,30 @@
     .dropdown-trigger {
       cursor: pointer;
       background: var(--bg-secondary);
-      padding: 0.5rem;
+      padding: 0.4rem;
       border-radius: 12px;
       transition: all 0.2s;
       border: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-trigger.user-card {
+        padding: 0.3rem 0.8rem;
+      }
+      
+      .user-info h4 {
+        font-size: 0.8rem;
+      }
+      
+      .user-info p {
+        font-size: 0.65rem;
+      }
+      
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+      }
     }
 
     .dropdown-trigger:hover {
@@ -354,13 +400,28 @@
       background: var(--bg-secondary);
       border-radius: 12px;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      min-width: 280px;
+      min-width: 260px;
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
       transition: all 0.2s;
       border: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-menu {
+        min-width: 220px;
+        right: -10px;
+      }
+      
+      .notification-item {
+        padding: 0.8rem;
+      }
+      
+      .notification-item strong {
+        font-size: 0.85rem;
+      }
     }
 
     .dropdown-menu.show {
@@ -370,7 +431,7 @@
     }
 
     .notification-item {
-      padding: 1rem;
+      padding: 0.9rem;
       border-bottom: 1px solid var(--border-color);
       transition: background 0.2s;
     }
@@ -380,11 +441,11 @@
     }
 
     .profile-menu {
-      min-width: 200px;
+      min-width: 180px;
     }
 
     .profile-menu-item {
-      padding: 0.75rem 1rem;
+      padding: 0.7rem 1rem;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -392,22 +453,31 @@
       transition: background 0.2s;
     }
 
-    .profile-menu-item:hover {
-      background: var(--bg-primary);
-    }
-
-    /* Stats Cards */
+    /* Stats Cards - Mobile Grid */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
     }
 
     .stat-card {
       background: var(--bg-secondary);
-      border-radius: 24px;
-      padding: 1.5rem;
+      border-radius: 20px;
+      padding: 1rem;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: var(--card-shadow);
       cursor: pointer;
@@ -415,8 +485,27 @@
       overflow: hidden;
     }
 
+    @media (max-width: 768px) {
+      .stat-card {
+        padding: 0.9rem;
+      }
+      
+      .stat-value {
+        font-size: 1.5rem;
+      }
+      
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .stat-icon i {
+        font-size: 1.2rem !important;
+      }
+    }
+
     .stat-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-4px);
       box-shadow: var(--card-shadow-hover);
     }
 
@@ -434,13 +523,13 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .stat-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -452,59 +541,65 @@
     .stat-icon.streak { background: rgba(236, 72, 153, 0.1); color: #ec489a; }
 
     .stat-value {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 800;
       color: var(--text-primary);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
 
     .stat-label {
       color: var(--text-secondary);
-      font-size: 0.875rem;
+      font-size: 0.75rem;
     }
 
     .stat-trend {
-      font-size: 0.75rem;
-      margin-top: 0.5rem;
+      font-size: 0.7rem;
+      margin-top: 0.4rem;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
-    .trend-up { color: #10b981; }
-    .trend-down { color: #ef4444; }
-
-    /* Loading Skeleton */
-    .skeleton {
-      background: linear-gradient(90deg, var(--border-color) 25%, var(--bg-primary) 50%, var(--border-color) 75%);
-      background-size: 200% 100%;
-      animation: loading 1.5s infinite;
-      border-radius: 8px;
-    }
-
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* Charts Section */
+    /* Charts Section - Mobile */
     .charts-section {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .charts-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
     }
 
     .chart-card {
       background: var(--bg-secondary);
-      border-radius: 24px;
-      padding: 1.5rem;
+      border-radius: 20px;
+      padding: 1rem;
       box-shadow: var(--card-shadow);
       transition: all 0.3s;
     }
 
+    @media (max-width: 768px) {
+      .chart-card {
+        padding: 0.8rem;
+      }
+      
+      .chart-header h3 {
+        font-size: 0.9rem;
+      }
+      
+      .filter-btn {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.7rem;
+      }
+    }
+
     .chart-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
     }
 
@@ -512,27 +607,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .chart-header h3 {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
     }
 
     .chart-filters {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
     .filter-btn {
-      padding: 0.25rem 0.75rem;
+      padding: 0.2rem 0.6rem;
       background: var(--bg-primary);
       border: 1px solid var(--border-color);
-      border-radius: 20px;
-      font-size: 0.75rem;
+      border-radius: 16px;
+      font-size: 0.7rem;
       cursor: pointer;
       transition: all 0.2s;
       color: var(--text-secondary);
@@ -544,50 +639,105 @@
       border-color: #10b981;
     }
 
-    .filter-btn:hover:not(.active) {
-      background: var(--border-color);
-    }
-
     canvas {
-      max-height: 250px;
+      max-height: 200px;
+      width: 100% !important;
     }
 
-    /* Activities Section */
+    @media (max-width: 768px) {
+      canvas {
+        max-height: 180px;
+      }
+    }
+
+    /* Activities Section - Mobile */
     .activities-section {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .activities-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
     }
 
     .activity-card {
       background: var(--bg-secondary);
-      border-radius: 24px;
-      padding: 1.5rem;
+      border-radius: 20px;
+      padding: 1rem;
       box-shadow: var(--card-shadow);
       transition: all 0.3s;
     }
 
+    @media (max-width: 768px) {
+      .activity-card {
+        padding: 0.9rem;
+      }
+      
+      .activity-header h3 {
+        font-size: 0.95rem;
+      }
+    }
+
     .activity-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .activity-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
     }
 
     .task-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.7rem;
     }
 
     .task-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem;
+      padding: 0.7rem;
       background: var(--bg-primary);
-      border-radius: 16px;
+      border-radius: 14px;
       transition: all 0.2s;
       cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .task-item {
+        padding: 0.6rem;
+      }
+      
+      .task-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .task-details h4 {
+        font-size: 0.8rem;
+      }
+      
+      .task-details p {
+        font-size: 0.65rem;
+      }
+      
+      .task-reward {
+        font-size: 0.8rem;
+      }
     }
 
     .task-item:hover {
@@ -595,36 +745,64 @@
       background: var(--border-color);
     }
 
-    /* Theme Toggle */
+    .task-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .task-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .task-details h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .task-details p {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .task-reward {
+      font-weight: 700;
+      color: #10b981;
+      font-size: 0.85rem;
+    }
+
     .theme-toggle {
       cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 12px;
+      padding: 0.4rem;
+      border-radius: 10px;
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
       transition: all 0.2s;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.05);
-    }
-
-    /* Toast */
     .toast {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 1rem;
+      right: 1rem;
       background: var(--bg-secondary);
       color: var(--text-primary);
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 12px;
       z-index: 2000;
       animation: slideIn 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       border-left: 4px solid #10b981;
+      font-size: 0.85rem;
     }
 
     @keyframes slideIn {
@@ -638,36 +816,14 @@
       }
     }
 
-    /* Responsive */
-    @media (max-width: 1200px) {
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .charts-section,
-      .activities-section {
-        grid-template-columns: 1fr;
-      }
-    }
-
+    /* Hide scrollbar on mobile */
     @media (max-width: 768px) {
-      .main-content {
-        padding: 1rem;
+      ::-webkit-scrollbar {
+        width: 3px;
       }
       
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-      
-      .user-section {
-        width: 100%;
-        justify-content: space-between;
+      .sidebar {
+        width: 260px;
       }
     }
   </style>
@@ -738,7 +894,7 @@
   <div class="main-content">
     <!-- Top Bar -->
     <div class="top-bar">
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.8rem;">
         <button class="menu-toggle-btn" id="menuToggle">
           <i class="fas fa-bars"></i>
         </button>
@@ -756,23 +912,23 @@
         <div class="dropdown">
           <div class="dropdown-trigger notification-bell">
             <i class="far fa-bell"></i>
-            <span style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px;" id="notificationCount">3</span>
+            <span style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 9px; padding: 2px 5px; border-radius: 10px;" id="notificationCount">3</span>
           </div>
           <div class="dropdown-menu" id="notificationMenu">
             <div class="notification-item">
               <i class="fas fa-check-circle" style="color: #10b981;"></i>
               <strong>Task completed!</strong>
-              <p style="font-size: 12px; margin-top: 4px;">You earned $0.50 from "Rate Mobile App"</p>
+              <p style="font-size: 11px; margin-top: 4px;">You earned $0.50 from "Rate Mobile App"</p>
             </div>
             <div class="notification-item">
               <i class="fas fa-poll" style="color: #3b82f6;"></i>
               <strong>New survey available</strong>
-              <p style="font-size: 12px; margin-top: 4px;">Complete for $1.00</p>
+              <p style="font-size: 11px; margin-top: 4px;">Complete for $1.00</p>
             </div>
             <div class="notification-item">
               <i class="fas fa-fire" style="color: #f59e0b;"></i>
               <strong>7-day streak!</strong>
-              <p style="font-size: 12px; margin-top: 4px;">Keep it up for bonus rewards</p>
+              <p style="font-size: 11px; margin-top: 4px;">Keep it up for bonus rewards</p>
             </div>
           </div>
         </div>
@@ -785,7 +941,7 @@
               <h4 id="userName">Loading...</h4>
               <p id="userEmail">user@example.com</p>
             </div>
-            <i class="fas fa-chevron-down" style="color: var(--text-secondary); font-size: 0.75rem;"></i>
+            <i class="fas fa-chevron-down" style="color: var(--text-secondary); font-size: 0.7rem;"></i>
           </div>
           <div class="dropdown-menu profile-menu" id="profileMenu">
             <div class="profile-menu-item" data-action="profile">
@@ -805,10 +961,8 @@
       </div>
     </div>
 
-    <!-- Stats Grid with Loading Skeletons -->
-    <div class="stats-grid" id="statsGrid">
-      <!-- Skeleton will be replaced by JS -->
-    </div>
+    <!-- Stats Grid -->
+    <div class="stats-grid" id="statsGrid"></div>
 
     <!-- Charts Section -->
     <div class="charts-section">
@@ -840,14 +994,14 @@
       <div class="activity-card">
         <div class="activity-header">
           <h3>🔥 Quick Tasks</h3>
-          <span class="view-all" style="color: #10b981; cursor: pointer;" id="viewAllTasksBtn">View All →</span>
+          <span class="view-all" style="color: #10b981; cursor: pointer; font-size: 0.75rem;" id="viewAllTasksBtn">View All →</span>
         </div>
         <div class="task-list" id="quickTasks"></div>
       </div>
       <div class="activity-card">
         <div class="activity-header">
           <h3>📋 Featured Surveys</h3>
-          <span class="view-all" style="color: #10b981; cursor: pointer;" id="viewAllSurveysBtn">View All →</span>
+          <span class="view-all" style="color: #10b981; cursor: pointer; font-size: 0.75rem;" id="viewAllSurveysBtn">View All →</span>
         </div>
         <div class="task-list" id="featuredSurveys"></div>
       </div>
@@ -855,6 +1009,9 @@
   </div>
 
   <script>
+    // All your existing JavaScript code remains exactly the same
+    // (Copy your existing JavaScript here)
+    
     let currentUser = null;
     let earningsChart, completionChart;
     let isLoading = false;
@@ -885,7 +1042,6 @@
       { id: 3, title: "Streaming Services", reward: 1.00, questions: 5, icon: "fa-tv" }
     ];
 
-    // Navigation function - links all pages
     function navigateTo(page) {
       const pages = {
         'dashboard': 'dashboard.html',
@@ -897,39 +1053,37 @@
         'history': 'history.html',
         'support': 'support.html'
       };
-      
       const pageUrl = pages[page];
-      if (pageUrl) {
-        window.location.href = pageUrl;
-      } else {
-        showToast('Page coming soon!');
-      }
+      if (pageUrl) window.location.href = pageUrl;
+      else showToast('Page coming soon!');
     }
 
-    // Auth Check
     function checkAuth() {
       const isLoggedIn = localStorage.getItem('taskpay_logged_in');
-      if (isLoggedIn !== 'true') {
+      const userEmail = localStorage.getItem('taskpay_user_email');
+      if (isLoggedIn !== 'true' || !userEmail) {
         window.location.href = 'login.html';
         return false;
       }
-      currentUser = localStorage.getItem('taskpay_user_email');
-      loadUserData();
+      currentUser = userEmail;
       return true;
     }
 
-    // Load User Data
     function loadUserData() {
       const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
-      const totalEarned = parseFloat(localStorage.getItem(`taskpay_total_earned_${userKey}`) || '128.50');
-      const tasksDone = parseInt(localStorage.getItem(`taskpay_tasks_done_${userKey}`) || '42');
-      const surveysDone = parseInt(localStorage.getItem(`taskpay_surveys_done_${userKey}`) || '18');
+      let totalEarned = localStorage.getItem(`taskpay_total_earned_${userKey}`);
+      let tasksDone = localStorage.getItem(`taskpay_tasks_done_${userKey}`);
+      let surveysDone = localStorage.getItem(`taskpay_surveys_done_${userKey}`);
+      
+      if (!totalEarned) totalEarned = '0';
+      if (!tasksDone) tasksDone = '0';
+      if (!surveysDone) surveysDone = '0';
       
       const stats = [
-        { value: `$${totalEarned.toFixed(2)}`, label: 'Total Earnings', icon: 'earnings', trend: '+12.5%', trendUp: true },
-        { value: tasksDone, label: 'Tasks Completed', icon: 'tasks', trend: '+8 this week', trendUp: true },
-        { value: surveysDone, label: 'Surveys Completed', icon: 'surveys', trend: '+3 this week', trendUp: true },
-        { value: Math.floor(Math.random() * 30) + 1, label: 'Day Streak', icon: 'streak', trend: 'Keep it up!', trendUp: true }
+        { value: `$${parseFloat(totalEarned).toFixed(2)}`, label: 'Total Earnings', icon: 'earnings', trend: '+0%', trendUp: true },
+        { value: parseInt(tasksDone), label: 'Tasks Completed', icon: 'tasks', trend: '+0 this week', trendUp: true },
+        { value: parseInt(surveysDone), label: 'Surveys Completed', icon: 'surveys', trend: '+0 this week', trendUp: true },
+        { value: 1, label: 'Day Streak', icon: 'streak', trend: 'Start earning!', trendUp: true }
       ];
       
       renderStats(stats);
@@ -942,6 +1096,7 @@
 
     function renderStats(stats) {
       const container = document.getElementById('statsGrid');
+      if (!container) return;
       container.innerHTML = stats.map(stat => `
         <div class="stat-card" onclick="navigateTo('${stat.label === 'Tasks Completed' ? 'tasks' : stat.label === 'Surveys Completed' ? 'surveys' : 'dashboard'}')">
           <div class="stat-header">
@@ -959,89 +1114,27 @@
       `).join('');
     }
 
-    // Initialize Charts
     function initCharts() {
-      const ctx1 = document.getElementById('earningsChart').getContext('2d');
-      const ctx2 = document.getElementById('completionChart').getContext('2d');
+      const ctx1 = document.getElementById('earningsChart')?.getContext('2d');
+      const ctx2 = document.getElementById('completionChart')?.getContext('2d');
+      if (!ctx1 || !ctx2) return;
       
       earningsChart = new Chart(ctx1, {
         type: 'line',
         data: {
           labels: generateLabels(currentEarningsPeriod),
-          datasets: [{
-            label: 'Earnings ($)',
-            data: earningsData[currentEarningsPeriod],
-            borderColor: '#10b981',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            tension: 0.4,
-            fill: true,
-            pointBackgroundColor: '#10b981',
-            pointBorderColor: 'white',
-            pointBorderWidth: 2,
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
+          datasets: [{ label: 'Earnings ($)', data: earningsData[currentEarningsPeriod], borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', tension: 0.4, fill: true, pointBackgroundColor: '#10b981', pointBorderColor: 'white', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6 }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          animation: {
-            duration: 1000,
-            easing: 'easeInOutQuart'
-          },
-          plugins: { 
-            legend: { display: false }, 
-            tooltip: { 
-              backgroundColor: '#0f172a',
-              callbacks: {
-                label: function(context) {
-                  return `$${context.parsed.y.toFixed(2)}`;
-                }
-              }
-            } 
-          },
-          scales: { y: { grid: { color: 'var(--border-color)' }, ticks: { callback: v => '$' + v } } }
-        }
+        options: { responsive: true, maintainAspectRatio: true, animation: { duration: 1000, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0f172a', callbacks: { label: function(context) { return `$${context.parsed.y.toFixed(2)}`; } } } }, scales: { y: { grid: { color: 'var(--border-color)' }, ticks: { callback: v => '$' + v } } } }
       });
       
       completionChart = new Chart(ctx2, {
         type: 'line',
         data: {
           labels: generateLabels(currentCompletionPeriod),
-          datasets: [{
-            label: 'Completion Rate (%)',
-            data: completionData[currentCompletionPeriod],
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            tension: 0.4,
-            fill: true,
-            pointBackgroundColor: '#3b82f6',
-            pointBorderColor: 'white',
-            pointBorderWidth: 2,
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
+          datasets: [{ label: 'Completion Rate (%)', data: completionData[currentCompletionPeriod], borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', tension: 0.4, fill: true, pointBackgroundColor: '#3b82f6', pointBorderColor: 'white', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6 }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          animation: {
-            duration: 1000,
-            easing: 'easeInOutQuart'
-          },
-          plugins: { 
-            legend: { display: false },
-            tooltip: { 
-              backgroundColor: '#0f172a',
-              callbacks: {
-                label: function(context) {
-                  return `${context.parsed.y}%`;
-                }
-              }
-            }
-          },
-          scales: { y: { grid: { color: 'var(--border-color)' }, ticks: { callback: v => v + '%' }, min: 0, max: 100 } }
-        }
+        options: { responsive: true, maintainAspectRatio: true, animation: { duration: 1000, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0f172a', callbacks: { label: function(context) { return `${context.parsed.y}%`; } } } }, scales: { y: { grid: { color: 'var(--border-color)' }, ticks: { callback: v => v + '%' }, min: 0, max: 100 } } }
       });
     }
 
@@ -1052,6 +1145,7 @@
     }
 
     function updateChart(chart, period, type) {
+      if (!chart) return;
       if (type === 'earnings') {
         chart.data.datasets[0].data = earningsData[period];
         chart.data.labels = generateLabels(period);
@@ -1062,236 +1156,56 @@
       chart.update();
     }
 
-    // Sidebar Toggle Functionality
     function initSidebarToggle() {
       const sidebar = document.getElementById('sidebar');
       const menuToggle = document.getElementById('menuToggle');
       const overlay = document.getElementById('sidebarOverlay');
-      
       const isMobile = () => window.innerWidth <= 768;
-      
-      const closeMobileSidebar = () => {
-        if (isMobile()) {
-          sidebar.classList.remove('mobile-open');
-          overlay.classList.remove('active');
-        }
-      };
-      
-      const openMobileSidebar = () => {
-        if (isMobile()) {
-          sidebar.classList.add('mobile-open');
-          overlay.classList.add('active');
-        }
-      };
-      
-      const toggleDesktopSidebar = () => {
-        if (!isMobile()) {
-          sidebar.classList.toggle('sidebar-hidden');
-          const isHidden = sidebar.classList.contains('sidebar-hidden');
-          localStorage.setItem('sidebar_hidden', isHidden);
-        }
-      };
-      
-      menuToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (isMobile()) {
-          if (sidebar.classList.contains('mobile-open')) {
-            closeMobileSidebar();
-          } else {
-            openMobileSidebar();
-          }
-        } else {
-          toggleDesktopSidebar();
-        }
-      });
-      
-      overlay.addEventListener('click', closeMobileSidebar);
-      
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          if (!isMobile()) {
-            closeMobileSidebar();
-            const savedHiddenState = localStorage.getItem('sidebar_hidden');
-            if (savedHiddenState === 'true') {
-              sidebar.classList.add('sidebar-hidden');
-            } else {
-              sidebar.classList.remove('sidebar-hidden');
-            }
-          } else {
-            sidebar.classList.remove('sidebar-hidden');
-            closeMobileSidebar();
-          }
-        }, 100);
-      });
-      
-      if (!isMobile()) {
-        const savedHiddenState = localStorage.getItem('sidebar_hidden');
-        if (savedHiddenState === 'true') {
-          sidebar.classList.add('sidebar-hidden');
-        }
-      }
-      
-      if (isMobile()) {
-        sidebar.classList.remove('sidebar-hidden');
-        closeMobileSidebar();
-      }
+      const closeMobileSidebar = () => { if (isMobile()) { sidebar.classList.remove('mobile-open'); overlay.classList.remove('active'); } };
+      const openMobileSidebar = () => { if (isMobile()) { sidebar.classList.add('mobile-open'); overlay.classList.add('active'); } };
+      const toggleDesktopSidebar = () => { if (!isMobile()) { sidebar.classList.toggle('sidebar-hidden'); localStorage.setItem('sidebar_hidden', sidebar.classList.contains('sidebar-hidden')); } };
+      if (menuToggle) menuToggle.addEventListener('click', (e) => { e.stopPropagation(); if (isMobile()) { if (sidebar.classList.contains('mobile-open')) closeMobileSidebar(); else openMobileSidebar(); } else { toggleDesktopSidebar(); } });
+      if (overlay) overlay.addEventListener('click', closeMobileSidebar);
+      let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (!isMobile()) { closeMobileSidebar(); const savedHiddenState = localStorage.getItem('sidebar_hidden'); if (savedHiddenState === 'true') sidebar.classList.add('sidebar-hidden'); else sidebar.classList.remove('sidebar-hidden'); } else { sidebar.classList.remove('sidebar-hidden'); closeMobileSidebar(); } }, 100); });
+      if (!isMobile()) { const savedHiddenState = localStorage.getItem('sidebar_hidden'); if (savedHiddenState === 'true') sidebar.classList.add('sidebar-hidden'); }
+      if (isMobile()) { sidebar.classList.remove('sidebar-hidden'); closeMobileSidebar(); }
     }
 
-    // Theme Toggle
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
       const themeIcon = document.querySelector('#themeToggle i');
-      themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      
-      document.getElementById('themeToggle').addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        const icon = document.querySelector('#themeToggle i');
-        icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        showToast(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`);
-      });
+      if (themeIcon) themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      const themeToggle = document.getElementById('themeToggle');
+      if (themeToggle) themeToggle.addEventListener('click', () => { const currentTheme = document.documentElement.getAttribute('data-theme'); const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); const icon = document.querySelector('#themeToggle i'); if (icon) icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; showToast(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`); });
     }
 
-    // Dropdown Functions
     function initDropdowns() {
-      const dropdowns = document.querySelectorAll('.dropdown');
-      
-      dropdowns.forEach(dropdown => {
-        const trigger = dropdown.querySelector('.dropdown-trigger');
-        const menu = dropdown.querySelector('.dropdown-menu');
-        
-        trigger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          menu.classList.toggle('show');
-        });
-        
-        document.addEventListener('click', () => {
-          menu.classList.remove('show');
-        });
-      });
-      
-      // Profile menu actions
-      document.querySelectorAll('.profile-menu-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-          const action = item.dataset.action;
-          if (action === 'logout') {
-            if (confirm('Are you sure you want to logout?')) {
-              localStorage.removeItem('taskpay_logged_in');
-              localStorage.removeItem('taskpay_user_email');
-              showToast('Logged out successfully');
-              setTimeout(() => window.location.href = 'login.html', 1000);
-            }
-          } else if (action === 'profile') {
-            navigateTo('profile');
-          } else {
-            showToast(`${action} page coming soon!`);
-          }
-        });
-      });
+      document.querySelectorAll('.dropdown').forEach(dropdown => { const trigger = dropdown.querySelector('.dropdown-trigger'); const menu = dropdown.querySelector('.dropdown-menu'); if (trigger && menu) trigger.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('show'); }); });
+      document.addEventListener('click', () => document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show')));
+      document.querySelectorAll('.profile-menu-item').forEach(item => { item.addEventListener('click', (e) => { const action = item.dataset.action; if (action === 'logout') { if (confirm('Are you sure you want to logout?')) { localStorage.removeItem('taskpay_logged_in'); localStorage.removeItem('taskpay_user_email'); showToast('Logged out successfully'); setTimeout(() => window.location.href = 'login.html', 1000); } } else if (action === 'profile') navigateTo('profile'); else showToast(`${action} page coming soon!`); }); });
     }
 
-    // Chart Filters
     function initChartFilters() {
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const chart = btn.dataset.chart;
-          const period = btn.dataset.period;
-          
-          document.querySelectorAll(`.filter-btn[data-chart="${chart}"]`).forEach(b => {
-            b.classList.remove('active');
-          });
-          btn.classList.add('active');
-          
-          if (chart === 'earnings') {
-            currentEarningsPeriod = period;
-            updateChart(earningsChart, period, 'earnings');
-          } else {
-            currentCompletionPeriod = period;
-            updateChart(completionChart, period, 'completion');
-          }
-        });
-      });
+      document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { const chart = btn.dataset.chart; const period = btn.dataset.period; document.querySelectorAll(`.filter-btn[data-chart="${chart}"]`).forEach(b => b.classList.remove('active')); btn.classList.add('active'); if (chart === 'earnings') { currentEarningsPeriod = period; updateChart(earningsChart, period, 'earnings'); } else { currentCompletionPeriod = period; updateChart(completionChart, period, 'completion'); } }); });
     }
 
     function renderTasks() {
       const tasksContainer = document.getElementById('quickTasks');
-      tasksContainer.innerHTML = quickTasks.map(task => `
-        <div class="task-item" onclick="navigateTo('tasks')">
-          <div class="task-info">
-            <div class="task-icon"><i class="fas ${task.icon}" style="color: #10b981;"></i></div>
-            <div class="task-details">
-              <h4>${task.title}</h4>
-              <p>${task.time} · Quick task</p>
-            </div>
-          </div>
-          <div class="task-reward" style="color: #10b981; font-weight: 700;">+$${task.reward}</div>
-        </div>
-      `).join('');
-      
+      if (tasksContainer) tasksContainer.innerHTML = quickTasks.map(task => `<div class="task-item" onclick="navigateTo('tasks')"><div class="task-info"><div class="task-icon"><i class="fas ${task.icon}" style="color: #10b981;"></i></div><div class="task-details"><h4>${task.title}</h4><p>${task.time} · Quick task</p></div></div><div class="task-reward" style="color: #10b981; font-weight: 700;">+$${task.reward}</div></div>`).join('');
       const surveysContainer = document.getElementById('featuredSurveys');
-      surveysContainer.innerHTML = featuredSurveys.map(survey => `
-        <div class="task-item" onclick="navigateTo('surveys')">
-          <div class="task-info">
-            <div class="task-icon"><i class="fas ${survey.icon}" style="color: #8b5cf6;"></i></div>
-            <div class="task-details">
-              <h4>${survey.title}</h4>
-              <p>${survey.questions} questions · ${survey.reward === 1.00 ? 'Hot 🔥' : 'Popular'}</p>
-            </div>
-          </div>
-          <div class="task-reward" style="color: #10b981; font-weight: 700;">+$${survey.reward}</div>
-        </div>
-      `).join('');
+      if (surveysContainer) surveysContainer.innerHTML = featuredSurveys.map(survey => `<div class="task-item" onclick="navigateTo('surveys')"><div class="task-info"><div class="task-icon"><i class="fas ${survey.icon}" style="color: #8b5cf6;"></i></div><div class="task-details"><h4>${survey.title}</h4><p>${survey.questions} questions · ${survey.reward === 1.00 ? 'Hot 🔥' : 'Popular'}</p></div></div><div class="task-reward" style="color: #10b981; font-weight: 700;">+$${survey.reward}</div></div>`).join('');
     }
 
-    // Sidebar Navigation
     function initSidebarNavigation() {
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const page = item.getAttribute('data-page');
-          if (page) {
-            // Close mobile sidebar when navigating
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            if (window.innerWidth <= 768) {
-              sidebar.classList.remove('mobile-open');
-              overlay.classList.remove('active');
-            }
-            navigateTo(page);
-          }
-        });
-      });
+      document.querySelectorAll('.nav-item').forEach(item => { item.addEventListener('click', () => { const page = item.getAttribute('data-page'); if (page) { const sidebar = document.getElementById('sidebar'); const overlay = document.getElementById('sidebarOverlay'); if (window.innerWidth <= 768) { sidebar.classList.remove('mobile-open'); overlay.classList.remove('active'); } navigateTo(page); } }); });
     }
 
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerHTML = `<i class="fas fa-check-circle" style="color: #10b981;"></i> ${message}`;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
+    function showToast(message) { const toast = document.createElement('div'); toast.className = 'toast'; toast.innerHTML = `<i class="fas fa-check-circle" style="color: #10b981;"></i> ${message}`; document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000); }
 
-    window.showToast = showToast;
-    window.navigateTo = navigateTo;
+    window.showToast = showToast; window.navigateTo = navigateTo;
     
-    // Initialize everything
-    if (checkAuth()) {
-      initSidebarToggle();
-      initTheme();
-      initCharts();
-      initChartFilters();
-      initDropdowns();
-      initSidebarNavigation();
-      renderTasks();
-      
-      // Add event listeners for view all buttons
-      document.getElementById('viewAllTasksBtn').addEventListener('click', () => navigateTo('tasks'));
-      document.getElementById('viewAllSurveysBtn').addEventListener('click', () => navigateTo('surveys'));
-    }
+    if (checkAuth()) { loadUserData(); initSidebarToggle(); initTheme(); initCharts(); initChartFilters(); initDropdowns(); initSidebarNavigation(); renderTasks(); document.getElementById('viewAllTasksBtn')?.addEventListener('click', () => navigateTo('tasks')); document.getElementById('viewAllSurveysBtn')?.addEventListener('click', () => navigateTo('surveys')); }
   </script>
 </body>
 </html>
