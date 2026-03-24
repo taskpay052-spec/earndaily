@@ -289,6 +289,7 @@
       display: flex;
       align-items: center;
       gap: 0.8rem;
+      position: relative;
     }
 
     .theme-toggle {
@@ -307,11 +308,12 @@
       transform: scale(1.05);
     }
 
-    .dropdown {
+    /* Notification Dropdown - RIGHT SIDE */
+    .notification-dropdown {
       position: relative;
     }
 
-    .dropdown-trigger {
+    .notification-trigger {
       cursor: pointer;
       background: var(--bg-secondary);
       padding: 0.5rem;
@@ -324,13 +326,9 @@
       position: relative;
     }
 
-    .dropdown-trigger:hover {
+    .notification-trigger:hover {
       transform: translateY(-2px);
       box-shadow: var(--card-shadow);
-    }
-
-    .notification-bell {
-      position: relative;
     }
 
     .notification-badge {
@@ -344,11 +342,72 @@
       border-radius: 10px;
     }
 
-    .user-card {
+    .notification-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      min-width: 300px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s;
+      border: 1px solid var(--border-color);
+    }
+
+    .notification-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Profile Dropdown */
+    .profile-dropdown {
+      position: relative;
+    }
+
+    .profile-trigger {
+      cursor: pointer;
+      background: var(--bg-secondary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 10px;
+      transition: all 0.2s;
+      border: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 0.4rem 0.8rem;
+    }
+
+    .profile-trigger:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .profile-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      min-width: 200px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s;
+      border: 1px solid var(--border-color);
+    }
+
+    .profile-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
     .user-avatar {
@@ -372,29 +431,6 @@
     .user-info p {
       font-size: 0.65rem;
       color: var(--text-secondary);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 0.5rem;
-      background: var(--bg-secondary);
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      min-width: 260px;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.2s;
-      border: 1px solid var(--border-color);
-    }
-
-    .dropdown-menu.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
     }
 
     .notification-item {
@@ -428,7 +464,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Tablet: 2 cards per row */
     @media (max-width: 1024px) and (min-width: 769px) {
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -436,7 +471,6 @@
       }
     }
 
-    /* Mobile: 2 cards per row (not 1) */
     @media (max-width: 768px) {
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -444,7 +478,6 @@
       }
     }
 
-    /* Small mobile devices - ensure 2 cards fit */
     @media (max-width: 480px) {
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -785,6 +818,16 @@
         transform: translateX(0);
       }
     }
+
+    @media (max-width: 768px) {
+      .notification-menu {
+        min-width: 280px;
+        right: -10px;
+      }
+      .profile-menu {
+        right: -10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -869,12 +912,13 @@
             <i class="fas fa-moon"></i>
           </button>
           
-          <div class="dropdown">
-            <div class="dropdown-trigger notification-bell">
+          <!-- Notification Dropdown - RIGHT SIDE -->
+          <div class="notification-dropdown">
+            <div class="notification-trigger" id="notificationTrigger">
               <i class="far fa-bell"></i>
               <span class="notification-badge" id="notificationCount">3</span>
             </div>
-            <div class="dropdown-menu" id="notificationMenu">
+            <div class="notification-menu" id="notificationMenu">
               <div class="notification-item">
                 <i class="fas fa-check-circle" style="color: #10b981;"></i>
                 <strong>Task completed!</strong>
@@ -893,8 +937,9 @@
             </div>
           </div>
 
-          <div class="dropdown">
-            <div class="dropdown-trigger user-card">
+          <!-- Profile Dropdown -->
+          <div class="profile-dropdown">
+            <div class="profile-trigger" id="profileTrigger">
               <div class="user-avatar" id="userAvatar">U</div>
               <div class="user-info">
                 <h4 id="userName">Loading...</h4>
@@ -902,7 +947,7 @@
               </div>
               <i class="fas fa-chevron-down" style="color: var(--text-secondary); font-size: 0.7rem;"></i>
             </div>
-            <div class="dropdown-menu profile-menu" id="profileMenu">
+            <div class="profile-menu" id="profileMenu">
               <div class="profile-menu-item" data-action="profile">
                 <i class="fas fa-user"></i>
                 <span>Profile Settings</span>
@@ -1137,10 +1182,59 @@
       if (themeToggle) themeToggle.addEventListener('click', () => { const currentTheme = document.documentElement.getAttribute('data-theme'); const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); const icon = document.querySelector('#themeToggle i'); if (icon) icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; showToast(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`); });
     }
 
+    // Updated dropdown handlers
     function initDropdowns() {
-      document.querySelectorAll('.dropdown').forEach(dropdown => { const trigger = dropdown.querySelector('.dropdown-trigger'); const menu = dropdown.querySelector('.dropdown-menu'); if (trigger && menu) trigger.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('show'); }); });
-      document.addEventListener('click', () => document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show')));
-      document.querySelectorAll('.profile-menu-item').forEach(item => { item.addEventListener('click', (e) => { const action = item.dataset.action; if (action === 'logout') { if (confirm('Are you sure you want to logout?')) { localStorage.removeItem('taskpay_logged_in'); localStorage.removeItem('taskpay_user_email'); showToast('Logged out successfully'); setTimeout(() => window.location.href = 'login.html', 1000); } } else if (action === 'profile') navigateTo('profile'); else showToast(`${action} page coming soon!`); }); });
+      // Notification dropdown
+      const notificationTrigger = document.getElementById('notificationTrigger');
+      const notificationMenu = document.getElementById('notificationMenu');
+      
+      if (notificationTrigger && notificationMenu) {
+        notificationTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          notificationMenu.classList.toggle('show');
+        });
+      }
+      
+      // Profile dropdown
+      const profileTrigger = document.getElementById('profileTrigger');
+      const profileMenu = document.getElementById('profileMenu');
+      
+      if (profileTrigger && profileMenu) {
+        profileTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          profileMenu.classList.toggle('show');
+        });
+      }
+      
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.notification-dropdown')) {
+          notificationMenu?.classList.remove('show');
+        }
+        if (!e.target.closest('.profile-dropdown')) {
+          profileMenu?.classList.remove('show');
+        }
+      });
+      
+      // Profile menu actions
+      document.querySelectorAll('.profile-menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          const action = item.dataset.action;
+          if (action === 'logout') {
+            if (confirm('Are you sure you want to logout?')) {
+              localStorage.removeItem('taskpay_logged_in');
+              localStorage.removeItem('taskpay_user_email');
+              showToast('Logged out successfully');
+              setTimeout(() => window.location.href = 'login.html', 1000);
+            }
+          } else if (action === 'profile') {
+            navigateTo('profile');
+          } else {
+            showToast(`${action} page coming soon!`);
+          }
+          profileMenu?.classList.remove('show');
+        });
+      });
     }
 
     function initChartFilters() {
