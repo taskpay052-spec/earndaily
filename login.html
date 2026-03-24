@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>TaskPay · Sign in to earn</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>TaskPay · Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -13,186 +14,173 @@
     }
 
     body {
-      background: linear-gradient(135deg, #f5f7fb 0%, #eef2f8 100%);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 1rem;
     }
 
     .login-container {
-      max-width: 440px;
+      max-width: 450px;
       width: 100%;
-      margin: 0 auto;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .login-card {
       background: white;
-      border-radius: 40px;
-      padding: 40px 32px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(30, 111, 92, 0.1);
+      border-radius: 32px;
+      padding: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
     .logo {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 2rem;
     }
 
-    .logo h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1e6f5c, #289672);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-    }
-
-    .logo p {
-      color: #6b7a86;
-      font-size: 0.85rem;
-      margin-top: 8px;
-    }
-
-    .welcome-text {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .welcome-text h2 {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #1a2c3e;
-      margin-bottom: 8px;
-    }
-
-    .welcome-text p {
-      color: #6b7a86;
-      font-size: 0.9rem;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #1a2c3e;
-      margin-bottom: 8px;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 24px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: all 0.2s;
-      background: #fefefe;
-    }
-
-    .input-field:focus {
-      outline: none;
-      border-color: #289672;
-      box-shadow: 0 0 0 3px rgba(40, 150, 114, 0.1);
-    }
-
-    .input-field::placeholder {
-      color: #b9c3ce;
-    }
-
-    .login-btn {
-      width: 100%;
-      background: #1e6f5c;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 40px;
-      font-size: 1rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 12px;
-      margin-bottom: 20px;
-    }
-
-    .login-btn:hover {
-      background: #0f5a49;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(30, 111, 92, 0.3);
-    }
-
-    .login-btn:active {
-      transform: translateY(0);
-    }
-
-    .divider {
-      text-align: center;
-      margin: 24px 0;
-      position: relative;
-    }
-
-    .divider::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: #e2e8f0;
-    }
-
-    .divider span {
-      background: white;
-      padding: 0 12px;
-      position: relative;
-      color: #8e9eab;
-      font-size: 0.8rem;
-    }
-
-    .social-buttons {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .social-btn {
-      flex: 1;
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 12px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 40px;
-      background: white;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-weight: 500;
-      font-size: 0.85rem;
-      color: #1a2c3e;
+      margin: 0 auto 1rem;
     }
 
-    .social-btn:hover {
+    .logo-icon i {
+      font-size: 28px;
+      color: white;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #065f46, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .btn-login {
+      width: 100%;
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 1rem;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .demo-credentials {
       background: #f8fafc;
-      border-color: #289672;
+      border-radius: 16px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+    }
+
+    .demo-credentials p {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-credentials code {
+      background: #e2e8f0;
+      padding: 0.25rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #059669;
+    }
+
+    .error-message {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 0.75rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      text-align: center;
+      display: none;
     }
 
     .signup-link {
       text-align: center;
-      font-size: 0.85rem;
-      color: #6b7a86;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: #64748b;
     }
 
     .signup-link a {
-      color: #289672;
+      color: #059669;
       text-decoration: none;
       font-weight: 600;
     }
@@ -201,34 +189,13 @@
       text-decoration: underline;
     }
 
-    .demo-note {
-      background: #f0f9f6;
-      border-radius: 16px;
-      padding: 12px;
-      margin-top: 20px;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #1e6f5c;
-    }
-
-    .error-message {
-      background: #fee2e2;
-      color: #dc2626;
-      padding: 10px;
-      border-radius: 16px;
-      font-size: 0.8rem;
-      text-align: center;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .login-card {
-        padding: 32px 24px;
+        padding: 1.5rem;
       }
       
-      .social-btn {
-        font-size: 0.75rem;
+      h2 {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -237,115 +204,89 @@
   <div class="login-container">
     <div class="login-card">
       <div class="logo">
-        <h1>TaskPay</h1>
-        <p>earn money with small tasks</p>
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <span class="logo-text">TaskPay</span>
       </div>
-
-      <div class="welcome-text">
-        <h2>Welcome back 👋</h2>
-        <p>Sign in to continue earning</p>
-      </div>
-
-      <div id="errorMsg" class="error-message"></div>
-
+      
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to continue earning</p>
+      
+      <div id="errorMessage" class="error-message"></div>
+      
       <form id="loginForm">
-        <div class="input-group">
-          <label class="input-label">Email or username</label>
-          <input type="text" class="input-field" id="email" placeholder="hello@taskpay.com" value="demo@taskpay.com">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="email" placeholder="Enter your email" required>
         </div>
-
-        <div class="input-group">
-          <label class="input-label">Password</label>
-          <input type="password" class="input-field" id="password" placeholder="••••••••" value="demo123">
+        
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="password" placeholder="Enter your password" required>
         </div>
-
-        <button type="submit" class="login-btn">Sign in →</button>
+        
+        <button type="submit" class="btn-login">Sign In</button>
       </form>
-
-      <div class="divider">
-        <span>or continue with</span>
+      
+      <div class="demo-credentials">
+        <p>✨ Demo Credentials (for testing)</p>
+        <p><code>user@taskpay.com</code> / <code>any password</code></p>
+        <p style="font-size: 0.7rem; margin-top: 0.5rem;">Enter any email and password to login</p>
       </div>
-
-      <div class="social-buttons">
-        <button class="social-btn" id="googleBtn">
-          📧 Google
-        </button>
-        <button class="social-btn" id="appleBtn">
-          🍎 Apple
-        </button>
-      </div>
-
+      
       <div class="signup-link">
-        Don't have an account? <a href="#" id="signupLink">Sign up free</a>
-      </div>
-
-      <div class="demo-note">
-        ✨ Demo: Use "demo@taskpay.com" / any password to try the app
+        Don't have an account? <a href="register.html">Create Account</a>
       </div>
     </div>
   </div>
 
   <script>
-    // Simple login simulation
     const loginForm = document.getElementById('loginForm');
-    const errorMsgDiv = document.getElementById('errorMsg');
+    const errorMessage = document.getElementById('errorMessage');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Basic validation
+      if (!email || !password) {
+        showError('Please enter both email and password');
+        return;
+      }
+      
+      // Store user info in localStorage
+      localStorage.setItem('taskpay_logged_in', 'true');
+      localStorage.setItem('taskpay_user_email', email);
+      
+      // Show success message
+      errorMessage.style.display = 'block';
+      errorMessage.style.background = '#d1fae5';
+      errorMessage.style.color = '#065f46';
+      errorMessage.textContent = 'Login successful! Redirecting to dashboard...';
+      
+      // Redirect to dashboard after 1 second
+      setTimeout(function() {
+        window.location.href = 'dashboard.html';
+      }, 1000);
+    });
     
     function showError(message) {
-      errorMsgDiv.textContent = message;
-      errorMsgDiv.style.display = 'block';
+      errorMessage.style.display = 'block';
+      errorMessage.style.background = '#fee2e2';
+      errorMessage.style.color = '#dc2626';
+      errorMessage.textContent = message;
+      
       setTimeout(() => {
-        errorMsgDiv.style.display = 'none';
+        errorMessage.style.display = 'none';
       }, 3000);
     }
     
-    function handleLogin(email, password) {
-      // Simple validation - in real app, this would connect to backend
-      if (!email || email.trim() === '') {
-        showError('Please enter your email');
-        return false;
-      }
-      
-      // For demo, accept any non-empty email with demo password or any password
-      // This simulates successful login
-      if (email.trim().length > 0) {
-        // Save user session info
-        localStorage.setItem('taskpay_logged_in', 'true');
-        localStorage.setItem('taskpay_user_email', email);
-        
-        // Redirect to home page
-        window.location.href = 'index.html';
-        return true;
-      } else {
-        showError('Invalid email or password');
-        return false;
-      }
-    }
-    
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      handleLogin(email, password);
-    });
-    
-    // Social login simulation
-    document.getElementById('googleBtn').addEventListener('click', () => {
-      handleLogin('google_user@example.com', 'google_auth');
-    });
-    
-    document.getElementById('appleBtn').addEventListener('click', () => {
-      handleLogin('apple_user@example.com', 'apple_auth');
-    });
-    
-    document.getElementById('signupLink').addEventListener('click', (e) => {
-      e.preventDefault();
-      // For demo, just show message and allow signup via same flow
-      handleLogin('new_user@taskpay.com', 'signup');
-    });
-    
-    // If already logged in, redirect to home
+    // Check if already logged in
     if (localStorage.getItem('taskpay_logged_in') === 'true') {
-      window.location.href = 'index.html';
+      window.location.href = 'dashboard.html';
     }
   </script>
 </body>
