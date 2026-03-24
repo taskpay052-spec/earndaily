@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>TaskPay · Deposit Funds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon i {
+      color: white;
+      font-size: 16px;
+    }
+
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #065f46, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 6px;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+
+    /* Balance Card */
+    .balance-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .balance-label {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .balance-amount {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .balance-currency {
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    /* Deposit Grid */
+    .deposit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Method Cards */
+    .method-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+      position: relative;
+    }
+
+    .method-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .method-card.selected {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    .method-icon {
+      width: 48px;
+      height: 48px;
+      background: #f1f5f9;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .method-icon i {
+      font-size: 24px;
+    }
+
+    .method-icon.paypal i { color: #003087; }
+    .method-icon.card i { color: #10b981; }
+    .method-icon.crypto i { color: #f7931a; }
+    .method-icon.bank i { color: #3b82f6; }
+
+    .method-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .method-desc {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .method-min {
+      font-size: 0.65rem;
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .check-mark {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #10b981;
+      font-size: 1rem;
+      display: none;
+    }
+
+    .method-card.selected .check-mark {
+      display: block;
+    }
+
+    /* Amount Input Section */
+    .amount-section {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .amount-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .currency-symbol {
+      background: #f1f5f9;
+      padding: 0.8rem 1rem;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .amount-input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .amount-input:focus {
+      outline: none;
+      border-color: #10b981;
+    }
+
+    .quick-amounts {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .quick-amount {
+      padding: 0.5rem 1rem;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-amount:hover {
+      background: #10b981;
+      color: white;
+    }
+
+    /* Fee Info */
+    .fee-info {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .fee-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      font-size: 0.8rem;
+    }
+
+    .fee-row.total {
+      border-top: 1px solid #e2e8f0;
+      margin-top: 0.5rem;
+      padding-top: 0.8rem;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Recent Deposits */
+    .recent-section {
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem;
+    }
+
+    .recent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .recent-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .recent-list {
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .recent-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .recent-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .recent-icon {
+      width: 36px;
+      height: 36px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .recent-icon i {
+      font-size: 16px;
+    }
+
+    .recent-details h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .recent-details p {
+      font-size: 0.65rem;
+      color: #64748b;
+    }
+
+    .recent-amount {
+      font-weight: 700;
+      color: #10b981;
+      font-size: 0.85rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 1.5rem;
+      color: #64748b;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      z-index: 1000;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 768px) {
+      .main-container {
+        padding: 2rem;
+      }
+      .nav-links {
+        display: flex;
+      }
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .balance-amount {
+        font-size: 3rem;
+      }
+      .deposit-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='dashboard.html'">
+        <div class="logo-icon"><i class="fas fa-tasks"></i></div>
+        <span class="logo-text">TaskPay</span>
+      </div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="tasks.html" class="nav-link">Tasks</a>
+        <a href="surveys.html" class="nav-link">Surveys</a>
+        <a href="deposit.html" class="nav-link active">Deposit</a>
+        <a href="withdrawal.html" class="nav-link">Withdraw</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+      <div class="user-menu">
+        <div class="user-avatar" id="userAvatar" onclick="window.location.href='profile.html'">U</div>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="page-header">
+      <h1>💰 Deposit Funds</h1>
+      <p>Add money to your account and start earning more</p>
+    </div>
+
+    <!-- Balance Card -->
+    <div class="balance-card">
+      <div class="balance-label">Current Balance</div>
+      <div class="balance-amount" id="currentBalance">$0.00</div>
+      <div class="balance-currency">USD</div>
+    </div>
+
+    <!-- Deposit Methods -->
+    <div class="deposit-grid" id="methodsGrid">
+      <div class="method-card" data-method="paypal">
+        <div class="method-icon paypal"><i class="fab fa-paypal"></i></div>
+        <div class="method-name">PayPal</div>
+        <div class="method-desc">Instant deposit</div>
+        <div class="method-min">Min: $5</div>
+        <div class="check-mark"><i class="fas fa-check-circle"></i></div>
+      </div>
+      <div class="method-card" data-method="card">
+        <div class="method-icon card"><i class="fas fa-credit-card"></i></div>
+        <div class="method-name">Credit/Debit Card</div>
+        <div class="method-desc">Visa, Mastercard, Amex</div>
+        <div class="method-min">Min: $10</div>
+        <div class="check-mark"><i class="fas fa-check-circle"></i></div>
+      </div>
+      <div class="method-card" data-method="crypto">
+        <div class="method-icon crypto"><i class="fab fa-bitcoin"></i></div>
+        <div class="method-name">Cryptocurrency</div>
+        <div class="method-desc">BTC, ETH, USDT</div>
+        <div class="method-min">Min: $20</div>
+        <div class="check-mark"><i class="fas fa-check-circle"></i></div>
+      </div>
+      <div class="method-card" data-method="bank">
+        <div class="method-icon bank"><i class="fas fa-university"></i></div>
+        <div class="method-name">Bank Transfer</div>
+        <div class="method-desc">1-2 business days</div>
+        <div class="method-min">Min: $50</div>
+        <div class="check-mark"><i class="fas fa-check-circle"></i></div>
+      </div>
+    </div>
+
+    <!-- Amount Section -->
+    <div class="amount-section">
+      <div class="section-title">
+        <i class="fas fa-dollar-sign" style="color: #10b981;"></i>
+        Enter Amount
+      </div>
+      <div class="amount-input-wrapper">
+        <span class="currency-symbol">$</span>
+        <input type="number" class="amount-input" id="amountInput" placeholder="0.00" value="25">
+      </div>
+      <div class="quick-amounts">
+        <button class="quick-amount" data-amount="10">$10</button>
+        <button class="quick-amount" data-amount="25">$25</button>
+        <button class="quick-amount" data-amount="50">$50</button>
+        <button class="quick-amount" data-amount="100">$100</button>
+        <button class="quick-amount" data-amount="200">$200</button>
+      </div>
+    </div>
+
+    <!-- Fee Information -->
+    <div class="fee-info" id="feeInfo">
+      <div class="fee-row">
+        <span>Deposit Amount</span>
+        <span id="displayAmount">$0.00</span>
+      </div>
+      <div class="fee-row">
+        <span>Processing Fee</span>
+        <span id="processingFee">$0.00</span>
+      </div>
+      <div class="fee-row total">
+        <span>Total to Pay</span>
+        <span id="totalAmount">$0.00</span>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="submit-btn" id="depositBtn">
+      <i class="fas fa-arrow-down"></i> Confirm Deposit
+    </button>
+
+    <!-- Recent Deposits -->
+    <div class="recent-section">
+      <div class="recent-header">
+        <div class="recent-title">
+          <i class="fas fa-history" style="color: #10b981;"></i>
+          Recent Deposits
+        </div>
+      </div>
+      <div class="recent-list" id="recentList">
+        <div class="empty-state">
+          <i class="fas fa-inbox"></i>
+          <p>No deposits yet</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let selectedMethod = 'paypal';
+    let userBalance = 0;
+    let depositHistory = [];
+
+    const methodFees = {
+      paypal: { fee: 0.02, min: 5, name: 'PayPal' },
+      card: { fee: 0.025, min: 10, name: 'Credit Card' },
+      crypto: { fee: 0.01, min: 20, name: 'Cryptocurrency' },
+      bank: { fee: 0, min: 50, name: 'Bank Transfer' }
+    };
+
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+        return false;
+      }
+      currentUser = localStorage.getItem('taskpay_user_email');
+      loadUserData();
+      return true;
+    }
+
+    function loadUserData() {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      userBalance = parseFloat(localStorage.getItem(`taskpay_total_earned_${userKey}`) || '0');
+      document.getElementById('currentBalance').textContent = `$${userBalance.toFixed(2)}`;
+      document.getElementById('userAvatar').textContent = currentUser.split('@')[0].charAt(0).toUpperCase();
+      
+      // Load deposit history
+      const savedHistory = localStorage.getItem(`taskpay_deposits_${userKey}`);
+      if (savedHistory) {
+        depositHistory = JSON.parse(savedHistory);
+        renderRecentDeposits();
+      }
+      
+      updateFeeInfo();
+    }
+
+    function updateFeeInfo() {
+      const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+      const method = methodFees[selectedMethod];
+      const fee = amount * method.fee;
+      const total = amount + fee;
+      
+      document.getElementById('displayAmount').textContent = `$${amount.toFixed(2)}`;
+      document.getElementById('processingFee').textContent = `$${fee.toFixed(2)}`;
+      document.getElementById('totalAmount').textContent = `$${total.toFixed(2)}`;
+    }
+
+    function renderRecentDeposits() {
+      const container = document.getElementById('recentList');
+      if (depositHistory.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No deposits yet</p></div>';
+        return;
+      }
+      
+      container.innerHTML = depositHistory.slice(0, 5).map(deposit => `
+        <div class="recent-item">
+          <div class="recent-info">
+            <div class="recent-icon">
+              <i class="fas ${deposit.method === 'paypal' ? 'fab fa-paypal' : deposit.method === 'card' ? 'fas fa-credit-card' : deposit.method === 'crypto' ? 'fab fa-bitcoin' : 'fas fa-university'}"></i>
+            </div>
+            <div class="recent-details">
+              <h4>${methodFees[deposit.method]?.name || deposit.method}</h4>
+              <p>${new Date(deposit.date).toLocaleDateString()}</p>
+            </div>
+          </div>
+          <div class="recent-amount">+$${deposit.amount.toFixed(2)}</div>
+        </div>
+      `).join('');
+    }
+
+    function addDeposit(amount, method) {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      
+      // Update balance
+      const newBalance = userBalance + amount;
+      userBalance = newBalance;
+      localStorage.setItem(`taskpay_total_earned_${userKey}`, newBalance.toFixed(2));
+      document.getElementById('currentBalance').textContent = `$${newBalance.toFixed(2)}`;
+      
+      // Save deposit to history
+      const deposit = {
+        id: Date.now(),
+        amount: amount,
+        method: method,
+        date: new Date().toISOString(),
+        status: 'completed'
+      };
+      depositHistory.unshift(deposit);
+      localStorage.setItem(`taskpay_deposits_${userKey}`, JSON.stringify(depositHistory));
+      renderRecentDeposits();
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('taskpay_logged_in');
+        localStorage.removeItem('taskpay_user_email');
+        window.location.href = 'login.html';
+      }
+    }
+
+    // Method selection
+    document.querySelectorAll('.method-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedMethod = card.dataset.method;
+        updateFeeInfo();
+      });
+    });
+
+    // Quick amount buttons
+    document.querySelectorAll('.quick-amount').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const amount = parseFloat(btn.dataset.amount);
+        document.getElementById('amountInput').value = amount;
+        updateFeeInfo();
+      });
+    });
+
+    // Amount input change
+    document.getElementById('amountInput').addEventListener('input', () => {
+      updateFeeInfo();
+    });
+
+    // Deposit button
+    document.getElementById('depositBtn').addEventListener('click', () => {
+      const amount = parseFloat(document.getElementById('amountInput').value);
+      const method = methodFees[selectedMethod];
+      
+      if (isNaN(amount) || amount <= 0) {
+        showToast('Please enter a valid amount');
+        return;
+      }
+      
+      if (amount < method.min) {
+        showToast(`Minimum deposit for ${method.name} is $${method.min}`);
+        return;
+      }
+      
+      // Simulate payment processing
+      showToast(`Processing ${method.name} deposit of $${amount.toFixed(2)}...`);
+      
+      setTimeout(() => {
+        addDeposit(amount, selectedMethod);
+        showToast(`Successfully deposited $${amount.toFixed(2)}!`);
+        document.getElementById('amountInput').value = '';
+        updateFeeInfo();
+      }, 1500);
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    
+    if (checkAuth()) {
+      // Initialize
+    }
+  </script>
+</body>
+</html>
