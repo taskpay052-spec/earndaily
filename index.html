@@ -575,7 +575,7 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo" onclick="goToPage('index.html')">
+      <div class="logo" onclick="window.location.href='index.html'">
         <div class="logo-icon">
           <i class="fas fa-tasks"></i>
         </div>
@@ -691,12 +691,6 @@
   </footer>
 
   <script>
-    // Universal navigation function
-    function goToPage(url) {
-      console.log('Navigating to:', url);
-      window.location.href = url;
-    }
-
     // Navigation function for sidebar
     function navigateTo(page) {
       const pages = {
@@ -756,17 +750,29 @@
       setTimeout(() => toast.remove(), 2500);
     }
 
-    // Event Listeners for buttons
-    document.getElementById('startEarningBtn')?.addEventListener('click', function(e) {
-      e.preventDefault();
-      console.log('Start Earning button clicked - redirecting to login.html');
-      window.location.href = 'login.html';
-    });
-
-    document.getElementById('createAccountBtn')?.addEventListener('click', function(e) {
-      e.preventDefault();
-      console.log('Create Account button clicked - redirecting to login.html');
-      window.location.href = 'login.html';
+    // Wait for page to fully load before attaching button events
+    document.addEventListener('DOMContentLoaded', function() {
+      // Start Earning Now button
+      const startBtn = document.getElementById('startEarningBtn');
+      if (startBtn) {
+        startBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Start Earning button clicked - redirecting to login.html');
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Create Free Account button
+      const createBtn = document.getElementById('createAccountBtn');
+      if (createBtn) {
+        createBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Create Account button clicked - redirecting to login.html');
+          window.location.href = 'login.html';
+        });
+      }
+      
+      console.log('Page loaded - buttons are ready!');
     });
 
     // Sidebar close listeners
@@ -781,9 +787,6 @@
     // Make functions globally available
     window.navigateTo = navigateTo;
     window.scrollToSection = scrollToSection;
-    window.goToPage = goToPage;
-    
-    console.log('Page loaded. Buttons should work now.');
   </script>
 </body>
 </html>
