@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Create Free Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+
+    /* Main Container */
+    .signup-container {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Signup Card */
+    .signup-card {
+      background: white;
+      border-radius: 40px;
+      padding: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: fadeInUp 0.6s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signup-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #10b981, #059669, #10b981);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Logo */
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .logo-icon i {
+      font-size: 28px;
+      color: white;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo p {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    /* Welcome Text */
+    .welcome-text {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .welcome-text h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-text p {
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: #fefefe;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .input-field.error {
+      border-color: #ef4444;
+    }
+
+    /* Password Strength */
+    .password-strength {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .strength-bar {
+      flex: 1;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .strength-bar.weak { background: #ef4444; }
+    .strength-bar.medium { background: #f59e0b; }
+    .strength-bar.strong { background: #10b981; }
+
+    .strength-text {
+      font-size: 0.7rem;
+      margin-top: 0.25rem;
+      color: #64748b;
+    }
+
+    /* Terms Checkbox */
+    .terms-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .terms-group input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: #10b981;
+    }
+
+    .terms-group label {
+      font-size: 0.8rem;
+      color: #475569;
+      cursor: pointer;
+    }
+
+    .terms-group a {
+      color: #10b981;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .terms-group a:hover {
+      text-decoration: underline;
+    }
+
+    /* Signup Button */
+    .signup-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .signup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .signup-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Divider */
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .divider span {
+      background: white;
+      padding: 0 12px;
+      position: relative;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    /* Social Buttons */
+    .social-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 40px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    .social-btn:hover {
+      border-color: #10b981;
+      background: #f0fdf4;
+      transform: translateY(-2px);
+    }
+
+    .social-btn i {
+      font-size: 1.1rem;
+    }
+
+    .social-btn.google i { color: #ea4335; }
+    .social-btn.apple i { color: #000; }
+    .social-btn.facebook i { color: #1877f2; }
+
+    /* Login Link */
+    .login-link {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .login-link a {
+      color: #10b981;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Error Message */
+    .error-message {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 0.75rem;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .success-message {
+      background: #d1fae5;
+      color: #10b981;
+      padding: 0.75rem;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 480px) {
+      .signup-card {
+        padding: 1.8rem;
+      }
+      
+      .social-buttons {
+        flex-direction: column;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="bg-circle" style="width: 300px; height: 300px; top: -100px; left: -100px; animation-duration: 25s;"></div>
+    <div class="bg-circle" style="width: 200px; height: 200px; bottom: -50px; right: -50px; animation-duration: 15s; animation-delay: 2s;"></div>
+    <div class="bg-circle" style="width: 150px; height: 150px; top: 50%; left: 85%; animation-duration: 18s;"></div>
+    <div class="bg-circle" style="width: 250px; height: 250px; bottom: 20%; left: -80px; animation-duration: 20s; animation-delay: 1s;"></div>
+  </div>
+
+  <div class="signup-container">
+    <div class="signup-card">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <h1>TaskPay</h1>
+        <p>Start earning today</p>
+      </div>
+
+      <div class="welcome-text">
+        <h2>Create your account ✨</h2>
+        <p>Join thousands of users earning real money</p>
+      </div>
+
+      <div id="errorMsg" class="error-message"></div>
+      <div id="successMsg" class="success-message"></div>
+
+      <form id="signupForm">
+        <div class="form-group">
+          <div class="input-group">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" class="input-field" id="fullName" placeholder="Full Name" autocomplete="name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" class="input-field" id="email" placeholder="Email Address" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" class="input-field" id="password" placeholder="Password" autocomplete="new-password">
+          </div>
+          <div class="password-strength" id="strengthBars">
+            <div class="strength-bar"></div>
+            <div class="strength-bar"></div>
+            <div class="strength-bar"></div>
+          </div>
+          <div class="strength-text" id="strengthText"></div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <i class="fas fa-check-circle input-icon"></i>
+            <input type="password" class="input-field" id="confirmPassword" placeholder="Confirm Password" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="terms-group">
+          <input type="checkbox" id="termsCheckbox">
+          <label for="termsCheckbox">
+            I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and 
+            <a href="privacy.html" target="_blank">Privacy Policy</a>
+          </label>
+        </div>
+
+        <button type="submit" class="signup-btn" id="signupBtn">
+          <span>Create Free Account</span>
+          <i class="fas fa-arrow-right"></i>
+          <div class="spinner" id="spinner"></div>
+        </button>
+      </form>
+
+      <div class="divider">
+        <span>or sign up with</span>
+      </div>
+
+      <div class="social-buttons">
+        <button class="social-btn google" id="googleSignup">
+          <i class="fab fa-google"></i> Google
+        </button>
+        <button class="social-btn apple" id="appleSignup">
+          <i class="fab fa-apple"></i> Apple
+        </button>
+        <button class="social-btn facebook" id="facebookSignup">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </button>
+      </div>
+
+      <div class="login-link">
+        Already have an account? <a href="login.html">Sign in</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Password strength checker
+    function checkPasswordStrength(password) {
+      let strength = 0;
+      
+      if (password.length >= 6) strength++;
+      if (password.length >= 10) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+      
+      // Cap at 3 for display
+      strength = Math.min(strength, 3);
+      
+      const bars = document.querySelectorAll('#strengthBars .strength-bar');
+      bars.forEach((bar, index) => {
+        bar.classList.remove('weak', 'medium', 'strong');
+        if (index < strength) {
+          if (strength === 1) bar.classList.add('weak');
+          else if (strength === 2) bar.classList.add('medium');
+          else if (strength >= 3) bar.classList.add('strong');
+        }
+      });
+      
+      const strengthText = document.getElementById('strengthText');
+      if (password.length === 0) {
+        strengthText.textContent = '';
+      } else if (strength === 1) {
+        strengthText.textContent = '⚠️ Weak password';
+        strengthText.style.color = '#ef4444';
+      } else if (strength === 2) {
+        strengthText.textContent = '⚡ Medium password';
+        strengthText.style.color = '#f59e0b';
+      } else if (strength >= 3) {
+        strengthText.textContent = '✅ Strong password';
+        strengthText.style.color = '#10b981';
+      }
+      
+      return strength;
+    }
+
+    // Validate email format
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Show error message
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMsg');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 4000);
+    }
+
+    // Show success message
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMsg');
+      successDiv.textContent = message;
+      successDiv.style.display = 'block';
+      setTimeout(() => {
+        successDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Set loading state
+    function setLoading(isLoading) {
+      const btn = document.getElementById('signupBtn');
+      const btnText = btn.querySelector('span');
+      const btnIcon = btn.querySelector('i:not(.spinner)');
+      const spinner = document.getElementById('spinner');
+      
+      if (isLoading) {
+        btn.disabled = true;
+        btnText.style.opacity = '0.7';
+        btnIcon.style.opacity = '0';
+        spinner.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btnText.style.opacity = '1';
+        btnIcon.style.opacity = '1';
+        spinner.style.display = 'none';
+      }
+    }
+
+    // Create user account
+    function createUserAccount(fullName, email, password, isSocial = false) {
+      const userKey = email.replace(/[^a-zA-Z0-9]/g, '_');
+      
+      // Check if user already exists
+      const existingUser = localStorage.getItem(`taskpay_user_${userKey}`);
+      if (existingUser && !isSocial) {
+        showError('An account with this email already exists. Please login instead.');
+        return false;
+      }
+      
+      // Create user data
+      const userData = {
+        fullName: fullName,
+        email: email,
+        createdAt: new Date().toISOString(),
+        lastLogin: new Date().toISOString()
+      };
+      
+      // Save user data
+      localStorage.setItem(`taskpay_user_${userKey}`, JSON.stringify(userData));
+      
+      // Initialize user earnings data
+      if (!localStorage.getItem(`taskpay_balance_${userKey}`)) {
+        localStorage.setItem(`taskpay_balance_${userKey}`, '0');
+      }
+      if (!localStorage.getItem(`taskpay_total_earned_${userKey}`)) {
+        localStorage.setItem(`taskpay_total_earned_${userKey}`, '0');
+      }
+      if (!localStorage.getItem(`taskpay_tasks_done_${userKey}`)) {
+        localStorage.setItem(`taskpay_tasks_done_${userKey}`, '0');
+      }
+      if (!localStorage.getItem(`taskpay_surveys_done_${userKey}`)) {
+        localStorage.setItem(`taskpay_surveys_done_${userKey}`, '0');
+      }
+      if (!localStorage.getItem(`taskpay_completed_tasks_${userKey}`)) {
+        localStorage.setItem(`taskpay_completed_tasks_${userKey}`, '[]');
+      }
+      if (!localStorage.getItem(`taskpay_completed_surveys_${userKey}`)) {
+        localStorage.setItem(`taskpay_completed_surveys_${userKey}`, '[]');
+      }
+      
+      // Store password for demo (in real app, this would be hashed on server)
+      localStorage.setItem(`taskpay_password_${userKey}`, password);
+      
+      return true;
+    }
+
+    // Handle signup
+    function handleSignup(event) {
+      event.preventDefault();
+      
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const termsAccepted = document.getElementById('termsCheckbox').checked;
+      
+      // Validation
+      if (!fullName) {
+        showError('Please enter your full name');
+        return;
+      }
+      
+      if (!email) {
+        showError('Please enter your email address');
+        return;
+      }
+      
+      if (!isValidEmail(email)) {
+        showError('Please enter a valid email address');
+        return;
+      }
+      
+      if (!password) {
+        showError('Please create a password');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showError('Password must be at least 6 characters');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showError('Passwords do not match');
+        return;
+      }
+      
+      if (!termsAccepted) {
+        showError('Please accept the Terms of Service and Privacy Policy');
+        return;
+      }
+      
+      // Create account
+      setLoading(true);
+      
+      setTimeout(() => {
+        const success = createUserAccount(fullName, email, password);
+        setLoading(false);
+        
+        if (success) {
+          // Auto-login after signup
+          localStorage.setItem('taskpay_logged_in', 'true');
+          localStorage.setItem('taskpay_user_email', email);
+          
+          showSuccess('Account created successfully! Redirecting to dashboard...');
+          
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1500);
+        }
+      }, 500);
+    }
+
+    // Social signup simulation
+    function socialSignup(provider) {
+      setLoading(true);
+      
+      setTimeout(() => {
+        const mockEmail = `${provider.toLowerCase()}_user_${Date.now()}@example.com`;
+        const mockName = provider.charAt(0).toUpperCase() + provider.slice(1) + ' User';
+        
+        createUserAccount(mockName, mockEmail, 'social_auth', true);
+        
+        localStorage.setItem('taskpay_logged_in', 'true');
+        localStorage.setItem('taskpay_user_email', mockEmail);
+        
+        setLoading(false);
+        showSuccess(`${provider} account connected! Redirecting...`);
+        
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+      }, 800);
+    }
+
+    // Password strength checker
+    document.getElementById('password').addEventListener('input', function(e) {
+      checkPasswordStrength(e.target.value);
+    });
+    
+    // Confirm password validation
+    document.getElementById('confirmPassword').addEventListener('input', function(e) {
+      const password = document.getElementById('password').value;
+      const confirmField = e.target;
+      
+      if (password !== confirmField.value) {
+        confirmField.classList.add('error');
+      } else {
+        confirmField.classList.remove('error');
+      }
+    });
+    
+    // Form submission
+    document.getElementById('signupForm').addEventListener('submit', handleSignup);
+    
+    // Social buttons
+    document.getElementById('googleSignup').addEventListener('click', () => socialSignup('Google'));
+    document.getElementById('appleSignup').addEventListener('click', () => socialSignup('Apple'));
+    document.getElementById('facebookSignup').addEventListener('click', () => socialSignup('Facebook'));
+    
+    // Check if user is already logged in
+    if (localStorage.getItem('taskpay_logged_in') === 'true') {
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>
