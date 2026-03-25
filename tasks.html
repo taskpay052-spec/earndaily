@@ -113,38 +113,45 @@
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
-    /* Mobile Menu Button */
-    .menu-toggle {
-      display: block;
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1001;
+    /* Top Bar - Fixed Layout */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
       background: white;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+
+    /* Left side - Menu Button */
+    .menu-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-toggle {
+      background: none;
       border: none;
       width: 40px;
       height: 40px;
       border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    /* Main Content */
-    .main-content {
-      margin-left: 0;
-      padding: 1rem;
-      transition: margin-left 0.3s;
-    }
-
-    /* Top Bar */
-    .top-bar {
+      font-size: 1.2rem;
+      color: #475569;
       display: flex;
-      justify-content: flex-end;
       align-items: center;
-      margin-bottom: 1.5rem;
-      padding-top: 0.5rem;
+      justify-content: center;
+      transition: all 0.2s;
     }
 
+    .menu-toggle:hover {
+      background: #f1f5f9;
+    }
+
+    /* Right side - User Section */
     .user-section {
       display: flex;
       align-items: center;
@@ -154,6 +161,17 @@
     .notification-bell {
       position: relative;
       cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .notification-bell:hover {
+      background: #f1f5f9;
     }
 
     .notification-bell i {
@@ -161,15 +179,29 @@
       color: #64748b;
     }
 
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+
     .user-card {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: white;
+      background: #f8fafc;
       padding: 0.5rem 1rem;
       border-radius: 40px;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s;
+    }
+
+    .user-card:hover {
+      background: #f1f5f9;
     }
 
     .user-avatar {
@@ -182,6 +214,11 @@
       justify-content: center;
       color: white;
       font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .user-info {
+      display: none;
     }
 
     .user-info h4 {
@@ -200,7 +237,26 @@
       color: #64748b;
       cursor: pointer;
       font-size: 1.1rem;
-      padding: 6px;
+      padding: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 0;
+      padding: 1rem;
+      transition: margin-left 0.3s;
     }
 
     /* Page Header */
@@ -446,8 +502,16 @@
         transform: translateX(0);
       }
       
-      .menu-toggle {
+      .top-bar {
+        justify-content: flex-end;
+      }
+      
+      .menu-left {
         display: none;
+      }
+      
+      .user-info {
+        display: block;
       }
       
       .main-content {
@@ -477,10 +541,30 @@
   </style>
 </head>
 <body>
-  <!-- Mobile Menu Toggle -->
-  <button class="menu-toggle" id="menuToggle">
-    <i class="fas fa-bars"></i>
-  </button>
+  <!-- Top Bar with Hamburger Menu and User Section on Same Line -->
+  <div class="top-bar">
+    <div class="menu-left">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="user-section">
+      <div class="notification-bell" onclick="showToast('No new notifications')">
+        <i class="far fa-bell"></i>
+        <div class="notification-dot"></div>
+      </div>
+      <div class="user-card" onclick="navigateTo('profile')">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <h4 id="userName">Loading...</h4>
+          <p id="userEmail">user@example.com</p>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </div>
 
   <!-- Premium Sidebar -->
   <aside class="sidebar" id="sidebar">
@@ -525,25 +609,6 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <div class="user-section">
-        <div class="notification-bell" onclick="showToast('No new notifications')">
-          <i class="far fa-bell"></i>
-        </div>
-        <div class="user-card" onclick="navigateTo('profile')">
-          <div class="user-avatar" id="userAvatar">U</div>
-          <div class="user-info">
-            <h4 id="userName">Loading...</h4>
-            <p id="userEmail">user@example.com</p>
-          </div>
-        </div>
-        <button class="logout-btn" id="logoutBtn">
-          <i class="fas fa-sign-out-alt"></i>
-        </button>
-      </div>
-    </div>
-
     <!-- Page Header -->
     <div class="page-header">
       <h1>✨ Premium Tasks</h1>
