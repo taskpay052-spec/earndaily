@@ -113,7 +113,7 @@
       box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     }
 
-    /* Top Bar - Fixed Layout */
+    /* Top Bar */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -126,7 +126,6 @@
       z-index: 99;
     }
 
-    /* Left side - Menu Button */
     .menu-left {
       display: flex;
       align-items: center;
@@ -147,11 +146,6 @@
       transition: all 0.2s;
     }
 
-    .menu-toggle:hover {
-      background: #f1f5f9;
-    }
-
-    /* Right side - User Section */
     .user-section {
       display: flex;
       align-items: center;
@@ -167,11 +161,6 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: all 0.2s;
-    }
-
-    .notification-bell:hover {
-      background: #f1f5f9;
     }
 
     .notification-bell i {
@@ -197,11 +186,6 @@
       padding: 0.5rem 1rem;
       border-radius: 40px;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .user-card:hover {
-      background: #f1f5f9;
     }
 
     .user-avatar {
@@ -214,7 +198,6 @@
       justify-content: center;
       color: white;
       font-weight: 700;
-      font-size: 0.9rem;
     }
 
     .user-info {
@@ -244,7 +227,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
     }
 
     .logout-btn:hover {
@@ -259,27 +241,7 @@
       transition: margin-left 0.3s;
     }
 
-    /* Page Header */
-    .page-header {
-      margin-bottom: 1.2rem;
-    }
-
-    .page-header h1 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 0.3rem;
-    }
-
-    .page-header p {
-      color: #64748b;
-      font-size: 0.8rem;
-    }
-
-    /* Stats Summary - 4 columns */
+    /* Stats Summary */
     .stats-summary {
       background: linear-gradient(135deg, #8b5cf6, #6d28d9);
       border-radius: 20px;
@@ -288,7 +250,6 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0.5rem;
-      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
     }
 
     .stats-summary-item {
@@ -314,21 +275,6 @@
       margin-bottom: 1rem;
       overflow-x: auto;
       padding-bottom: 0.3rem;
-      scrollbar-width: thin;
-    }
-
-    .category-filters::-webkit-scrollbar {
-      height: 3px;
-    }
-
-    .category-filters::-webkit-scrollbar-track {
-      background: #e2e8f0;
-      border-radius: 10px;
-    }
-
-    .category-filters::-webkit-scrollbar-thumb {
-      background: #8b5cf6;
-      border-radius: 10px;
     }
 
     .category-btn {
@@ -339,9 +285,6 @@
       font-weight: 600;
       font-size: 0.7rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
       white-space: nowrap;
     }
 
@@ -380,7 +323,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
-      margin-bottom: 1.2rem;
     }
 
     .survey-card {
@@ -411,27 +353,12 @@
       padding: 0.15rem 0.5rem;
       border-radius: 20px;
       font-size: 0.55rem;
-      font-weight: 600;
       margin-bottom: 0.5rem;
     }
 
     .survey-title {
       font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 0.2rem;
-    }
-
-    .survey-description {
-      font-size: 0.65rem;
-      opacity: 0.9;
-      margin-bottom: 0.5rem;
-    }
-
-    .survey-stats {
-      display: flex;
-      gap: 0.8rem;
-      font-size: 0.55rem;
-      opacity: 0.8;
     }
 
     .survey-content {
@@ -453,85 +380,6 @@
       color: #8b5cf6;
     }
 
-    .survey-reward small {
-      font-size: 0.6rem;
-      font-weight: 500;
-      color: #64748b;
-    }
-
-    .survey-time {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      color: #64748b;
-      font-size: 0.65rem;
-    }
-
-    .survey-details {
-      display: flex;
-      gap: 0.6rem;
-      margin-bottom: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .detail-item {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.6rem;
-      color: #64748b;
-    }
-
-    .detail-item i {
-      color: #8b5cf6;
-    }
-
-    .tags {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.5rem;
-    }
-
-    .tag {
-      background: #f1f5f9;
-      padding: 0.15rem 0.5rem;
-      border-radius: 10px;
-      font-size: 0.55rem;
-      color: #475569;
-    }
-
-    .completion-progress {
-      margin-top: 0.5rem;
-      height: 3px;
-      background: #e2e8f0;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #8b5cf6, #6d28d9);
-      border-radius: 2px;
-    }
-
-    .survey-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 0.6rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid #e2e8f0;
-    }
-
-    .completed-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: #10b981;
-      font-weight: 600;
-      font-size: 0.65rem;
-    }
-
     .start-btn {
       background: linear-gradient(135deg, #8b5cf6, #6d28d9);
       color: white;
@@ -541,44 +389,266 @@
       font-weight: 600;
       font-size: 0.65rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .popular-badge, .new-badge {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 20px;
-      font-size: 0.55rem;
-      font-weight: 700;
+    .completed-badge {
+      color: #10b981;
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
     .popular-badge {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
       background: linear-gradient(135deg, #f59e0b, #dc2626);
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.55rem;
       color: white;
     }
 
-    .new-badge {
+    /* Survey Modal - Stunning Design */
+    .survey-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-container {
+      background: white;
+      border-radius: 40px;
+      max-width: 550px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: slideUp 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 2px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+      border-radius: 40px 40px 0 0;
+    }
+
+    .modal-header h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: #f1f5f9;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: #e2e8f0;
+      transform: rotate(90deg);
+    }
+
+    /* Progress Bar */
+    .progress-section {
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-bg {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    /* Question Area */
+    .question-area {
+      padding: 1.5rem;
+      min-height: 280px;
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .option:hover {
+      background: #f1f5f9;
+      transform: translateX(5px);
+    }
+
+    .option.selected {
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+      border-color: #8b5cf6;
+    }
+
+    .option input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #8b5cf6;
+    }
+
+    .option label {
+      flex: 1;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    /* Navigation Buttons */
+    .modal-footer {
+      padding: 1rem 1.5rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .nav-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .nav-btn.prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .nav-btn.prev:hover {
+      background: #e2e8f0;
+    }
+
+    .nav-btn.next, .nav-btn.submit {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: white;
+      flex: 1;
+    }
+
+    .nav-btn.next:hover, .nav-btn.submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Reward Animation */
+    .reward-animation {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: linear-gradient(135deg, #10b981, #059669);
       color: white;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      z-index: 2100;
+      animation: floatUp 0.8s ease forwards;
+      white-space: nowrap;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
 
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 2rem;
-      background: white;
-      border-radius: 20px;
-      grid-column: span 2;
-    }
-
-    .empty-state i {
-      font-size: 48px;
-      color: #cbd5e1;
-      margin-bottom: 0.5rem;
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+      80% {
+        opacity: 1;
+        transform: translate(-50%, -80px) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -120px) scale(0.8);
+      }
     }
 
     /* Toast */
@@ -593,42 +663,27 @@
       border-radius: 40px;
       font-size: 0.75rem;
       z-index: 1000;
-      white-space: nowrap;
     }
 
     @media (min-width: 768px) {
       .sidebar {
         transform: translateX(0);
       }
-      
       .top-bar {
         justify-content: flex-end;
       }
-      
       .menu-left {
         display: none;
       }
-      
       .user-info {
         display: block;
       }
-      
       .main-content {
         margin-left: 280px;
         padding: 2rem;
       }
-      
       .surveys-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-      }
-      
-      .stats-summary .label {
-        font-size: 0.75rem;
-      }
-      
-      .stats-summary .value {
-        font-size: 1.5rem;
       }
     }
 
@@ -640,7 +695,7 @@
   </style>
 </head>
 <body>
-  <!-- Top Bar with Hamburger Menu and User Section -->
+  <!-- Top Bar -->
   <div class="top-bar">
     <div class="menu-left">
       <button class="menu-toggle" id="menuToggle">
@@ -665,123 +720,107 @@
     </div>
   </div>
 
-  <!-- Premium Sidebar -->
+  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="logo-area">
-        <div class="logo-icon">
-          <i class="fas fa-chart-line"></i>
-        </div>
-        <div>
-          <div class="logo-text">TaskPay</div>
-          <div class="logo-badge">Premium Dashboard</div>
-        </div>
+        <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+        <div><div class="logo-text">TaskPay</div><div class="logo-badge">Premium Dashboard</div></div>
       </div>
     </div>
     <div class="sidebar-nav">
-      <div class="nav-item" onclick="navigateTo('dashboard')">
-        <i class="fas fa-home"></i>
-        <span>Dashboard</span>
-      </div>
-      <div class="nav-item" onclick="navigateTo('tasks')">
-        <i class="fas fa-tasks"></i>
-        <span>My Tasks</span>
-      </div>
-      <div class="nav-item active" onclick="navigateTo('surveys')">
-        <i class="fas fa-poll"></i>
-        <span>Surveys</span>
-      </div>
-      <div class="nav-item" onclick="navigateTo('withdrawals')">
-        <i class="fas fa-wallet"></i>
-        <span>Withdrawals</span>
-      </div>
-      <div class="nav-item" onclick="navigateTo('profile')">
-        <i class="fas fa-user"></i>
-        <span>Profile</span>
-      </div>
-      <div class="nav-item" onclick="navigateTo('support')">
-        <i class="fas fa-headset"></i>
-        <span>Support</span>
-      </div>
+      <div class="nav-item" onclick="navigateTo('dashboard')"><i class="fas fa-home"></i><span>Dashboard</span></div>
+      <div class="nav-item" onclick="navigateTo('tasks')"><i class="fas fa-tasks"></i><span>My Tasks</span></div>
+      <div class="nav-item active" onclick="navigateTo('surveys')"><i class="fas fa-poll"></i><span>Surveys</span></div>
+      <div class="nav-item" onclick="navigateTo('withdrawals')"><i class="fas fa-wallet"></i><span>Withdrawals</span></div>
+      <div class="nav-item" onclick="navigateTo('profile')"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
   </aside>
 
   <!-- Main Content -->
   <div class="main-content">
-    <div class="page-header">
-      <h1>📊 Premium Surveys</h1>
-      <p>Share your opinion & earn real money</p>
-    </div>
-
     <div class="stats-summary">
-      <div class="stats-summary-item">
-        <div class="label">Completed</div>
-        <div class="value" id="completedCount">0</div>
-      </div>
-      <div class="stats-summary-item">
-        <div class="label">Earned</div>
-        <div class="value" id="surveysEarned">$0</div>
-      </div>
-      <div class="stats-summary-item">
-        <div class="label">Available</div>
-        <div class="value" id="availableCount">0</div>
-      </div>
-      <div class="stats-summary-item">
-        <div class="label">Streak</div>
-        <div class="value" id="surveyStreak">0</div>
-      </div>
+      <div class="stats-summary-item"><div class="label">Completed</div><div class="value" id="completedCount">0</div></div>
+      <div class="stats-summary-item"><div class="label">Earned</div><div class="value" id="surveysEarned">$0</div></div>
+      <div class="stats-summary-item"><div class="label">Available</div><div class="value" id="availableCount">0</div></div>
+      <div class="stats-summary-item"><div class="label">Streak</div><div class="value" id="surveyStreak">0</div></div>
     </div>
 
     <div class="category-filters" id="categoryFilters"></div>
-
     <div class="filters">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="available">Available</button>
       <button class="filter-btn" data-filter="completed">Completed</button>
       <button class="filter-btn" data-filter="highest">Highest</button>
-      <button class="filter-btn" data-filter="short">Shortest</button>
     </div>
-
     <div id="surveysContainer" class="surveys-grid"></div>
   </div>
 
-  <script>
-    // Navigation function
-    function navigateTo(page) {
-      const pages = {
-        'dashboard': 'dashboard.html',
-        'tasks': 'tasks.html',
-        'surveys': 'surveys.html',
-        'withdrawals': 'withdrawal.html',
-        'profile': 'profile.html',
-        'support': 'support.html'
-      };
-      const pageUrl = pages[page];
-      if (pageUrl) window.location.href = pageUrl;
-      else showToast('Page coming soon!');
-    }
+  <!-- Survey Modal -->
+  <div id="surveyModal" class="survey-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 id="modalTitle">Take Survey</h2>
+        <button class="modal-close" onclick="closeSurveyModal()">&times;</button>
+      </div>
+      <div class="progress-section">
+        <div class="progress-text">
+          <span id="questionCounter">Question 1 of 3</span>
+          <span id="rewardDisplay">+$0.00</span>
+        </div>
+        <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="question-area" id="questionArea"></div>
+      <div class="modal-footer">
+        <button class="nav-btn prev" id="prevBtn" onclick="prevQuestion()">← Previous</button>
+        <button class="nav-btn next" id="nextBtn" onclick="nextQuestion()">Next →</button>
+        <button class="nav-btn submit" id="submitBtn" onclick="submitSurvey()" style="display:none;">Complete & Earn →</button>
+      </div>
+    </div>
+  </div>
 
-    // Survey Data
+  <script>
+    // Survey Data with Questions
     const allSurveys = [
-      { id: "s1", title: "☕ Coffee Habits", reward: 0.80, time: "3 min", q: 3, cat: "consumer", tags: ["Coffee"], popular: true, company: "Starbucks", icon: "fa-mug-hot", color: "#f59e0b", rate: 87 },
-      { id: "s2", title: "🎮 Mobile Gaming", reward: 0.90, time: "4 min", q: 4, cat: "tech", tags: ["Gaming"], popular: true, company: "GameDev", icon: "fa-gamepad", color: "#8b5cf6", rate: 92 },
-      { id: "s3", title: "📺 Streaming", reward: 1.00, time: "5 min", q: 5, cat: "tech", tags: ["Streaming"], popular: true, company: "Media", icon: "fa-tv", color: "#ec489a", rate: 78 },
-      { id: "s4", title: "💻 WFH Tools", reward: 0.75, time: "3 min", q: 3, cat: "business", tags: ["Work"], company: "TechCorp", icon: "fa-laptop-code", color: "#06b6d4", rate: 85 },
-      { id: "s5", title: "🍪 Snack Brands", reward: 0.65, time: "2 min", q: 2, cat: "consumer", tags: ["Food"], new: true, company: "SnackCo", icon: "fa-cookie-bite", color: "#f59e0b", rate: 95 },
-      { id: "s6", title: "🏃 Fitness", reward: 0.95, time: "4 min", q: 4, cat: "health", tags: ["Fitness"], trending: true, company: "Wellness", icon: "fa-heartbeat", color: "#10b981", rate: 88 },
-      { id: "s7", title: "🛍️ Online Shopping", reward: 0.85, time: "4 min", q: 4, cat: "consumer", tags: ["Shopping"], popular: true, company: "Retail", icon: "fa-shopping-cart", color: "#ef4444", rate: 82 },
-      { id: "s8", title: "📱 Social Media", reward: 0.70, time: "3 min", q: 3, cat: "tech", tags: ["Social"], company: "SocialInsights", icon: "fa-hashtag", color: "#3b82f6", rate: 90 },
-      { id: "s9", title: "🚗 Electric Vehicles", reward: 1.20, time: "6 min", q: 6, cat: "business", tags: ["EV"], new: true, company: "Auto", icon: "fa-car", color: "#06b6d4", rate: 75 },
-      { id: "s10", title: "💳 Digital Banking", reward: 1.10, time: "5 min", q: 5, cat: "business", tags: ["Banking"], popular: true, company: "FinTech", icon: "fa-credit-card", color: "#8b5cf6", rate: 79 }
+      { id: "s1", title: "☕ Coffee Habits", reward: 0.80, time: "3 min", q: 3, cat: "consumer", company: "Starbucks", icon: "fa-mug-hot", color: "#f59e0b", popular: true,
+        questions: [
+          { text: "How often do you visit coffee shops?", options: ["Daily", "2-3 times a week", "Once a week", "Few times a month", "Rarely"] },
+          { text: "What's your favorite coffee drink?", options: ["Espresso", "Latte", "Cappuccino", "Americano", "Cold brew"] },
+          { text: "How much do you typically spend per visit?", options: ["Under $3", "$3-$5", "$5-$7", "$7-$10", "Over $10"] }
+        ] },
+      { id: "s2", title: "🎮 Mobile Gaming", reward: 0.90, time: "4 min", q: 4, cat: "tech", company: "GameDev", icon: "fa-gamepad", color: "#8b5cf6", popular: true,
+        questions: [
+          { text: "How many hours per week do you play mobile games?", options: ["0-2 hours", "3-5 hours", "6-10 hours", "11-15 hours", "15+ hours"] },
+          { text: "What's your favorite game genre?", options: ["Puzzle", "Action", "Strategy", "RPG", "Casual"] },
+          { text: "Do you make in-app purchases?", options: ["Never", "Rarely", "Sometimes", "Often", "Always"] },
+          { text: "What makes you download a new game?", options: ["Ads", "Friend recommendations", "App store ratings", "Social media"] }
+        ] },
+      { id: "s3", title: "📺 Streaming Services", reward: 1.00, time: "5 min", q: 5, cat: "tech", company: "Media", icon: "fa-tv", color: "#ec489a", popular: true,
+        questions: [
+          { text: "Which streaming services do you use?", options: ["Netflix", "Disney+", "Hulu", "Amazon Prime", "HBO Max"], multiSelect: true },
+          { text: "How much do you spend monthly on streaming?", options: ["Under $20", "$20-$40", "$40-$60", "$60-$80", "Over $80"] },
+          { text: "What type of content do you watch most?", options: ["Movies", "TV Shows", "Documentaries", "Anime", "News"] },
+          { text: "How satisfied are you with your current services?", options: ["Very satisfied", "Satisfied", "Neutral", "Unsatisfied"] },
+          { text: "Would you try a new streaming service?", options: ["Definitely yes", "Probably yes", "Not sure", "Probably no"] }
+        ] },
+      { id: "s4", title: "💻 WFH Tools", reward: 0.75, time: "3 min", q: 3, cat: "business", company: "TechCorp", icon: "fa-laptop-code", color: "#06b6d4",
+        questions: [
+          { text: "What tools do you use for work?", options: ["Zoom", "Slack", "Teams", "Google Workspace", "Notion"] },
+          { text: "How productive do you feel working from home?", options: ["Very productive", "Productive", "Neutral", "Unproductive"] },
+          { text: "What would improve your WFH experience?", options: ["Better equipment", "More breaks", "Flexible hours", "Better communication"] }
+        ] }
     ];
 
     let surveys = [], currentUser = null, completed = [], currentFilter = 'all', currentCat = 'all', earned = 0, streak = 0;
+    let currentSurvey = null, currentAnswers = [], currentQuestionIndex = 0;
+
+    function navigateTo(page) {
+      const pages = { 'dashboard': 'dashboard.html', 'tasks': 'tasks.html', 'surveys': 'surveys.html', 'withdrawals': 'withdrawal.html', 'profile': 'profile.html' };
+      window.location.href = pages[page] || '#';
+    }
 
     function checkAuth() {
-      if (localStorage.getItem('taskpay_logged_in') !== 'true') { 
-        window.location.href = 'login.html'; 
-        return false; 
-      }
+      if (localStorage.getItem('taskpay_logged_in') !== 'true') { window.location.href = 'login.html'; return false; }
       currentUser = localStorage.getItem('taskpay_user_email') || 'user@taskpay.com';
       loadData();
       return true;
@@ -791,18 +830,11 @@
       const key = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
       completed = JSON.parse(localStorage.getItem(`taskpay_completed_surveys_${key}`) || '[]');
       earned = 0;
-      surveys = allSurveys.map(s => { 
-        const c = completed.includes(s.id); 
-        if (c) earned += s.reward; 
-        return { ...s, completed: c }; 
-      });
+      surveys = allSurveys.map(s => { const c = completed.includes(s.id); if (c) earned += s.reward; return { ...s, completed: c }; });
       streak = Math.floor(Math.random() * 14) + 1;
-      
-      const userName = currentUser.split('@')[0];
-      document.getElementById('userName').textContent = userName;
+      document.getElementById('userName').textContent = currentUser.split('@')[0];
       document.getElementById('userEmail').textContent = currentUser;
-      document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
-      
+      document.getElementById('userAvatar').textContent = currentUser.split('@')[0].charAt(0).toUpperCase();
       updateStats();
       renderCats();
       render();
@@ -816,23 +848,9 @@
     }
 
     function renderCats() {
-      const cats = [
-        { id: 'all', name: 'All', icon: 'fa-th-large' },
-        { id: 'consumer', name: '🛍️ Consumer', icon: 'fa-users' },
-        { id: 'tech', name: '💻 Tech', icon: 'fa-gamepad' },
-        { id: 'business', name: '📊 Business', icon: 'fa-chart-line' },
-        { id: 'health', name: '🏃 Health', icon: 'fa-heartbeat' }
-      ];
-      document.getElementById('categoryFilters').innerHTML = cats.map(c => `
-        <button class="category-btn ${currentCat === c.id ? 'active' : ''}" data-cat="${c.id}">
-          <i class="fas ${c.icon}"></i> ${c.name}
-        </button>
-      `).join('');
-      document.querySelectorAll('.category-btn').forEach(b => b.addEventListener('click', () => { 
-        currentCat = b.dataset.cat; 
-        renderCats(); 
-        render(); 
-      }));
+      const cats = [{ id: 'all', name: 'All' }, { id: 'consumer', name: '🛍️ Consumer' }, { id: 'tech', name: '💻 Tech' }, { id: 'business', name: '📊 Business' }];
+      document.getElementById('categoryFilters').innerHTML = cats.map(c => `<button class="category-btn ${currentCat === c.id ? 'active' : ''}" data-cat="${c.id}">${c.name}</button>`).join('');
+      document.querySelectorAll('.category-btn').forEach(b => b.addEventListener('click', () => { currentCat = b.dataset.cat; renderCats(); render(); }));
     }
 
     function render() {
@@ -840,128 +858,171 @@
       if (currentFilter === 'available') filtered = filtered.filter(s => !s.completed);
       else if (currentFilter === 'completed') filtered = filtered.filter(s => s.completed);
       else if (currentFilter === 'highest') filtered.sort((a, b) => b.reward - a.reward);
-      else if (currentFilter === 'short') filtered.sort((a, b) => a.q - b.q);
-      
       const container = document.getElementById('surveysContainer');
-      if (!filtered.length) { 
-        container.innerHTML = `<div class="empty-state"><i class="fas fa-poll"></i><h3>No surveys found</h3><p>Check back later!</p></div>`; 
-        return; 
-      }
-      
+      if (!filtered.length) { container.innerHTML = `<div class="empty-state" style="text-align:center;padding:2rem;"><i class="fas fa-poll"></i><p>No surveys</p></div>`; return; }
       container.innerHTML = filtered.map(s => `
-        <div class="survey-card" onclick="startSurvey('${s.id}')">
+        <div class="survey-card" onclick="openSurveyModal('${s.id}')">
           <div class="survey-header" style="background:linear-gradient(135deg, ${s.color}, ${s.color}dd);">
             ${s.popular ? '<div class="popular-badge"><i class="fas fa-fire"></i> Popular</div>' : ''}
-            ${s.new ? '<div class="new-badge"><i class="fas fa-star"></i> New</div>' : ''}
             <div class="survey-category"><i class="fas ${s.icon}"></i> ${s.cat.toUpperCase()}</div>
             <h3 class="survey-title">${s.title}</h3>
-            <p class="survey-description">${s.description || 'Share your opinion'}</p>
-            <div class="survey-stats">
-              <span><i class="far fa-clock"></i> ${s.time}</span>
-              <span><i class="far fa-question-circle"></i> ${s.q} questions</span>
-            </div>
           </div>
           <div class="survey-content">
-            <div class="reward-section">
-              <div class="survey-reward">$${s.reward.toFixed(2)} <small>USD</small></div>
-              <div class="survey-time"><i class="fas fa-hourglass-half"></i> ${s.time}</div>
-            </div>
-            <div class="survey-details">
-              <div class="detail-item"><i class="fas fa-building"></i> ${s.company}</div>
-              <div class="detail-item"><i class="fas fa-chart-line"></i> ${s.rate}% rating</div>
-            </div>
-            <div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-            <div class="completion-progress"><div class="progress-fill" style="width:${s.rate}%"></div></div>
-            <div class="survey-footer">
-              ${s.completed ? `<div class="completed-badge"><i class="fas fa-check-circle"></i> Completed</div>` : 
-                `<button class="start-btn" onclick="event.stopPropagation(); startSurvey('${s.id}')"><i class="fas fa-play"></i> Take Survey</button>`}
-            </div>
+            <div class="reward-section"><div class="survey-reward">$${s.reward.toFixed(2)}</div></div>
+            <div class="survey-footer">${s.completed ? '<div class="completed-badge"><i class="fas fa-check-circle"></i> Completed</div>' : '<button class="start-btn" onclick="event.stopPropagation(); openSurveyModal(\'' + s.id + '\')">Take Survey →</button>'}</div>
           </div>
         </div>
       `).join('');
     }
 
-    function startSurvey(id) {
-      const survey = surveys.find(s => s.id === id);
-      if (survey.completed) return showToast('Already completed!');
-      if (confirm(`Take "${survey.title}" survey to earn $${survey.reward.toFixed(2)}?`)) {
-        completeSurvey(id);
+    function openSurveyModal(surveyId) {
+      const survey = surveys.find(s => s.id === surveyId);
+      if (survey.completed) { showToast('Already completed!'); return; }
+      currentSurvey = survey;
+      currentAnswers = new Array(survey.questions.length).fill(null).map(() => []);
+      currentQuestionIndex = 0;
+      document.getElementById('modalTitle').innerHTML = `<i class="fas ${survey.icon}"></i> ${survey.title}`;
+      document.getElementById('rewardDisplay').innerHTML = `+$${survey.reward.toFixed(2)}`;
+      renderQuestion();
+      document.getElementById('surveyModal').style.display = 'flex';
+    }
+
+    function renderQuestion() {
+      const q = currentSurvey.questions[currentQuestionIndex];
+      const isMulti = q.multiSelect;
+      const currentAnswer = currentAnswers[currentQuestionIndex] || [];
+      
+      document.getElementById('questionCounter').innerHTML = `Question ${currentQuestionIndex + 1} of ${currentSurvey.questions.length}`;
+      document.getElementById('progressFill').style.width = `${((currentQuestionIndex + 1) / currentSurvey.questions.length) * 100}%`;
+      
+      document.getElementById('questionArea').innerHTML = `
+        <div class="question-text">${currentQuestionIndex + 1}. ${q.text}</div>
+        <div class="options">
+          ${q.options.map((opt, idx) => `
+            <div class="option ${currentAnswer.includes(opt) ? 'selected' : ''}" onclick="selectOption(${idx}, '${opt.replace(/'/g, "\\'")}')">
+              <input type="${isMulti ? 'checkbox' : 'radio'}" name="question" value="${opt}" ${currentAnswer.includes(opt) ? 'checked' : ''}>
+              <label>${opt}</label>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      
+      const isLast = currentQuestionIndex === currentSurvey.questions.length - 1;
+      document.getElementById('nextBtn').style.display = isLast ? 'none' : 'flex';
+      document.getElementById('submitBtn').style.display = isLast ? 'flex' : 'none';
+    }
+
+    function selectOption(idx, value) {
+      const q = currentSurvey.questions[currentQuestionIndex];
+      const isMulti = q.multiSelect;
+      const optionDivs = document.querySelectorAll('.option');
+      
+      if (isMulti) {
+        let current = currentAnswers[currentQuestionIndex] || [];
+        if (current.includes(value)) {
+          current = current.filter(v => v !== value);
+        } else {
+          current.push(value);
+        }
+        currentAnswers[currentQuestionIndex] = current;
+        optionDivs.forEach(div => {
+          if (div.querySelector('label').innerText === value) {
+            div.classList.toggle('selected');
+          }
+        });
+      } else {
+        currentAnswers[currentQuestionIndex] = [value];
+        optionDivs.forEach(div => div.classList.remove('selected'));
+        optionDivs[idx].classList.add('selected');
+        const radios = document.querySelectorAll('input[type="radio"]');
+        radios.forEach(r => r.checked = false);
+        optionDivs[idx].querySelector('input').checked = true;
       }
     }
 
-    function completeSurvey(id) {
-      const survey = surveys.find(s => s.id === id);
-      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+    function nextQuestion() {
+      if (!currentAnswers[currentQuestionIndex] || currentAnswers[currentQuestionIndex].length === 0) {
+        showToast('Please select an answer before continuing');
+        return;
+      }
+      currentQuestionIndex++;
+      renderQuestion();
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+
+    function submitSurvey() {
+      if (!currentAnswers[currentQuestionIndex] || currentAnswers[currentQuestionIndex].length === 0) {
+        showToast('Please answer the final question');
+        return;
+      }
       
-      completed.push(id);
-      localStorage.setItem(`taskpay_completed_surveys_${userKey}`, JSON.stringify(completed));
+      const key = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      completed.push(currentSurvey.id);
+      localStorage.setItem(`taskpay_completed_surveys_${key}`, JSON.stringify(completed));
       
-      let balance = parseFloat(localStorage.getItem(`taskpay_balance_${userKey}`) || '0');
-      let totalEarned = parseFloat(localStorage.getItem(`taskpay_total_earned_${userKey}`) || '0');
-      let surveysDone = parseInt(localStorage.getItem(`taskpay_surveys_done_${userKey}`) || '0');
+      let balance = parseFloat(localStorage.getItem(`taskpay_balance_${key}`) || '0');
+      let totalEarned = parseFloat(localStorage.getItem(`taskpay_total_earned_${key}`) || '0');
+      let surveysDone = parseInt(localStorage.getItem(`taskpay_surveys_done_${key}`) || '0');
       
-      balance += survey.reward;
-      totalEarned += survey.reward;
+      balance += currentSurvey.reward;
+      totalEarned += currentSurvey.reward;
       surveysDone += 1;
       
-      localStorage.setItem(`taskpay_balance_${userKey}`, balance.toFixed(2));
-      localStorage.setItem(`taskpay_total_earned_${userKey}`, totalEarned.toFixed(2));
-      localStorage.setItem(`taskpay_surveys_done_${userKey}`, surveysDone);
+      localStorage.setItem(`taskpay_balance_${key}`, balance.toFixed(2));
+      localStorage.setItem(`taskpay_total_earned_${key}`, totalEarned.toFixed(2));
+      localStorage.setItem(`taskpay_surveys_done_${key}`, surveysDone);
       
-      earned += survey.reward;
-      survey.completed = true;
+      earned += currentSurvey.reward;
+      currentSurvey.completed = true;
       
+      closeSurveyModal();
       updateStats();
       render();
-      showToast(`🎉 +$${survey.reward.toFixed(2)} earned!`);
+      
+      showRewardAnimation(currentSurvey.reward);
+      showToast(`🎉 Survey completed! +$${currentSurvey.reward.toFixed(2)} earned!`);
     }
 
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 2000);
+    function showRewardAnimation(amount) {
+      const anim = document.createElement('div');
+      anim.className = 'reward-animation';
+      anim.innerHTML = `+$${amount.toFixed(2)} 🎉`;
+      document.body.appendChild(anim);
+      setTimeout(() => anim.remove(), 800);
     }
 
-    function logout() {
-      if (confirm('Are you sure you want to logout?')) {
-        localStorage.removeItem('taskpay_logged_in');
-        localStorage.removeItem('taskpay_user_email');
-        window.location.href = 'login.html';
-      }
+    function closeSurveyModal() {
+      document.getElementById('surveyModal').style.display = 'none';
     }
 
-    // Filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(f => f.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        render();
-      });
-    });
+    function showToast(msg) {
+      const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+      document.body.appendChild(t); setTimeout(() => t.remove(), 2000);
+    }
+
+    function logout() { if (confirm('Logout?')) { localStorage.removeItem('taskpay_logged_in'); localStorage.removeItem('taskpay_user_email'); window.location.href = 'login.html'; } }
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(f => f.classList.remove('active')); b.classList.add('active'); currentFilter = b.dataset.filter; render(); }));
+    document.getElementById('logoutBtn').addEventListener('click', logout);
     
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
+    menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+    document.addEventListener('click', (e) => { if (window.innerWidth < 768 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) sidebar.classList.remove('open'); });
     
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
-    });
-    
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth < 768 && sidebar.classList.contains('open')) {
-        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-          sidebar.classList.remove('open');
-        }
-      }
-    });
-    
-    document.getElementById('logoutBtn').addEventListener('click', logout);
+    window.openSurveyModal = openSurveyModal;
+    window.closeSurveyModal = closeSurveyModal;
+    window.nextQuestion = nextQuestion;
+    window.prevQuestion = prevQuestion;
+    window.submitSurvey = submitSurvey;
+    window.selectOption = selectOption;
     window.navigateTo = navigateTo;
-    window.startSurvey = startSurvey;
     
     if (checkAuth()) {}
   </script>
