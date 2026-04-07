@@ -119,6 +119,10 @@
       box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
     }
 
+    .form-input.error {
+      border-color: #dc2626;
+    }
+
     .btn-signup {
       width: 100%;
       background: linear-gradient(135deg, #059669, #10b981);
@@ -138,6 +142,11 @@
       box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
     }
 
+    .btn-signup:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .error-message {
       background: #fee2e2;
       color: #dc2626;
@@ -147,6 +156,33 @@
       font-size: 0.875rem;
       text-align: center;
       display: none;
+    }
+
+    .success-message {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 0.75rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      text-align: center;
+      display: none;
+    }
+
+    .password-match-hint {
+      font-size: 0.7rem;
+      margin-top: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .match-success {
+      color: #10b981;
+    }
+
+    .match-error {
+      color: #dc2626;
     }
 
     .login-link {
@@ -191,6 +227,7 @@
       <p class="subtitle">Start earning money today</p>
       
       <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
       
       <form id="signupForm">
         <div class="form-group">
@@ -208,7 +245,13 @@
           <input type="password" class="form-input" id="password" placeholder="Create a password" required>
         </div>
         
-        <button type="submit" class="btn-signup">Create Account</button>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm your password" required>
+          <div class="password-match-hint" id="passwordMatchHint"></div>
+        </div>
+        
+        <button type="submit" class="btn-signup" id="signupBtn">Create Account</button>
       </form>
       
       <div class="login-link">
@@ -222,23 +265,67 @@
     
     const signupForm = document.getElementById('signupForm');
     const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirmPassword');
+    const passwordMatchHint = document.getElementById('passwordMatchHint');
+    const signupBtn = document.getElementById('signupBtn');
 
     function showError(message) {
-      errorMessage.style.display = 'block';
       errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      successMessage.style.display = 'none';
       
       setTimeout(() => {
         errorMessage.style.display = 'none';
       }, 4000);
     }
 
+    function showSuccess(message) {
+      successMessage.textContent = message;
+      successMessage.style.display = 'block';
+      errorMessage.style.display = 'none';
+    }
+
+    function hideMessages() {
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'none';
+    }
+
+    // Real-time password match validation
+    function checkPasswordMatch() {
+      const password = passwordInput.value;
+      const confirm = confirmInput.value;
+      
+      if (confirm.length === 0) {
+        passwordMatchHint.innerHTML = '';
+        confirmInput.classList.remove('error');
+        return;
+      }
+      
+      if (password === confirm) {
+        passwordMatchHint.innerHTML = '<i class="fas fa-check-circle"></i> Passwords match';
+        passwordMatchHint.className = 'password-match-hint match-success';
+        confirmInput.classList.remove('error');
+      } else {
+        passwordMatchHint.innerHTML = '<i class="fas fa-exclamation-circle"></i> Passwords do not match';
+        passwordMatchHint.className = 'password-match-hint match-error';
+        confirmInput.classList.add('error');
+      }
+    }
+
+    passwordInput.addEventListener('input', checkPasswordMatch);
+    confirmInput.addEventListener('input', checkPasswordMatch);
+
     signupForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const fullName = document.getElementById('fullName').value.trim();
       const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      const password = passwordInput.value;
+      const confirmPassword = confirmInput.value;
       
+      // Validation
       if (!fullName) {
         showError('Please enter your full name');
         return;
@@ -259,11 +346,16 @@
         return;
       }
       
+      if (password !== confirmPassword) {
+        showError('Passwords do not match');
+        return;
+      }
+      
       // Show loading state
-      const signupBtn = document.querySelector('.btn-signup');
       const originalText = signupBtn.innerHTML;
       signupBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Creating account...';
       signupBtn.disabled = true;
+      hideMessages();
       
       try {
         // Sign up with Supabase
@@ -280,17 +372,13 @@
         if (error) throw error;
         
         if (data.user) {
-          errorMessage.style.display = 'block';
-          errorMessage.style.background = '#d1fae5';
-          errorMessage.style.color = '#065f46';
-          errorMessage.textContent = 'Account created successfully! Redirecting to login...';
+          showSuccess('Account created successfully! Redirecting to home page...');
           
           setTimeout(() => {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
           }, 2000);
         }
       } catch (err) {
-        // If Supabase fails, use localStorage fallback
         console.log('Supabase error:', err.message);
         
         // Fallback: Store in localStorage
@@ -303,13 +391,10 @@
           users.push({ fullName, email, password, createdAt: new Date().toISOString() });
           localStorage.setItem('taskpay_users', JSON.stringify(users));
           
-          errorMessage.style.display = 'block';
-          errorMessage.style.background = '#d1fae5';
-          errorMessage.style.color = '#065f46';
-          errorMessage.textContent = 'Account created successfully! Redirecting to login...';
+          showSuccess('Account created successfully! Redirecting to home page...');
           
           setTimeout(() => {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
           }, 2000);
         }
       } finally {
