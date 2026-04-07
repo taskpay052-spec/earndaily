@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TaskPay · Activate Your Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+
+    /* Main Container */
+    .activate-container {
+      max-width: 550px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Activation Card */
+    .activate-card {
+      background: white;
+      border-radius: 48px;
+      padding: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: fadeInUp 0.6s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .activate-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #f59e0b, #10b981, #f59e0b);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Logo */
+    .logo {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .logo-icon i {
+      font-size: 32px;
+      color: white;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981, #059669);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo p {
+      color: #64748b;
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    /* Hero Badge */
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 1.5rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .benefit-item {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .benefit-item:hover {
+      transform: translateY(-3px);
+      background: #f1f5f9;
+    }
+
+    .benefit-item i {
+      font-size: 1.5rem;
+      color: #10b981;
+      margin-bottom: 0.5rem;
+    }
+
+    .benefit-item h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .benefit-item p {
+      font-size: 0.65rem;
+      color: #64748b;
+    }
+
+    /* Amount Section */
+    .amount-section {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 28px;
+      padding: 1.5rem;
+      text-align: center;
+      color: white;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .amount-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .amount-label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+    }
+
+    .amount-value {
+      font-size: 3.5rem;
+      font-weight: 800;
+    }
+
+    .amount-value small {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .amount-note {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+
+    /* PayBill Section */
+    .paybill-section {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0f172a;
+    }
+
+    .section-title i {
+      color: #10b981;
+    }
+
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: white;
+      border-radius: 16px;
+    }
+
+    .info-label {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .info-value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f1f5f9;
+      padding: 0.3rem 0.8rem;
+      border-radius: 40px;
+      font-family: monospace;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: #10b981;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0.2rem;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #e2e8f0;
+    }
+
+    /* Instructions */
+    .instructions {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .instructions h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .instructions ol {
+      padding-left: 1.2rem;
+    }
+
+    .instructions li {
+      font-size: 0.75rem;
+      color: #475569;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    /* Verify Button */
+    .verify-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .verify-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .verify-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Messages */
+    .error-message {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 0.75rem;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .success-message {
+      background: #d1fae5;
+      color: #10b981;
+      padding: 0.75rem;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .footer a {
+      color: #64748b;
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: #10b981;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @media (max-width: 550px) {
+      .activate-card {
+        padding: 1.5rem;
+      }
+      
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+      
+      .amount-value {
+        font-size: 2.5rem;
+      }
+      
+      .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="bg-circle" style="width: 300px; height: 300px; top: -100px; left: -100px;"></div>
+    <div class="bg-circle" style="width: 200px; height: 200px; bottom: -50px; right: -50px; animation-delay: 2s;"></div>
+    <div class="bg-circle" style="width: 150px; height: 150px; top: 50%; left: 85%; animation-delay: 4s;"></div>
+    <div class="bg-circle" style="width: 250px; height: 250px; bottom: 30%; left: -80px; animation-delay: 1s;"></div>
+  </div>
+
+  <div class="activate-container">
+    <div class="activate-card">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <h1>Activate Account</h1>
+        <p>Unlock unlimited earning potential</p>
+      </div>
+
+      <div class="hero-badge">
+        <i class="fas fa-gem"></i> One-time payment • Lifetime access
+      </div>
+
+      <div class="benefits">
+        <div class="benefit-item">
+          <i class="fas fa-infinity"></i>
+          <h4>Unlimited Tasks</h4>
+          <p>Access all tasks & surveys</p>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-dollar-sign"></i>
+          <h4>Higher Earnings</h4>
+          <p>Unlock premium rewards</p>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-tachometer-alt"></i>
+          <h4>Priority Access</h4>
+          <p>Get tasks before others</p>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-headset"></i>
+          <h4>Priority Support</h4>
+          <p>24/7 dedicated support</p>
+        </div>
+      </div>
+
+      <div class="amount-section">
+        <div class="amount-label">Activation Fee</div>
+        <div class="amount-value">KSh 199 <small>($1.30 USD)</small></div>
+        <div class="amount-note">One-time payment • No hidden fees</div>
+      </div>
+
+      <div class="paybill-section">
+        <div class="section-title">
+          <i class="fas fa-mobile-alt"></i>
+          M-Pesa PayBill Details
+        </div>
+        <div class="info-grid">
+          <div class="info-row">
+            <span class="info-label">PayBill Number:</span>
+            <span class="info-value">
+              123456
+              <button class="copy-btn" onclick="copyToClipboard('123456')">
+                <i class="fas fa-copy"></i>
+              </button>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Account Number:</span>
+            <span class="info-value" id="accountNumberDisplay">
+              Loading...
+              <button class="copy-btn" id="copyAccountBtn">
+                <i class="fas fa-copy"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h4><i class="fas fa-list-ol"></i> How to Pay</h4>
+        <ol>
+          <li>Go to M-Pesa Menu on your phone</li>
+          <li>Select <strong>Lipa na M-Pesa</strong></li>
+          <li>Select <strong>PayBill</strong></li>
+          <li>Enter Business Number: <strong>123456</strong></li>
+          <li>Enter Account Number: <strong id="instructionAccount">Your unique code</strong></li>
+          <li>Enter Amount: <strong>KSh 199</strong></li>
+          <li>Enter your M-Pesa PIN and confirm</li>
+          <li>Wait for confirmation SMS from M-Pesa</li>
+          <li>Enter the transaction code below</li>
+        </ol>
+      </div>
+
+      <div id="errorMsg" class="error-message"></div>
+      <div id="successMsg" class="success-message"></div>
+
+      <form id="activationForm">
+        <div class="form-group">
+          <label class="form-label">M-Pesa Transaction Code</label>
+          <input type="text" class="input-field" id="transactionCode" placeholder="e.g., QWERTY12345" autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Phone Number (Optional)</label>
+          <input type="tel" class="input-field" id="phoneNumber" placeholder="e.g., 0712345678">
+        </div>
+
+        <button type="submit" class="verify-btn" id="verifyBtn">
+          <span>Verify & Activate Account</span>
+          <i class="fas fa-check-circle"></i>
+          <div class="spinner" id="spinner"></div>
+        </button>
+      </form>
+
+      <div class="footer">
+        <a href="support.html">❓ Need help? Contact Support</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let accountNumber = '';
+    const ACTIVATION_AMOUNT = 199; // KSh 199
+
+    // Generate unique account number
+    function generateAccountNumber() {
+      const timestamp = Date.now().toString().slice(-8);
+      const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+      return `TASK${timestamp}${random}`;
+    }
+
+    // Copy to clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard!');
+      }).catch(() => {
+        showToast('Press Ctrl+C to copy');
+      });
+    }
+
+    // Show toast message
+    function showToast(message) {
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) existingToast.remove();
+      
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    }
+
+    // Show error message
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMsg');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    // Show success message
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMsg');
+      successDiv.textContent = message;
+      successDiv.style.display = 'block';
+      setTimeout(() => {
+        successDiv.style.display = 'none';
+      }, 4000);
+    }
+
+    // Set loading state
+    function setLoading(isLoading) {
+      const btn = document.getElementById('verifyBtn');
+      const btnText = btn.querySelector('span');
+      const btnIcon = btn.querySelector('i:not(.spinner)');
+      const spinner = document.getElementById('spinner');
+      
+      if (isLoading) {
+        btn.disabled = true;
+        btnText.style.opacity = '0.7';
+        btnIcon.style.opacity = '0';
+        spinner.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btnText.style.opacity = '1';
+        btnIcon.style.opacity = '1';
+        spinner.style.display = 'none';
+      }
+    }
+
+    // Verify payment (simulated - connect to real API)
+    function verifyPayment(transactionCode, phoneNumber) {
+      return new Promise((resolve) => {
+        // Simulate API call delay
+        setTimeout(() => {
+          // In real app, this would call your backend API
+          // For demo, accept any code with 6+ characters
+          const isValid = transactionCode && transactionCode.length >= 6;
+          resolve(isValid);
+        }, 2000);
+      });
+    }
+
+    // Activate user account
+    function activateAccount(transactionCode, phoneNumber) {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      
+      // Set activation status
+      localStorage.setItem(`taskpay_activated_${userKey}`, 'true');
+      localStorage.setItem(`taskpay_activation_date_${userKey}`, new Date().toISOString());
+      localStorage.setItem(`taskpay_activation_amount_${userKey}`, ACTIVATION_AMOUNT.toString());
+      localStorage.setItem(`taskpay_activation_code_${userKey}`, transactionCode);
+      
+      if (phoneNumber) {
+        localStorage.setItem(`taskpay_activation_phone_${userKey}`, phoneNumber);
+      }
+      
+      // Save transaction record
+      const transactions = JSON.parse(localStorage.getItem(`taskpay_payments_${userKey}`) || '[]');
+      transactions.push({
+        id: transactionCode,
+        amount: ACTIVATION_AMOUNT,
+        date: new Date().toISOString(),
+        phone: phoneNumber || 'N/A',
+        type: 'activation',
+        status: 'completed'
+      });
+      localStorage.setItem(`taskpay_payments_${userKey}`, JSON.stringify(transactions));
+    }
+
+    // Check if already activated
+    function checkAlreadyActivated() {
+      if (currentUser) {
+        const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+        const isActivated = localStorage.getItem(`taskpay_activated_${userKey}`);
+        if (isActivated === 'true') {
+          showSuccess('Your account is already activated! Redirecting to dashboard...');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 2000);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // Handle form submission
+    async function handleActivation(event) {
+      event.preventDefault();
+      
+      const transactionCode = document.getElementById('transactionCode').value.trim().toUpperCase();
+      const phoneNumber = document.getElementById('phoneNumber').value.trim();
+      
+      if (!transactionCode) {
+        showError('Please enter your M-Pesa transaction code');
+        return;
+      }
+      
+      if (transactionCode.length < 6) {
+        showError('Please enter a valid transaction code (at least 6 characters)');
+        return;
+      }
+      
+      setLoading(true);
+      
+      const isValid = await verifyPayment(transactionCode, phoneNumber);
+      
+      setLoading(false);
+      
+      if (isValid) {
+        activateAccount(transactionCode, phoneNumber);
+        showSuccess(`✅ Payment verified! Your account is now activated. Redirecting to dashboard...`);
+        
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 2500);
+      } else {
+        showError('❌ Invalid transaction code. Please check and try again. If problem persists, contact support.');
+      }
+    }
+
+    // Initialize page
+    function init() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      
+      if (isLoggedIn !== 'true') {
+        showError('Please login or create an account first');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+        return false;
+      }
+      
+      currentUser = localStorage.getItem('taskpay_user_email');
+      
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return false;
+      }
+      
+      // Generate or retrieve account number
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      let savedAccount = localStorage.getItem(`taskpay_account_number_${userKey}`);
+      
+      if (!savedAccount) {
+        accountNumber = generateAccountNumber();
+        localStorage.setItem(`taskpay_account_number_${userKey}`, accountNumber);
+      } else {
+        accountNumber = savedAccount;
+      }
+      
+      // Update display
+      document.getElementById('accountNumberDisplay').innerHTML = `
+        ${accountNumber}
+        <button class="copy-btn" onclick="copyToClipboard('${accountNumber}')">
+          <i class="fas fa-copy"></i>
+        </button>
+      `;
+      document.getElementById('instructionAccount').textContent = accountNumber;
+      
+      // Check if already activated
+      const isActivated = checkAlreadyActivated();
+      
+      // Display user info
+      const userName = currentUser.split('@')[0];
+      document.title = `Activate Account - ${userName} | TaskPay`;
+      
+      return !isActivated;
+    }
+    
+    // Set up event listeners
+    document.getElementById('activationForm').addEventListener('submit', handleActivation);
+    
+    // Make functions global
+    window.copyToClipboard = copyToClipboard;
+    
+    // Initialize
+    init();
+  </script>
+</body>
+</html>
