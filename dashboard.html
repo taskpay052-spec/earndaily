@@ -221,6 +221,7 @@
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
+    /* Remove special styling for activate button - matches all others */
     .main-content {
       margin-left: 280px;
       padding: 1.5rem;
@@ -308,6 +309,7 @@
       transform: scale(1.05);
     }
 
+    /* Notification Dropdown */
     .notification-dropdown {
       position: relative;
     }
@@ -364,6 +366,7 @@
       transform: translateY(0);
     }
 
+    /* Profile Dropdown */
     .profile-dropdown {
       position: relative;
     }
@@ -863,6 +866,7 @@
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Account</div>
+        <!-- DEPOSIT REMOVED - ACTIVATE ACCOUNT ADDED (matching style) -->
         <div class="nav-item" data-page="activate" id="activateNavItem">
           <i class="fas fa-rocket"></i>
           <span id="activateText">Activate Account</span>
@@ -920,7 +924,7 @@
               <div class="notification-item">
                 <i class="fas fa-check-circle" style="color: #10b981;"></i>
                 <strong>Task completed!</strong>
-                <p style="font-size: 11px; margin-top: 4px;">You earned $0.50</p>
+                <p style="font-size: 11px; margin-top: 4px;">You earned $0.50 from "Rate Mobile App"</p>
               </div>
               <div class="notification-item">
                 <i class="fas fa-poll" style="color: #3b82f6;"></i>
@@ -929,8 +933,8 @@
               </div>
               <div class="notification-item">
                 <i class="fas fa-fire" style="color: #f59e0b;"></i>
-                <strong>Keep it up!</strong>
-                <p style="font-size: 11px; margin-top: 4px;">Complete tasks daily</p>
+                <strong>7-day streak!</strong>
+                <p style="font-size: 11px; margin-top: 4px;">Keep it up for bonus rewards</p>
               </div>
             </div>
           </div>
@@ -949,6 +953,10 @@
               <div class="profile-menu-item" data-action="profile">
                 <i class="fas fa-user"></i>
                 <span>Profile Settings</span>
+              </div>
+              <div class="profile-menu-item" data-action="settings">
+                <i class="fas fa-cog"></i>
+                <span>Account Settings</span>
               </div>
               <div class="profile-menu-item" data-action="logout">
                 <i class="fas fa-sign-out-alt"></i>
@@ -971,6 +979,7 @@
           <div class="chart-filters">
             <button class="filter-btn active" data-chart="earnings" data-period="7">7d</button>
             <button class="filter-btn" data-chart="earnings" data-period="30">30d</button>
+            <button class="filter-btn" data-chart="earnings" data-period="all">All</button>
           </div>
         </div>
         <canvas id="earningsChart"></canvas>
@@ -1006,19 +1015,16 @@
     </div>
   </div>
 
-  <script type="module">
-    import { supabase } from './supabase-config.js';
-    
+  <script>
     let currentUser = null;
-    let userId = null;
-    let userProfile = null;
     let earningsChart, completionChart;
     let currentEarningsPeriod = '7';
     let currentCompletionPeriod = '7';
 
     const earningsData = {
       '7': [4.2, 5.8, 7.5, 6.3, 8.9, 12.4, 10.2],
-      '30': [4.2, 5.8, 7.5, 6.3, 8.9, 12.4, 10.2, 11.5, 9.8, 10.2, 12.1, 13.5, 14.2, 15.1, 14.8, 16.2, 17.5, 16.9, 18.3, 19.1, 20.5, 21.2, 22.8, 23.5, 24.1, 25.3, 26.0, 27.2, 28.5, 29.0]
+      '30': [4.2, 5.8, 7.5, 6.3, 8.9, 12.4, 10.2, 11.5, 9.8, 10.2, 12.1, 13.5, 14.2, 15.1, 14.8, 16.2, 17.5, 16.9, 18.3, 19.1, 20.5, 21.2, 22.8, 23.5, 24.1, 25.3, 26.0, 27.2, 28.5, 29.0],
+      'all': [2.1, 3.2, 4.5, 5.8, 6.2, 7.1, 8.3, 9.5, 10.8, 12.1, 13.4, 14.7, 16.0, 17.3, 18.6, 19.9, 21.2, 22.5, 23.8, 25.1, 26.4, 27.7, 29.0, 30.3, 31.6, 32.9, 34.2, 35.5, 36.8, 38.1]
     };
 
     const completionData = {
@@ -1056,60 +1062,50 @@
       else showToast('Page coming soon!');
     }
 
-    async function checkAuth() {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      
-      if (error || !user) {
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      const userEmail = localStorage.getItem('taskpay_user_email');
+      if (isLoggedIn !== 'true' || !userEmail) {
         window.location.href = 'login.html';
         return false;
       }
-      
-      currentUser = user;
-      userId = user.id;
+      currentUser = userEmail;
       return true;
     }
 
-    async function loadUserProfile() {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
+    function loadUserData() {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      let totalEarned = localStorage.getItem(`taskpay_total_earned_${userKey}`);
+      let tasksDone = localStorage.getItem(`taskpay_tasks_done_${userKey}`);
+      let surveysDone = localStorage.getItem(`taskpay_surveys_done_${userKey}`);
       
-      if (error) {
-        console.error('Error loading profile:', error);
-        return;
-      }
-      
-      userProfile = data;
-      
-      // Update UI with profile data
-      const totalEarned = userProfile.total_earned || 0;
-      const tasksDone = userProfile.tasks_completed || 0;
-      const surveysDone = userProfile.surveys_completed || 0;
+      if (!totalEarned) totalEarned = '0';
+      if (!tasksDone) tasksDone = '0';
+      if (!surveysDone) surveysDone = '0';
       
       const stats = [
-        { value: `$${totalEarned.toFixed(2)}`, label: 'Total Earnings', icon: 'earnings', trend: '+0%', trendUp: true },
-        { value: tasksDone, label: 'Tasks Completed', icon: 'tasks', trend: '+0 this week', trendUp: true },
-        { value: surveysDone, label: 'Surveys Completed', icon: 'surveys', trend: '+0 this week', trendUp: true },
+        { value: `$${parseFloat(totalEarned).toFixed(2)}`, label: 'Total Earnings', icon: 'earnings', trend: '+0%', trendUp: true },
+        { value: parseInt(tasksDone), label: 'Tasks Completed', icon: 'tasks', trend: '+0 this week', trendUp: true },
+        { value: parseInt(surveysDone), label: 'Surveys Completed', icon: 'surveys', trend: '+0 this week', trendUp: true },
         { value: 1, label: 'Day Streak', icon: 'streak', trend: 'Start earning!', trendUp: true }
       ];
       
       renderStats(stats);
       
-      const userEmail = currentUser.email;
-      const userName = userEmail.split('@')[0];
+      const userName = currentUser.split('@')[0];
       document.getElementById('userName').textContent = userName;
-      document.getElementById('userEmail').textContent = userEmail;
+      document.getElementById('userEmail').textContent = currentUser;
       document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
       
-      // Update activate button based on activation status
+      // Check if user is activated and update text only - NO COLOR CHANGE
+      const isActivated = localStorage.getItem(`taskpay_activated_${userKey}`);
       const activateNavItem = document.getElementById('activateNavItem');
       const activateText = document.getElementById('activateText');
       
       if (activateNavItem && activateText) {
-        if (userProfile.is_activated === true) {
+        if (isActivated === 'true') {
           activateText.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 8px;"></i> Activated';
+          activateNavItem.style.cursor = 'pointer';
           activateNavItem.onclick = () => showToast('Your account is already activated!');
         } else {
           activateText.innerHTML = 'Activate Account';
@@ -1164,7 +1160,8 @@
 
     function generateLabels(period) {
       if (period === '7') return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      return Array.from({length: 30}, (_, i) => `Day ${i+1}`);
+      if (period === '30') return Array.from({length: 30}, (_, i) => `Day ${i+1}`);
+      return Array.from({length: 30}, (_, i) => `Week ${i+1}`);
     }
 
     function updateChart(chart, period, type) {
@@ -1219,11 +1216,10 @@
         if (!e.target.closest('.profile-dropdown')) profileMenu?.classList.remove('show');
       });
       document.querySelectorAll('.profile-menu-item').forEach(item => {
-        item.addEventListener('click', async (e) => {
+        item.addEventListener('click', (e) => {
           const action = item.dataset.action;
           if (action === 'logout') {
             if (confirm('Are you sure you want to logout?')) {
-              await supabase.auth.signOut();
               localStorage.removeItem('taskpay_logged_in');
               localStorage.removeItem('taskpay_user_email');
               showToast('Logged out successfully');
@@ -1231,6 +1227,8 @@
             }
           } else if (action === 'profile') {
             navigateTo('profile');
+          } else {
+            showToast(`${action} page coming soon!`);
           }
           profileMenu?.classList.remove('show');
         });
@@ -1256,24 +1254,7 @@
 
     window.showToast = showToast; window.navigateTo = navigateTo;
     
-    async function init() {
-      const isAuth = await checkAuth();
-      if (!isAuth) return;
-      
-      await loadUserProfile();
-      initSidebarToggle();
-      initTheme();
-      initCharts();
-      initChartFilters();
-      initDropdowns();
-      initSidebarNavigation();
-      renderTasks();
-      
-      document.getElementById('viewAllTasksBtn')?.addEventListener('click', () => navigateTo('tasks'));
-      document.getElementById('viewAllSurveysBtn')?.addEventListener('click', () => navigateTo('surveys'));
-    }
-    
-    init();
+    if (checkAuth()) { loadUserData(); initSidebarToggle(); initTheme(); initCharts(); initChartFilters(); initDropdowns(); initSidebarNavigation(); renderTasks(); document.getElementById('viewAllTasksBtn')?.addEventListener('click', () => navigateTo('tasks')); document.getElementById('viewAllSurveysBtn')?.addEventListener('click', () => navigateTo('surveys')); }
   </script>
 </body>
 </html>
