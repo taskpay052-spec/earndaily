@@ -260,9 +260,8 @@
     </div>
   </div>
 
-  <script type="module">
-    import { supabase } from './supabase-config.js';
-    
+  <script>
+    // Simple fallback without Supabase for now
     const signupForm = document.getElementById('signupForm');
     const errorMessage = document.getElementById('errorMessage');
     const successMessage = document.getElementById('successMessage');
@@ -317,7 +316,7 @@
     passwordInput.addEventListener('input', checkPasswordMatch);
     confirmInput.addEventListener('input', checkPasswordMatch);
 
-    signupForm.addEventListener('submit', async function(e) {
+    signupForm.addEventListener('submit', function(e) {
       e.preventDefault();
       
       const fullName = document.getElementById('fullName').value.trim();
@@ -357,50 +356,31 @@
       signupBtn.disabled = true;
       hideMessages();
       
-      try {
-        // Sign up with Supabase
-        const { data, error } = await supabase.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              full_name: fullName
-            }
-          }
-        });
-        
-        if (error) throw error;
-        
-        if (data.user) {
-          showSuccess('Account created successfully! Redirecting to home page...');
-          
-          setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 2000);
-        }
-      } catch (err) {
-        console.log('Supabase error:', err.message);
-        
-        // Fallback: Store in localStorage
+      // Simulate account creation (for demo)
+      setTimeout(() => {
+        // Store user info in localStorage
         const users = JSON.parse(localStorage.getItem('taskpay_users') || '[]');
         const existingUser = users.find(u => u.email === email);
         
         if (existingUser) {
           showError('An account with this email already exists');
+          signupBtn.innerHTML = originalText;
+          signupBtn.disabled = false;
         } else {
           users.push({ fullName, email, password, createdAt: new Date().toISOString() });
           localStorage.setItem('taskpay_users', JSON.stringify(users));
+          
+          // Auto login after signup
+          localStorage.setItem('taskpay_logged_in', 'true');
+          localStorage.setItem('taskpay_user_email', email);
           
           showSuccess('Account created successfully! Redirecting to home page...');
           
           setTimeout(() => {
             window.location.href = 'index.html';
-          }, 2000);
+          }, 1500);
         }
-      } finally {
-        signupBtn.innerHTML = originalText;
-        signupBtn.disabled = false;
-      }
+      }, 1000);
     });
     
     // Check if already logged in
