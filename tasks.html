@@ -932,11 +932,10 @@
     </div>
   </div>
 
-  <script type="module">
-    import { supabase } from './supabase-config.js';
-    
+  <script>
     // ============ 60+ TASKS ============
     const allTasks = [
+      // AI & TECH TASKS - 10
       { id: "t1", title: "🤖 AI Image Review", description: "Rate AI-generated images for quality", reward: 1.25, time: "2 min", category: "ai", icon: "fa-robot", color: "#8b5cf6", instructions: ["Look at the AI-generated image", "Rate its quality from 1-5 stars", "Leave brief feedback", "Submit to earn reward"] },
       { id: "t2", title: "💬 ChatGPT Testing", description: "Test AI prompts and responses", reward: 1.50, time: "3 min", category: "ai", icon: "fa-comment-dots", color: "#a855f7", instructions: ["Enter a creative prompt", "Review the AI response", "Rate response quality", "Submit feedback"] },
       { id: "t3", title: "🎙️ Voice Feedback", description: "Record 15-second voice clip", reward: 0.90, time: "1 min", category: "ai", icon: "fa-microphone-alt", color: "#c084fc", instructions: ["Click record button", "Speak clearly for 15 seconds", "Talk about your favorite app", "Upload the recording"] },
@@ -947,6 +946,8 @@
       { id: "t8", title: "📧 Email Review", description: "Review marketing email", reward: 0.65, time: "1 min", category: "tech", icon: "fa-envelope", color: "#f97316", instructions: ["Read the marketing email", "Rate its effectiveness", "Suggest improvements", "Submit rating"] },
       { id: "t9", title: "🎨 Logo Design Rating", description: "Rate logo designs", reward: 0.85, time: "2 min", category: "creative", icon: "fa-palette", color: "#14b8a6", instructions: ["View 3 logo options", "Choose your favorite", "Explain your choice", "Submit selection"] },
       { id: "t10", title: "📊 Data Entry", description: "Enter data from image", reward: 1.20, time: "3 min", category: "tech", icon: "fa-table", color: "#8b5cf6", instructions: ["View the image", "Enter the data accurately", "Double-check entries", "Submit form"] },
+
+      // SOCIAL MEDIA TASKS - 10
       { id: "t11", title: "📱 TikTok Trend Analysis", description: "Analyze trending videos", reward: 0.95, time: "2 min", category: "social", icon: "fa-tiktok", color: "#ec489a", instructions: ["Watch trending videos", "Identify common elements", "Describe the trend", "Submit analysis"] },
       { id: "t12", title: "📸 Instagram Post Review", description: "Review Instagram post", reward: 0.70, time: "1 min", category: "social", icon: "fa-instagram", color: "#e4405f", instructions: ["View Instagram post", "Rate visual appeal", "Suggest caption improvements", "Submit feedback"] },
       { id: "t13", title: "🐦 Twitter Engagement", description: "Engage with tweet", reward: 0.60, time: "1 min", category: "social", icon: "fa-twitter", color: "#1da1f2", instructions: ["Read the tweet", "Write a meaningful reply", "Like and retweet", "Submit screenshot"] },
@@ -957,6 +958,8 @@
       { id: "t18", title: "🎥 Short Video Creation", description: "Create 15-sec video", reward: 1.50, time: "3 min", category: "creative", icon: "fa-video", color: "#ec489a", instructions: ["Record 15-sec video", "Follow the theme", "Upload video", "Submit link"] },
       { id: "t19", title: "📝 Hashtag Research", description: "Find trending hashtags", reward: 0.70, time: "2 min", category: "social", icon: "fa-hashtag", color: "#3b82f6", instructions: ["Search for hashtags", "List 10 relevant ones", "Categorize by topic", "Submit list"] },
       { id: "t20", title: "👥 Follower Analysis", description: "Analyze social account", reward: 0.95, time: "2 min", category: "social", icon: "fa-users", color: "#8b5cf6", instructions: ["Review account followers", "Identify demographics", "Summarize findings", "Submit analysis"] },
+
+      // CREATIVE TASKS - 10
       { id: "t21", title: "✍️ Short Story Writing", description: "Write 3-sentence story", reward: 0.85, time: "2 min", category: "creative", icon: "fa-feather-alt", color: "#14b8a6", instructions: ["Write a creative 3-sentence story", "Include a twist", "Make it engaging", "Submit your story"] },
       { id: "t22", title: "🎨 Color Palette Creation", description: "Create color palette", reward: 0.80, time: "2 min", category: "creative", icon: "fa-palette", color: "#ec489a", instructions: ["Create 5-color palette", "Name your palette", "Describe the mood", "Submit colors"] },
       { id: "t23", title: "📸 Photo Caption Writing", description: "Write creative captions", reward: 0.65, time: "1 min", category: "creative", icon: "fa-camera", color: "#f59e0b", instructions: ["View the photo", "Write 3 captions", "Make them engaging", "Submit captions"] },
@@ -967,6 +970,8 @@
       { id: "t28", title: "🖌️ Brand Slogan Creation", description: "Create brand slogan", reward: 0.95, time: "2 min", category: "creative", icon: "fa-tag", color: "#10b981", instructions: ["Read brand description", "Create catchy slogan", "Make it memorable", "Submit slogan"] },
       { id: "t29", title: "🎭 Character Description", description: "Describe a character", reward: 0.75, time: "2 min", category: "creative", icon: "fa-user", color: "#3b82f6", instructions: ["Create a character", "Describe appearance", "Describe personality", "Submit description"] },
       { id: "t30", title: "🌅 Nature Poem", description: "Write short poem", reward: 0.85, time: "2 min", category: "creative", icon: "fa-feather", color: "#14b8a6", instructions: ["Write 4-line nature poem", "Use descriptive words", "Make it beautiful", "Submit poem"] },
+
+      // ECOMMERCE TASKS - 10
       { id: "t31", title: "🛍️ Product Review", description: "Write review with photo", reward: 1.25, time: "3 min", category: "ecommerce", icon: "fa-camera", color: "#f59e0b", instructions: ["View product details", "Write honest review", "Add photo", "Submit review"] },
       { id: "t32", title: "💰 Price Compare", description: "Compare 3 websites", reward: 0.70, time: "2 min", category: "ecommerce", icon: "fa-tags", color: "#f97316", instructions: ["Find product on 3 sites", "Compare prices", "List differences", "Submit comparison"] },
       { id: "t33", title: "📦 Product Description", description: "Write product description", reward: 0.90, time: "2 min", category: "ecommerce", icon: "fa-box", color: "#10b981", instructions: ["View product image", "Write 50-word description", "Highlight features", "Submit description"] },
@@ -977,6 +982,8 @@
       { id: "t38", title: "⭐ Customer Review Analysis", description: "Analyze customer reviews", reward: 0.95, time: "2 min", category: "ecommerce", icon: "fa-star", color: "#f97316", instructions: ["Read 10 reviews", "Identify common themes", "Summarize findings", "Submit analysis"] },
       { id: "t39", title: "📦 Shipping Experience", description: "Rate shipping experience", reward: 0.80, time: "2 min", category: "ecommerce", icon: "fa-truck", color: "#10b981", instructions: ["Review shipping info", "Rate speed and cost", "Suggest improvements", "Submit rating"] },
       { id: "t40", title: "🎁 Gift Recommendation", description: "Recommend gift", reward: 0.85, time: "2 min", category: "ecommerce", icon: "fa-gift", color: "#ec489a", instructions: ["Choose recipient type", "Recommend 3 gifts", "Explain choices", "Submit recommendations"] },
+
+      // EDUCATION TASKS - 10
       { id: "t41", title: "📚 Quiz", description: "Complete knowledge quiz", reward: 0.70, time: "2 min", category: "education", icon: "fa-graduation-cap", color: "#10b981", instructions: ["Answer 5 quiz questions", "Choose correct answers", "Complete all questions", "Submit quiz"] },
       { id: "t42", title: "📖 Article Summary", description: "Summarize article", reward: 0.85, time: "2 min", category: "education", icon: "fa-newspaper", color: "#3b82f6", instructions: ["Read the article", "Write 3-sentence summary", "Highlight key points", "Submit summary"] },
       { id: "t43", title: "📝 Grammar Check", description: "Check grammar errors", reward: 0.75, time: "2 min", category: "education", icon: "fa-spell-check", color: "#8b5cf6", instructions: ["Read the text", "Find 5 grammar errors", "Correct them", "Submit corrections"] },
@@ -987,6 +994,8 @@
       { id: "t48", title: "🎯 Learning Goal Setting", description: "Set learning goals", reward: 0.70, time: "1 min", category: "education", icon: "fa-bullseye", color: "#10b981", instructions: ["Set 3 learning goals", "Make them SMART", "Explain how to achieve", "Submit goals"] },
       { id: "t49", title: "📚 Book Recommendation", description: "Recommend a book", reward: 0.75, time: "1 min", category: "education", icon: "fa-book", color: "#3b82f6", instructions: ["Recommend a book", "Explain why it's good", "Who would enjoy it", "Submit recommendation"] },
       { id: "t50", title: "🎓 Course Review", description: "Review online course", reward: 0.85, time: "2 min", category: "education", icon: "fa-laptop", color: "#8b5cf6", instructions: ["Review course content", "Rate instructor", "Share what you learned", "Submit review"] },
+
+      // DAILY & QUICK TASKS - 10
       { id: "t51", title: "☀️ Daily Check-in", description: "Claim daily reward", reward: 0.15, time: "10 sec", category: "daily", icon: "fa-calendar-check", color: "#10b981", instructions: ["Click the check-in button", "Confirm your daily streak", "Claim your reward", "Complete"] },
       { id: "t52", title: "🎯 Daily Goal", description: "Set daily goal", reward: 0.20, time: "30 sec", category: "daily", icon: "fa-bullseye", color: "#f59e0b", instructions: ["Set your goal for today", "Make it achievable", "Write it down", "Submit goal"] },
       { id: "t53", title: "💪 Daily Motivation", description: "Share motivation quote", reward: 0.25, time: "30 sec", category: "daily", icon: "fa-quote-right", color: "#8b5cf6", instructions: ["Share an inspiring quote", "Explain why it motivates you", "Submit quote"] },
@@ -999,7 +1008,7 @@
       { id: "t60", title: "📸 Photo of Day", description: "Share daily photo", reward: 0.40, time: "1 min", category: "daily", icon: "fa-camera", color: "#8b5cf6", instructions: ["Take a photo today", "Describe what it is", "Upload photo", "Submit"] }
     ];
 
-    let tasks = [], userId = null, completedTaskIds = [], currentFilter = 'all', currentCategory = 'all', tasksEarned = 0;
+    let tasks = [], currentUser = null, completedTasks = [], currentFilter = 'all', currentCategory = 'all', tasksEarned = 0;
     let currentTask = null, taskFeedback = '', taskRating = 0, uploadedFile = null;
 
     function navigateTo(page) {
@@ -1007,46 +1016,22 @@
       window.location.href = pages[page] || '#';
     }
 
-    async function checkAuth() {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) { window.location.href = 'login.html'; return false; }
-      userId = user.id;
+    function checkAuth() {
+      if (localStorage.getItem('taskpay_logged_in') !== 'true') { window.location.href = 'login.html'; return false; }
+      currentUser = localStorage.getItem('taskpay_user_email') || 'user@taskpay.com';
+      loadUserData();
       return true;
     }
 
-    async function loadUserData() {
-      // Load profile to get tasks_completed and total_earned
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('tasks_completed, total_earned')
-        .eq('id', userId)
-        .single();
-      
-      if (!profileError && profile) {
-        tasksEarned = profile.total_earned || 0;
-      }
-      
-      // Load completed tasks from user_tasks table
-      const { data: userTasks, error: tasksError } = await supabase
-        .from('user_tasks')
-        .select('task_id')
-        .eq('user_id', userId);
-      
-      if (!tasksError && userTasks) {
-        completedTaskIds = userTasks.map(t => t.task_id);
-      }
-      
-      tasks = allTasks.map(t => { 
-        const completed = completedTaskIds.includes(t.id); 
-        return { ...t, completed }; 
-      });
-      
-      const userEmail = (await supabase.auth.getUser()).data.user?.email;
-      const userName = userEmail?.split('@')[0] || 'User';
+    function loadUserData() {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      completedTasks = JSON.parse(localStorage.getItem(`taskpay_completed_tasks_${userKey}`) || '[]');
+      tasksEarned = 0;
+      tasks = allTasks.map(t => { const completed = completedTasks.includes(t.id); if (completed) tasksEarned += t.reward; return { ...t, completed }; });
+      const userName = currentUser.split('@')[0];
       document.getElementById('userName').textContent = userName;
-      document.getElementById('userEmail').textContent = userEmail;
+      document.getElementById('userEmail').textContent = currentUser;
       document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
-      
       updateStats();
       renderCategoryFilters();
       renderTasks();
@@ -1096,6 +1081,7 @@
       document.getElementById('taskSubmission').innerHTML = `<div class="form-group"><label class="form-label">Your Feedback <span class="required">*</span></label><textarea class="form-textarea" id="taskFeedbackInput" placeholder="Share your thoughts, answer the question, or provide feedback..."></textarea></div><div class="form-group"><label class="form-label">Rating</label><div class="rating-stars" id="taskRatingStars"><i class="far fa-star" data-rating="1"></i><i class="far fa-star" data-rating="2"></i><i class="far fa-star" data-rating="3"></i><i class="far fa-star" data-rating="4"></i><i class="far fa-star" data-rating="5"></i></div></div><div class="form-group"><label class="form-label">Upload (if required)</label><div class="file-upload-area" id="taskFileUpload"><i class="fas fa-cloud-upload-alt"></i><p>Click to upload screenshot or file</p><input type="file" id="taskFileInput" accept="image/*"></div><div id="taskFileInfo"></div></div>`;
       document.getElementById('taskModal').style.display = 'flex';
       
+      // Setup rating stars
       setTimeout(() => {
         const stars = document.querySelectorAll('#taskRatingStars i');
         stars.forEach(star => {
@@ -1105,6 +1091,7 @@
             stars.forEach(s => { const starRating = parseInt(s.dataset.rating); if (starRating <= rating) { s.className = 'fas fa-star'; s.style.color = '#fbbf24'; } else { s.className = 'far fa-star'; s.style.color = '#cbd5e1'; } });
           });
         });
+        // File upload setup
         const fileUpload = document.getElementById('taskFileUpload');
         const fileInput = document.getElementById('taskFileInput');
         if (fileUpload && fileInput) {
@@ -1120,78 +1107,30 @@
     }
 
     function clearTaskFile() { uploadedFile = null; document.getElementById('taskFileInfo').innerHTML = ''; }
+
     function closeTaskModal() { document.getElementById('taskModal').style.display = 'none'; }
 
-    async function submitTaskCompletion() {
+    function submitTaskCompletion() {
       const feedback = document.getElementById('taskFeedbackInput')?.value || '';
       if (!feedback.trim()) { showToast('Please provide your feedback!'); return; }
-      
-      // Save to Supabase user_tasks table
-      const { error: taskError } = await supabase
-        .from('user_tasks')
-        .insert({
-          user_id: userId,
-          task_id: currentTask.id,
-          task_title: currentTask.title,
-          reward: currentTask.reward
-        });
-      
-      if (taskError) {
-        console.error('Error saving task:', taskError);
-        showToast('Error saving task. Please try again.');
-        return;
-      }
-      
-      // Update profile totals
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('tasks_completed, total_earned')
-        .eq('id', userId)
-        .single();
-      
-      const newTasksCompleted = (profile?.tasks_completed || 0) + 1;
-      const newTotalEarned = (profile?.total_earned || 0) + currentTask.reward;
-      
-      await supabase
-        .from('profiles')
-        .update({
-          tasks_completed: newTasksCompleted,
-          total_earned: newTotalEarned
-        })
-        .eq('id', userId);
-      
-      // Record transaction
-      await supabase
-        .from('transactions')
-        .insert({
-          user_id: userId,
-          amount: currentTask.reward,
-          type: 'earning',
-          status: 'completed'
-        });
-      
-      tasksEarned = newTotalEarned;
-      currentTask.completed = true;
-      completedTaskIds.push(currentTask.id);
-      
-      closeTaskModal();
-      updateStats();
-      renderTasks();
-      
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      completedTasks.push(currentTask.id);
+      localStorage.setItem(`taskpay_completed_tasks_${userKey}`, JSON.stringify(completedTasks));
+      let balance = parseFloat(localStorage.getItem(`taskpay_balance_${userKey}`) || '0');
+      let totalEarned = parseFloat(localStorage.getItem(`taskpay_total_earned_${userKey}`) || '0');
+      let tasksDone = parseInt(localStorage.getItem(`taskpay_tasks_done_${userKey}`) || '0');
+      balance += currentTask.reward; totalEarned += currentTask.reward; tasksDone += 1;
+      localStorage.setItem(`taskpay_balance_${userKey}`, balance.toFixed(2));
+      localStorage.setItem(`taskpay_total_earned_${userKey}`, totalEarned.toFixed(2));
+      localStorage.setItem(`taskpay_tasks_done_${userKey}`, tasksDone);
+      tasksEarned += currentTask.reward; currentTask.completed = true;
+      closeTaskModal(); updateStats(); renderTasks();
       const anim = document.createElement('div'); anim.className = 'reward-animation'; anim.innerHTML = `+$${currentTask.reward.toFixed(2)} 🎉`; document.body.appendChild(anim); setTimeout(() => anim.remove(), 800);
       showToast(`🎉 Task completed! +$${currentTask.reward.toFixed(2)} earned!`);
     }
 
     function showToast(message) { const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
-    
-    async function logout() { 
-      if (confirm('Logout?')) { 
-        await supabase.auth.signOut();
-        localStorage.removeItem('taskpay_logged_in'); 
-        localStorage.removeItem('taskpay_user_email'); 
-        window.location.href = 'login.html'; 
-      } 
-    }
+    function logout() { if (confirm('Logout?')) { localStorage.removeItem('taskpay_logged_in'); localStorage.removeItem('taskpay_user_email'); window.location.href = 'login.html'; } }
 
     document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentFilter = btn.dataset.filter; renderTasks(); }); });
     const menuToggle = document.getElementById('menuToggle'); const sidebar = document.getElementById('sidebar');
@@ -1199,14 +1138,7 @@
     document.addEventListener('click', (e) => { if (window.innerWidth < 768 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) sidebar.classList.remove('open'); });
     document.getElementById('logoutBtn').addEventListener('click', logout);
     window.navigateTo = navigateTo; window.openTaskModal = openTaskModal; window.closeTaskModal = closeTaskModal; window.submitTaskCompletion = submitTaskCompletion; window.clearTaskFile = clearTaskFile;
-    
-    async function init() {
-      const isAuth = await checkAuth();
-      if (!isAuth) return;
-      await loadUserData();
-    }
-    
-    init();
+    if (checkAuth()) {}
   </script>
 </body>
 </html>
