@@ -229,7 +229,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
     const successMessage = document.getElementById('successMessage');
@@ -267,23 +269,40 @@
       loginBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Signing in...';
       loginBtn.disabled = true;
       
-      // Simple localStorage login
-      setTimeout(() => {
-        // Store user info in localStorage
-        localStorage.setItem('taskpay_logged_in', 'true');
-        localStorage.setItem('taskpay_user_email', email);
+      try {
+        // Sign in with Supabase
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
         
-        showSuccess('Login successful! Redirecting to home page...');
+        if (error) throw error;
         
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1500);
-      }, 800);
+        if (data.user) {
+          // Store user info in localStorage for quick access
+          localStorage.setItem('taskpay_logged_in', 'true');
+          localStorage.setItem('taskpay_user_email', email);
+          localStorage.setItem('taskpay_user_id', data.user.id);
+          
+          showSuccess('Login successful! Redirecting to dashboard...');
+          
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1500);
+        }
+      } catch (err) {
+        console.error('Login error:', err.message);
+        showError(err.message || 'Invalid email or password');
+        
+        // Reset button
+        loginBtn.innerHTML = originalText;
+        loginBtn.disabled = false;
+      }
     });
     
     // Check if already logged in
     if (localStorage.getItem('taskpay_logged_in') === 'true') {
-      window.location.href = 'index.html';
+      window.location.href = 'dashboard.html';
     }
   </script>
 </body>
