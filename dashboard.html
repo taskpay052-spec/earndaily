@@ -221,6 +221,7 @@
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
+    /* Remove special styling for activate button - matches all others */
     .main-content {
       margin-left: 280px;
       padding: 1.5rem;
@@ -243,7 +244,7 @@
       }
     }
 
-    /* Top Bar - Dashboard Title Above Icons */
+    /* Top Bar */
     .top-bar {
       margin-bottom: 2rem;
     }
@@ -308,7 +309,7 @@
       transform: scale(1.05);
     }
 
-    /* Notification Dropdown - LEFT SIDE */
+    /* Notification Dropdown */
     .notification-dropdown {
       position: relative;
     }
@@ -365,7 +366,7 @@
       transform: translateY(0);
     }
 
-    /* Profile Dropdown - RIGHT SIDE */
+    /* Profile Dropdown */
     .profile-dropdown {
       position: relative;
     }
@@ -456,7 +457,7 @@
       background: var(--bg-primary);
     }
 
-    /* Stats Cards - Horizontal Grid Layout */
+    /* Stats Cards */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -865,9 +866,10 @@
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Account</div>
-        <div class="nav-item" data-page="deposit">
-          <i class="fas fa-plus-circle"></i>
-          <span>Deposit</span>
+        <!-- DEPOSIT REMOVED - ACTIVATE ACCOUNT ADDED (matching style) -->
+        <div class="nav-item" data-page="activate" id="activateNavItem">
+          <i class="fas fa-rocket"></i>
+          <span id="activateText">Activate Account</span>
         </div>
         <div class="nav-item" data-page="withdrawals">
           <i class="fas fa-wallet"></i>
@@ -898,7 +900,7 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <!-- Top Bar - Dashboard Title Above Icons -->
+    <!-- Top Bar -->
     <div class="top-bar">
       <div class="dashboard-title">
         <h1>Dashboard</h1>
@@ -912,7 +914,7 @@
             <i class="fas fa-moon"></i>
           </button>
           
-          <!-- Notification Dropdown - LEFT SIDE -->
+          <!-- Notification Dropdown -->
           <div class="notification-dropdown">
             <div class="notification-trigger" id="notificationTrigger">
               <i class="far fa-bell"></i>
@@ -937,7 +939,7 @@
             </div>
           </div>
 
-          <!-- Profile Dropdown - RIGHT SIDE -->
+          <!-- Profile Dropdown -->
           <div class="profile-dropdown">
             <div class="profile-trigger" id="profileTrigger">
               <div class="user-avatar" id="userAvatar">U</div>
@@ -966,7 +968,7 @@
       </div>
     </div>
 
-    <!-- Stats Grid - Horizontal Cards (4 on desktop, 2 on mobile) -->
+    <!-- Stats Grid -->
     <div class="stats-grid" id="statsGrid"></div>
 
     <!-- Charts Section -->
@@ -1048,7 +1050,7 @@
         'dashboard': 'dashboard.html',
         'tasks': 'tasks.html',
         'surveys': 'surveys.html',
-        'deposit': 'deposit.html',
+        'activate': 'activate.html',
         'withdrawals': 'withdrawal.html',
         'profile': 'profile.html',
         'referrals': 'referral.html',
@@ -1094,6 +1096,22 @@
       document.getElementById('userName').textContent = userName;
       document.getElementById('userEmail').textContent = currentUser;
       document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+      
+      // Check if user is activated and update text only - NO COLOR CHANGE
+      const isActivated = localStorage.getItem(`taskpay_activated_${userKey}`);
+      const activateNavItem = document.getElementById('activateNavItem');
+      const activateText = document.getElementById('activateText');
+      
+      if (activateNavItem && activateText) {
+        if (isActivated === 'true') {
+          activateText.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 8px;"></i> Activated';
+          activateNavItem.style.cursor = 'pointer';
+          activateNavItem.onclick = () => showToast('Your account is already activated!');
+        } else {
+          activateText.innerHTML = 'Activate Account';
+          activateNavItem.onclick = () => navigateTo('activate');
+        }
+      }
     }
 
     function renderStats(stats) {
@@ -1182,41 +1200,21 @@
       if (themeToggle) themeToggle.addEventListener('click', () => { const currentTheme = document.documentElement.getAttribute('data-theme'); const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); const icon = document.querySelector('#themeToggle i'); if (icon) icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; showToast(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`); });
     }
 
-    // Updated dropdown handlers
     function initDropdowns() {
-      // Notification dropdown
       const notificationTrigger = document.getElementById('notificationTrigger');
       const notificationMenu = document.getElementById('notificationMenu');
-      
       if (notificationTrigger && notificationMenu) {
-        notificationTrigger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          notificationMenu.classList.toggle('show');
-        });
+        notificationTrigger.addEventListener('click', (e) => { e.stopPropagation(); notificationMenu.classList.toggle('show'); });
       }
-      
-      // Profile dropdown
       const profileTrigger = document.getElementById('profileTrigger');
       const profileMenu = document.getElementById('profileMenu');
-      
       if (profileTrigger && profileMenu) {
-        profileTrigger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          profileMenu.classList.toggle('show');
-        });
+        profileTrigger.addEventListener('click', (e) => { e.stopPropagation(); profileMenu.classList.toggle('show'); });
       }
-      
-      // Close dropdowns when clicking outside
       document.addEventListener('click', (e) => {
-        if (!e.target.closest('.notification-dropdown')) {
-          notificationMenu?.classList.remove('show');
-        }
-        if (!e.target.closest('.profile-dropdown')) {
-          profileMenu?.classList.remove('show');
-        }
+        if (!e.target.closest('.notification-dropdown')) notificationMenu?.classList.remove('show');
+        if (!e.target.closest('.profile-dropdown')) profileMenu?.classList.remove('show');
       });
-      
-      // Profile menu actions
       document.querySelectorAll('.profile-menu-item').forEach(item => {
         item.addEventListener('click', (e) => {
           const action = item.dataset.action;
