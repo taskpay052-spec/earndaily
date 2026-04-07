@@ -863,8 +863,10 @@
       // Update live stats
       updateLiveStats();
       
-      // Button listeners
-      document.getElementById('startEarningBtn')?.addEventListener('click', () => window.location.href = 'login.html');
+      // Button listeners - UPDATED: Start Earning Now goes to dashboard.html
+      document.getElementById('startEarningBtn')?.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+      });
       document.getElementById('createAccountBtn')?.addEventListener('click', () => window.location.href = 'login.html');
       document.getElementById('menuBtn')?.addEventListener('click', openMenu);
       document.getElementById('closeMenu')?.addEventListener('click', closeMenu);
