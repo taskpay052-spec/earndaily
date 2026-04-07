@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
   <title>TaskPay · Activate Your Account</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -14,105 +14,281 @@
     }
 
     body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #f0f2f5;
       font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
+      color: #1a1f36;
       overflow-x: hidden;
     }
 
-    /* Animated Background */
-    .bg-animation {
+    /* Premium Sidebar */
+    .sidebar {
       position: fixed;
-      top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .bg-circle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      animation: float 20s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(5deg); }
-    }
-
-    /* Main Container */
-    .activate-container {
-      max-width: 550px;
-      width: 100%;
-      margin: 0 auto;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* Activation Card */
-    .activate-card {
-      background: white;
-      border-radius: 48px;
-      padding: 2.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      animation: fadeInUp 0.6s ease-out;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .activate-card::before {
-      content: '';
-      position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #f59e0b, #10b981, #f59e0b);
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      transition: all 0.3s;
+      transform: translateX(-100%);
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .sidebar.open {
+      transform: translateX(0);
     }
 
-    /* Logo */
-    .logo {
-      text-align: center;
-      margin-bottom: 1.5rem;
+    .sidebar-header {
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .logo-icon {
-      width: 70px;
-      height: 70px;
+      width: 45px;
+      height: 45px;
       background: linear-gradient(135deg, #10b981, #059669);
-      border-radius: 20px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1rem;
       box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
     }
 
     .logo-icon i {
-      font-size: 32px;
+      font-size: 24px;
       color: white;
     }
 
-    .logo h1 {
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .logo-badge {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .sidebar-nav {
+      padding: 1.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      color: #94a3b8;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-item i {
+      width: 24px;
+      font-size: 1.2rem;
+    }
+
+    .nav-item span {
+      font-weight: 500;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .menu-toggle:hover {
+      background: #f1f5f9;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .notification-bell {
+      position: relative;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .notification-bell:hover {
+      background: #f1f5f9;
+    }
+
+    .notification-bell i {
+      font-size: 1.2rem;
+      color: #64748b;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .user-card:hover {
+      background: #f1f5f9;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .user-info {
+      display: none;
+    }
+
+    .user-info h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .user-info p {
+      font-size: 0.65rem;
+      color: #64748b;
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 0;
+      padding: 1rem;
+      transition: margin-left 0.3s;
+    }
+
+    /* Page Header with Back Button */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      color: #475569;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: #f1f5f9;
+      transform: translateX(-3px);
+      border-color: #10b981;
+      color: #10b981;
+    }
+
+    .page-title h1 {
       font-size: 1.6rem;
       font-weight: 800;
       background: linear-gradient(135deg, #10b981, #059669);
@@ -121,10 +297,19 @@
       color: transparent;
     }
 
-    .logo p {
+    .page-title p {
       color: #64748b;
-      font-size: 0.8rem;
-      margin-top: 4px;
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+    }
+
+    /* Activation Card */
+    .activation-card {
+      background: white;
+      border-radius: 28px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
     }
 
     /* Hero Badge */
@@ -182,24 +367,11 @@
     /* Amount Section */
     .amount-section {
       background: linear-gradient(135deg, #10b981, #059669);
-      border-radius: 28px;
+      border-radius: 24px;
       padding: 1.5rem;
       text-align: center;
       color: white;
       margin-bottom: 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .amount-section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      pointer-events: none;
     }
 
     .amount-label {
@@ -209,12 +381,12 @@
     }
 
     .amount-value {
-      font-size: 3.5rem;
+      font-size: 3rem;
       font-weight: 800;
     }
 
     .amount-value small {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 500;
     }
 
@@ -227,13 +399,13 @@
     /* PayBill Section */
     .paybill-section {
       background: #f8fafc;
-      border-radius: 24px;
-      padding: 1.5rem;
+      border-radius: 20px;
+      padding: 1.2rem;
       margin-bottom: 1.5rem;
     }
 
     .section-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       margin-bottom: 1rem;
       display: flex;
@@ -258,16 +430,18 @@
       align-items: center;
       padding: 0.75rem;
       background: white;
-      border-radius: 16px;
+      border-radius: 14px;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .info-label {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #64748b;
     }
 
     .info-value {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #0f172a;
       background: #f1f5f9;
@@ -303,8 +477,8 @@
     /* Instructions */
     .instructions {
       background: #f1f5f9;
-      border-radius: 20px;
-      padding: 1.2rem;
+      border-radius: 18px;
+      padding: 1rem;
       margin-bottom: 1.5rem;
     }
 
@@ -343,9 +517,9 @@
 
     .input-field {
       width: 100%;
-      padding: 0.85rem 1rem;
+      padding: 0.8rem 1rem;
       border: 2px solid #e2e8f0;
-      border-radius: 20px;
+      border-radius: 16px;
       font-family: inherit;
       font-size: 0.9rem;
       transition: all 0.2s;
@@ -386,7 +560,6 @@
       cursor: not-allowed;
     }
 
-    /* Loading Spinner */
     .spinner {
       width: 20px;
       height: 20px;
@@ -406,7 +579,7 @@
       background: #fee2e2;
       color: #dc2626;
       padding: 0.75rem;
-      border-radius: 16px;
+      border-radius: 14px;
       font-size: 0.8rem;
       text-align: center;
       margin-bottom: 1rem;
@@ -417,28 +590,28 @@
       background: #d1fae5;
       color: #10b981;
       padding: 0.75rem;
-      border-radius: 16px;
+      border-radius: 14px;
       font-size: 0.8rem;
       text-align: center;
       margin-bottom: 1rem;
       display: none;
     }
 
-    /* Footer */
-    .footer {
+    .footer-links {
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       padding-top: 1rem;
       border-top: 1px solid #e2e8f0;
     }
 
-    .footer a {
+    .footer-links a {
       color: #64748b;
       font-size: 0.75rem;
       text-decoration: none;
+      margin: 0 0.5rem;
     }
 
-    .footer a:hover {
+    .footer-links a:hover {
       color: #10b981;
     }
 
@@ -468,70 +641,108 @@
       }
     }
 
-    @media (max-width: 550px) {
-      .activate-card {
-        padding: 1.5rem;
+    @media (min-width: 768px) {
+      .sidebar {
+        transform: translateX(0);
       }
-      
+      .top-bar {
+        justify-content: flex-end;
+      }
+      .menu-left {
+        display: none;
+      }
+      .user-info {
+        display: block;
+      }
+      .main-content {
+        margin-left: 280px;
+        padding: 2rem;
+      }
+      .benefits {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
       .benefits {
         grid-template-columns: 1fr;
       }
-      
-      .amount-value {
-        font-size: 2.5rem;
-      }
-      
       .info-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+      }
+      .amount-value {
+        font-size: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg-animation">
-    <div class="bg-circle" style="width: 300px; height: 300px; top: -100px; left: -100px;"></div>
-    <div class="bg-circle" style="width: 200px; height: 200px; bottom: -50px; right: -50px; animation-delay: 2s;"></div>
-    <div class="bg-circle" style="width: 150px; height: 150px; top: 50%; left: 85%; animation-delay: 4s;"></div>
-    <div class="bg-circle" style="width: 250px; height: 250px; bottom: 30%; left: -80px; animation-delay: 1s;"></div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="menu-left">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="user-section">
+      <div class="notification-bell" onclick="showToast('No new notifications')">
+        <i class="far fa-bell"></i>
+        <div class="notification-dot"></div>
+      </div>
+      <div class="user-card" onclick="window.location.href='profile.html'">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <h4 id="userName">Loading...</h4>
+          <p id="userEmail">user@example.com</p>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
   </div>
 
-  <div class="activate-container">
-    <div class="activate-card">
-      <div class="logo">
-        <div class="logo-icon">
-          <i class="fas fa-tasks"></i>
-        </div>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-area">
+        <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+        <div><div class="logo-text">TaskPay</div><div class="logo-badge">Premium</div></div>
+      </div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-item" onclick="window.location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></div>
+      <div class="nav-item" onclick="window.location.href='tasks.html'"><i class="fas fa-tasks"></i><span>My Tasks</span></div>
+      <div class="nav-item" onclick="window.location.href='surveys.html'"><i class="fas fa-poll"></i><span>Surveys</span></div>
+      <div class="nav-item" onclick="window.location.href='withdrawal.html'"><i class="fas fa-wallet"></i><span>Withdrawals</span></div>
+      <div class="nav-item" onclick="window.location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></div>
+      <div class="nav-item" onclick="window.location.href='support.html'"><i class="fas fa-headset"></i><span>Support</span></div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Page Header with Back Button -->
+    <div class="page-header">
+      <button class="back-btn" onclick="window.location.href='dashboard.html'">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </button>
+      <div class="page-title">
         <h1>Activate Account</h1>
         <p>Unlock unlimited earning potential</p>
       </div>
+    </div>
 
-      <div class="hero-badge">
-        <i class="fas fa-gem"></i> One-time payment • Lifetime access
-      </div>
+    <!-- FULL ACTIVATION FORM - ALWAYS SHOWN -->
+    <div class="activation-card">
+      <div class="hero-badge"><i class="fas fa-gem"></i> One-time payment • Lifetime access</div>
 
       <div class="benefits">
-        <div class="benefit-item">
-          <i class="fas fa-infinity"></i>
-          <h4>Unlimited Tasks</h4>
-          <p>Access all tasks & surveys</p>
-        </div>
-        <div class="benefit-item">
-          <i class="fas fa-dollar-sign"></i>
-          <h4>Higher Earnings</h4>
-          <p>Unlock premium rewards</p>
-        </div>
-        <div class="benefit-item">
-          <i class="fas fa-tachometer-alt"></i>
-          <h4>Priority Access</h4>
-          <p>Get tasks before others</p>
-        </div>
-        <div class="benefit-item">
-          <i class="fas fa-headset"></i>
-          <h4>Priority Support</h4>
-          <p>24/7 dedicated support</p>
-        </div>
+        <div class="benefit-item"><i class="fas fa-infinity"></i><h4>Unlimited Tasks</h4><p>Access all tasks & surveys</p></div>
+        <div class="benefit-item"><i class="fas fa-dollar-sign"></i><h4>Higher Earnings</h4><p>Unlock premium rewards</p></div>
+        <div class="benefit-item"><i class="fas fa-tachometer-alt"></i><h4>Priority Access</h4><p>Get tasks before others</p></div>
+        <div class="benefit-item"><i class="fas fa-headset"></i><h4>Priority Support</h4><p>24/7 dedicated support</p></div>
       </div>
 
       <div class="amount-section">
@@ -541,10 +752,7 @@
       </div>
 
       <div class="paybill-section">
-        <div class="section-title">
-          <i class="fas fa-mobile-alt"></i>
-          M-Pesa PayBill Details
-        </div>
+        <div class="section-title"><i class="fas fa-mobile-alt"></i> M-Pesa PayBill Details</div>
         <div class="info-grid">
           <div class="info-row">
             <span class="info-label">PayBill Number:</span>
@@ -602,26 +810,24 @@
           <div class="spinner" id="spinner"></div>
         </button>
       </form>
+    </div>
 
-      <div class="footer">
-        <a href="support.html">❓ Need help? Contact Support</a>
-      </div>
+    <div class="footer-links">
+      <a href="support.html">❓ Need help? Contact Support</a>
     </div>
   </div>
 
   <script>
     let currentUser = null;
     let accountNumber = '';
-    const ACTIVATION_AMOUNT = 199; // KSh 199
+    const ACTIVATION_AMOUNT = 199;
 
-    // Generate unique account number
     function generateAccountNumber() {
       const timestamp = Date.now().toString().slice(-8);
       const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
       return `TASK${timestamp}${random}`;
     }
 
-    // Copy to clipboard
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         showToast('Copied to clipboard!');
@@ -630,11 +836,9 @@
       });
     }
 
-    // Show toast message
     function showToast(message) {
       const existingToast = document.querySelector('.toast');
       if (existingToast) existingToast.remove();
-      
       const toast = document.createElement('div');
       toast.className = 'toast';
       toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
@@ -642,27 +846,20 @@
       setTimeout(() => toast.remove(), 2500);
     }
 
-    // Show error message
     function showError(message) {
       const errorDiv = document.getElementById('errorMsg');
       errorDiv.textContent = message;
       errorDiv.style.display = 'block';
-      setTimeout(() => {
-        errorDiv.style.display = 'none';
-      }, 5000);
+      setTimeout(() => { errorDiv.style.display = 'none'; }, 5000);
     }
 
-    // Show success message
     function showSuccess(message) {
       const successDiv = document.getElementById('successMsg');
       successDiv.textContent = message;
       successDiv.style.display = 'block';
-      setTimeout(() => {
-        successDiv.style.display = 'none';
-      }, 4000);
+      setTimeout(() => { successDiv.style.display = 'none'; }, 4000);
     }
 
-    // Set loading state
     function setLoading(isLoading) {
       const btn = document.getElementById('verifyBtn');
       const btnText = btn.querySelector('span');
@@ -682,154 +879,87 @@
       }
     }
 
-    // Verify payment (simulated - connect to real API)
     function verifyPayment(transactionCode, phoneNumber) {
       return new Promise((resolve) => {
-        // Simulate API call delay
         setTimeout(() => {
-          // In real app, this would call your backend API
-          // For demo, accept any code with 6+ characters
           const isValid = transactionCode && transactionCode.length >= 6;
           resolve(isValid);
         }, 2000);
       });
     }
 
-    // Activate user account
     function activateAccount(transactionCode, phoneNumber) {
       const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
-      
-      // Set activation status
       localStorage.setItem(`taskpay_activated_${userKey}`, 'true');
       localStorage.setItem(`taskpay_activation_date_${userKey}`, new Date().toISOString());
       localStorage.setItem(`taskpay_activation_amount_${userKey}`, ACTIVATION_AMOUNT.toString());
       localStorage.setItem(`taskpay_activation_code_${userKey}`, transactionCode);
-      
-      if (phoneNumber) {
-        localStorage.setItem(`taskpay_activation_phone_${userKey}`, phoneNumber);
-      }
-      
-      // Save transaction record
+      if (phoneNumber) localStorage.setItem(`taskpay_activation_phone_${userKey}`, phoneNumber);
       const transactions = JSON.parse(localStorage.getItem(`taskpay_payments_${userKey}`) || '[]');
-      transactions.push({
-        id: transactionCode,
-        amount: ACTIVATION_AMOUNT,
-        date: new Date().toISOString(),
-        phone: phoneNumber || 'N/A',
-        type: 'activation',
-        status: 'completed'
-      });
+      transactions.push({ id: transactionCode, amount: ACTIVATION_AMOUNT, date: new Date().toISOString(), phone: phoneNumber || 'N/A', type: 'activation', status: 'completed' });
       localStorage.setItem(`taskpay_payments_${userKey}`, JSON.stringify(transactions));
     }
 
-    // Check if already activated
-    function checkAlreadyActivated() {
-      if (currentUser) {
-        const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
-        const isActivated = localStorage.getItem(`taskpay_activated_${userKey}`);
-        if (isActivated === 'true') {
-          showSuccess('Your account is already activated! Redirecting to dashboard...');
-          setTimeout(() => {
-            window.location.href = 'dashboard.html';
-          }, 2000);
-          return true;
-        }
-      }
-      return false;
-    }
-
-    // Handle form submission
     async function handleActivation(event) {
       event.preventDefault();
-      
       const transactionCode = document.getElementById('transactionCode').value.trim().toUpperCase();
       const phoneNumber = document.getElementById('phoneNumber').value.trim();
-      
-      if (!transactionCode) {
-        showError('Please enter your M-Pesa transaction code');
-        return;
-      }
-      
-      if (transactionCode.length < 6) {
-        showError('Please enter a valid transaction code (at least 6 characters)');
-        return;
-      }
-      
+      if (!transactionCode) { showError('Please enter your M-Pesa transaction code'); return; }
+      if (transactionCode.length < 6) { showError('Please enter a valid transaction code (at least 6 characters)'); return; }
       setLoading(true);
-      
       const isValid = await verifyPayment(transactionCode, phoneNumber);
-      
       setLoading(false);
-      
       if (isValid) {
         activateAccount(transactionCode, phoneNumber);
-        showSuccess(`✅ Payment verified! Your account is now activated. Redirecting to dashboard...`);
-        
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 2500);
+        showSuccess(`✅ Payment verified! Your account is now activated! Redirecting to dashboard...`);
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 2000);
       } else {
-        showError('❌ Invalid transaction code. Please check and try again. If problem persists, contact support.');
+        showError('❌ Invalid transaction code. Please check and try again.');
       }
     }
 
-    // Initialize page
     function init() {
-      // Check if user is logged in
       const isLoggedIn = localStorage.getItem('taskpay_logged_in');
-      
       if (isLoggedIn !== 'true') {
         showError('Please login or create an account first');
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 2000);
-        return false;
+        setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+        return;
       }
       
       currentUser = localStorage.getItem('taskpay_user_email');
+      if (!currentUser) { window.location.href = 'login.html'; return; }
       
-      if (!currentUser) {
-        window.location.href = 'login.html';
-        return false;
-      }
-      
-      // Generate or retrieve account number
       const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
       let savedAccount = localStorage.getItem(`taskpay_account_number_${userKey}`);
+      if (!savedAccount) { accountNumber = generateAccountNumber(); localStorage.setItem(`taskpay_account_number_${userKey}`, accountNumber); }
+      else { accountNumber = savedAccount; }
       
-      if (!savedAccount) {
-        accountNumber = generateAccountNumber();
-        localStorage.setItem(`taskpay_account_number_${userKey}`, accountNumber);
-      } else {
-        accountNumber = savedAccount;
-      }
-      
-      // Update display
-      document.getElementById('accountNumberDisplay').innerHTML = `
-        ${accountNumber}
-        <button class="copy-btn" onclick="copyToClipboard('${accountNumber}')">
-          <i class="fas fa-copy"></i>
-        </button>
-      `;
-      document.getElementById('instructionAccount').textContent = accountNumber;
-      
-      // Check if already activated
-      const isActivated = checkAlreadyActivated();
-      
-      // Display user info
       const userName = currentUser.split('@')[0];
-      document.title = `Activate Account - ${userName} | TaskPay`;
+      document.getElementById('userName').textContent = userName;
+      document.getElementById('userEmail').textContent = currentUser;
+      document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
       
-      return !isActivated;
+      // Update account number display
+      document.getElementById('accountNumberDisplay').innerHTML = `${accountNumber} <button class="copy-btn" onclick="copyToClipboard('${accountNumber}')"><i class="fas fa-copy"></i></button>`;
+      document.getElementById('instructionAccount').textContent = accountNumber;
     }
     
-    // Set up event listeners
     document.getElementById('activationForm').addEventListener('submit', handleActivation);
     
-    // Make functions global
-    window.copyToClipboard = copyToClipboard;
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    menuToggle?.addEventListener('click', () => { sidebar.classList.toggle('open'); });
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth < 768 && sidebar?.classList.contains('open') && !sidebar.contains(e.target) && !menuToggle?.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      if (confirm('Logout?')) { localStorage.removeItem('taskpay_logged_in'); localStorage.removeItem('taskpay_user_email'); window.location.href = 'login.html'; }
+    });
     
-    // Initialize
+    window.copyToClipboard = copyToClipboard;
     init();
   </script>
 </body>
