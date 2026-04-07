@@ -530,7 +530,7 @@
           <div class="section-title"><i class="fas fa-mobile-alt"></i> M-Pesa PayBill Details</div>
           <div class="info-grid">
             <div class="info-row"><span class="info-label">PayBill Number:</span><span class="info-value">123456 <button class="copy-btn" onclick="copyToClipboard('123456')"><i class="fas fa-copy"></i></button></span></div>
-            <div class="info-row"><span class="info-label">Account Number:</span><span class="info-value" id="accountNumberDisplay">Loading... <button class="copy-btn" onclick="copyToClipboard()"><i class="fas fa-copy"></i></button></span></div>
+            <div class="info-row"><span class="info-label">Account Number:</span><span class="info-value" id="accountNumberDisplay">Loading... <button class="copy-btn" onclick="copyToClipboard('${accountNumber}')"><i class="fas fa-copy"></i></button></span></div>
           </div>
         </div>
 
@@ -560,11 +560,8 @@
     </div>
   </div>
 
-  <script type="module">
-    import { supabase } from './supabase-config.js';
-    
-    let userId = null;
-    let userEmail = null;
+  <script>
+    let currentUser = null;
     let accountNumber = '';
     const ACTIVATION_AMOUNT = 199;
 
@@ -578,13 +575,12 @@
       return `TASK${timestamp}${random}`;
     }
 
-    async function copyToClipboard(text) {
-      try {
-        await navigator.clipboard.writeText(text);
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
         showToast('Copied to clipboard!');
-      } catch (err) {
+      }).catch(() => {
         showToast('Press Ctrl+C to copy');
-      }
+      });
     }
 
     function showToast(message) {
@@ -629,42 +625,22 @@
       }
     }
 
-    // This would connect to M-Pesa API in production
-    async function verifyPayment(transactionCode, phoneNumber) {
+    function verifyPayment(transactionCode, phoneNumber) {
       return new Promise((resolve) => {
         setTimeout(() => {
-          // In production, verify with M-Pesa API
           const isValid = transactionCode && transactionCode.length >= 6;
           resolve(isValid);
         }, 2000);
       });
     }
 
-    async function activateAccount(transactionCode, phoneNumber) {
-      // Update profile in Supabase
-      const { data, error } = await supabase
-        .from('profiles')
-        .update({
-          is_activated: true,
-          activation_date: new Date().toISOString(),
-          activation_code: transactionCode
-        })
-        .eq('id', userId)
-        .select();
-      
-      if (error) throw error;
-      
-      // Record transaction
-      await supabase
-        .from('transactions')
-        .insert({
-          user_id: userId,
-          amount: ACTIVATION_AMOUNT,
-          transaction_code: transactionCode,
-          type: 'activation',
-          status: 'completed',
-          phone_number: phoneNumber || null
-        });
+    function activateAccount(transactionCode, phoneNumber) {
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      localStorage.setItem(`taskpay_activated_${userKey}`, 'true');
+      localStorage.setItem(`taskpay_activation_date_${userKey}`, new Date().toISOString());
+      localStorage.setItem(`taskpay_activation_amount_${userKey}`, ACTIVATION_AMOUNT.toString());
+      localStorage.setItem(`taskpay_activation_code_${userKey}`, transactionCode);
+      if (phoneNumber) localStorage.setItem(`taskpay_activation_phone_${userKey}`, phoneNumber);
       
       showSuccess(`✅ Payment verified! Your account is now activated! Redirecting...`);
       setTimeout(() => {
@@ -676,66 +652,36 @@
       event.preventDefault();
       const transactionCode = document.getElementById('transactionCode').value.trim().toUpperCase();
       const phoneNumber = document.getElementById('phoneNumber').value.trim();
-      
       if (!transactionCode) { showError('Please enter your M-Pesa transaction code'); return; }
       if (transactionCode.length < 6) { showError('Please enter a valid transaction code (at least 6 characters)'); return; }
-      
       setLoading(true);
-      try {
-        const isValid = await verifyPayment(transactionCode, phoneNumber);
-        if (isValid) {
-          await activateAccount(transactionCode, phoneNumber);
-        } else {
-          showError('❌ Invalid transaction code. Please check and try again.');
-        }
-      } catch (err) {
-        showError('❌ Activation failed. Please try again.');
-        console.error(err);
-      } finally {
-        setLoading(false);
+      const isValid = await verifyPayment(transactionCode, phoneNumber);
+      setLoading(false);
+      if (isValid) {
+        activateAccount(transactionCode, phoneNumber);
+      } else {
+        showError('❌ Invalid transaction code. Please check and try again.');
       }
     }
 
-    async function init() {
-      // Check if user is logged in with Supabase
-      const { data: { user }, error } = await supabase.auth.getUser();
-      
-      if (error || !user) {
+    function init() {
+      const isLoggedIn = localStorage.getItem('taskpay_logged_in');
+      if (isLoggedIn !== 'true') {
         showError('Please login first');
         setTimeout(() => { window.location.href = 'login.html'; }, 1500);
         return;
       }
       
-      userId = user.id;
-      userEmail = user.email;
+      currentUser = localStorage.getItem('taskpay_user_email');
+      if (!currentUser) { window.location.href = 'login.html'; return; }
       
-      // Get or generate account number from profile
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('account_number, is_activated')
-        .eq('id', userId)
-        .single();
-      
-      if (profileError) {
-        console.error('Error loading profile:', profileError);
-      }
-      
-      // Check if already activated
-      if (profile && profile.is_activated === true) {
-        showSuccess('Your account is already activated! Redirecting...');
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 2000);
-        return;
-      }
-      
-      // Set account number
-      if (profile && profile.account_number) {
-        accountNumber = profile.account_number;
-      } else {
-        accountNumber = generateAccountNumber();
-        await supabase
-          .from('profiles')
-          .update({ account_number: accountNumber })
-          .eq('id', userId);
+      const userKey = currentUser.replace(/[^a-zA-Z0-9]/g, '_');
+      let savedAccount = localStorage.getItem(`taskpay_account_number_${userKey}`);
+      if (!savedAccount) { 
+        accountNumber = generateAccountNumber(); 
+        localStorage.setItem(`taskpay_account_number_${userKey}`, accountNumber);
+      } else { 
+        accountNumber = savedAccount; 
       }
       
       // Update account number display
