@@ -560,7 +560,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     let currentUser = null;
     let accountNumber = '';
     const ACTIVATION_AMOUNT = 199;
