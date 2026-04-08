@@ -730,7 +730,9 @@
     <p style="margin-top: 0.5rem; font-size: 0.7rem;">✨ Instant payouts · 24/7 support · 100% free to join</p>
   </footer>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     // Navigation function
     function navigateTo(page) {
       const pages = {
