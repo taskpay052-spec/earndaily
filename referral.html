@@ -192,7 +192,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     let currentUser = null;
     let referralData = { code: '', referrals: [], totalEarned: 0, pendingCommission: 0 };
     const leaderboardData = [{ name: 'Alex J', referrals: 47, rank: 1 }, { name: 'Maria G', referrals: 38, rank: 2 }, { name: 'David K', referrals: 32, rank: 3 }, { name: 'Sarah W', referrals: 28, rank: 4 }, { name: 'James B', referrals: 25, rank: 5 }];
