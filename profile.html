@@ -224,7 +224,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     let currentUser = null, userStats = { tasksDone: 0, surveysDone: 0, totalEarned: 0, streak: 5 };
     function checkAuth() { if (localStorage.getItem('taskpay_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } currentUser = localStorage.getItem('taskpay_user_email'); loadData(); return true; }
     function loadData() {
