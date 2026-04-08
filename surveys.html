@@ -135,7 +135,9 @@
 
   <div id="surveyModal" class="survey-modal"><div class="modal-container"><div class="modal-header"><h2 id="modalTitle">Take Survey</h2><button class="modal-close" onclick="closeSurveyModal()">&times;</button></div><div class="progress-section"><div class="progress-text"><span id="questionCounter">Question 1 of 3</span><span id="rewardDisplay">+$0.00</span></div><div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div></div><div class="question-area" id="questionArea"></div><div class="modal-footer"><button class="nav-btn prev" id="prevBtn" onclick="prevQuestion()">← Previous</button><button class="nav-btn next" id="nextBtn" onclick="nextQuestion()">Next →</button><button class="nav-btn submit" id="submitBtn" onclick="submitSurvey()" style="display:none;">Complete & Earn →</button></div></div></div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     // ============ 60+ COMPLETE SURVEYS WITH FULL QUESTIONS ============
     
     const allSurveys = [
