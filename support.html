@@ -177,7 +177,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     const faqs = [
       { cat: "account", q: "How do I create an account?", a: "Click 'Sign Up' on login page, enter email and password. It's free!" },
       { cat: "account", q: "Is my information secure?", a: "Yes! Bank-level encryption. We never share your data." },
