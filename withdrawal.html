@@ -667,7 +667,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     let currentUser = null;
     let userBalance = 0;
     let totalEarned = 0;
