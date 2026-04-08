@@ -156,7 +156,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     let currentUser = null, allTransactions = [], filtered = [], currentFilter = 'all', currentPage = 1, itemsPerPage = 10;
 
     function checkAuth() { if (localStorage.getItem('taskpay_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } currentUser = localStorage.getItem('taskpay_user_email'); loadData(); return true; }
