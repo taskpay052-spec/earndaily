@@ -372,16 +372,23 @@
         if (error) throw error;
         
         if (data.user) {
-          // Auto login after signup
-          localStorage.setItem('taskpay_logged_in', 'true');
-          localStorage.setItem('taskpay_user_email', email);
-          localStorage.setItem('taskpay_user_id', data.user.id);
-          
-          showSuccess('Account created successfully! Redirecting to home page...');
-          
-          setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 1500);
+          // Check if email confirmation is required
+          if (data.user.confirmed_at) {
+            // Email already confirmed (confirmation disabled)
+            localStorage.setItem('taskpay_logged_in', 'true');
+            localStorage.setItem('taskpay_user_email', email);
+            localStorage.setItem('taskpay_user_id', data.user.id);
+            showSuccess('Account created successfully! Redirecting...');
+            setTimeout(() => {
+              window.location.href = 'dashboard.html';
+            }, 1500);
+          } else {
+            // Email confirmation required
+            showSuccess('Account created! Please check your email to confirm your account before logging in.');
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 3000);
+          }
         }
       } catch (err) {
         console.error('Signup error:', err.message);
