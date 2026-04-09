@@ -244,7 +244,7 @@
       
       setTimeout(() => {
         errorMessage.style.display = 'none';
-      }, 3000);
+      }, 4000);
     }
 
     function showSuccess(message) {
@@ -276,7 +276,19 @@
           password: password
         });
         
-        if (error) throw error;
+        if (error) {
+          // Handle specific error cases
+          if (error.message.includes('Email not confirmed')) {
+            showError('Please verify your email address first. Check your inbox for a confirmation link.');
+          } else if (error.message.includes('Invalid login credentials')) {
+            showError('Invalid email or password. Please try again.');
+          } else {
+            showError(error.message);
+          }
+          loginBtn.innerHTML = originalText;
+          loginBtn.disabled = false;
+          return;
+        }
         
         if (data.user) {
           // Store user info in localStorage for quick access
@@ -292,9 +304,7 @@
         }
       } catch (err) {
         console.error('Login error:', err.message);
-        showError(err.message || 'Invalid email or password');
-        
-        // Reset button
+        showError('Something went wrong. Please try again.');
         loginBtn.innerHTML = originalText;
         loginBtn.disabled = false;
       }
